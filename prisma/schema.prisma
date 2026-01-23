@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+// AD = APRENDIZAJE DESARROLLADO
+// EPD = EN PROCESO DE DESARROLLO
+// RA = REQUIERE APOYO
+// SE = SIN EVIDENCIA
+model item_cct {
+  id               Int      @id @default(autoincrement())
+  cct              String?  @db.VarChar(50)
+  no_cct           String?  @db.VarChar(100)
+  llave            String?  @db.VarChar(50)
+  turno            String?  @db.VarChar(40)
+  control          String?  @db.VarChar(50)
+  grado            String?  @db.VarChar(50)
+  nivel            String?  @db.VarChar(50)
+  subnivel         String?  @db.VarChar(50)
+  opcion_educativa String?  @db.VarChar(100)
+  tipo             String?  @db.VarChar(50)
+  item             String?  @db.VarChar(50)
+  campo_formativo  String?  @db.VarChar(50)
+  opcion_respuesta Int?
+  estudiantes      Int?
+  porcentaje       Decimal? @db.Decimal
+  eia              String?  @db.VarChar
+  pda              String?  @db.VarChar
+  criterio         String?  @db.VarChar
+}
+
+// Modelo para item_opc_educativa
+// NOTAS: 
+model item_opc_educativa {
+  id               Int      @id @default(autoincrement())
+  control          String?  @db.VarChar(50)
+  turno            String?  @db.VarChar(50)
+  grado            String?  @db.VarChar(50)
+  nivel            String?  @db.VarChar(50)
+  subnivel         String?  @db.VarChar(50)
+  opcion_educativa String?  @db.VarChar(100)
+  item             String?  @db.VarChar(100)
+  campo_formativo  String?  @db.VarChar(50)
+  opcion_respuesta Int?
+  estudiantes      Decimal? @db.Decimal
+  porcentaje       Decimal? @db.Decimal
+  eia              String?  @db.VarChar
+  pda              String?  @db.VarChar
+  criterio         String?  @db.VarChar
+}
+
+model mapa_base {
+  id                        Int      @id @default(autoincrement())
+  cct                       String?  @db.VarChar(15)
+  llave                     String?  @db.VarChar(20)
+  sostenimiento             String?  @db.VarChar(20)
+  turno                     String?  @db.VarChar(20)
+  tipo                      String?  @db.VarChar(20)
+  opcion_educativa          String?  @db.VarChar(50)
+  nombre                    String?
+  matricula                 Int?
+  estudiantes_participantes Int?
+  localidad                 String?
+  municipio                 String?
+  cct_sector                String?  @db.VarChar(15)
+  sector                    String?  @db.VarChar(5)
+  cct_zona                  String?  @db.VarChar(15)
+  zona                      String?  @db.VarChar(5)
+  seguimiento               String?  @db.VarChar(5)
+  latitud                   Decimal? @db.Decimal(10, 6)
+  longitud                  Decimal? @db.Decimal(10, 6)
+}
+
+model ni_ctt {
+  id                        Int      @id @default(autoincrement())
+  ctt                       String?  @db.VarChar(100)
+  llave                     String?  @db.VarChar(100)
+  turno                     String?  @db.VarChar(50)
+  grado                     String?  @db.VarChar(50)
+  opcion_educativa          String?  @db.VarChar(50)
+  tipo                      String?  @db.VarChar(200)
+  campo_formativo           String?  @db.VarChar(50)
+  nivel_integracion         String?  @db.VarChar(20)
+  estudiantes_participantes Int?
+  matricula                 Int?
+  porcentaje                Decimal? @db.Decimal(200, 10)
+}
+
+model ni_grado_control {
+  id                Int      @id @default(autoincrement())
+  campo_formativo   String?  @db.VarChar(100)
+  opcion_educativa  String?  @db.VarChar(50)
+  control           String?  @db.VarChar(20)
+  grado             String?  @db.VarChar(20)
+  tipo              String?  @db.VarChar(50)
+  nivel_integracion String?  @db.VarChar(50)
+  total             Decimal? @db.Decimal
+  porcentaje        Decimal? @db.Decimal
+}
+
+model ni_grado_turno {
+  id                        Int      @id @default(autoincrement())
+  nivel                     String?  @db.VarChar(40)
+  grado                     String?  @db.VarChar(20)
+  tipo                      String?  @db.VarChar(50)
+  turno                     String?  @db.VarChar(50)
+  nivel_integracion         String?  @db.VarChar(20)
+  campo_formativo           String?  @db.VarChar(200)
+  estudiantes_participantes Int?
+  porcentaje                Decimal? @db.Decimal(1000, 10)
+}
+
+model ni_opcion_educativa {
+  id                Int      @id @default(autoincrement())
+  nivel             String?  @db.VarChar(50)
+  grado             String?  @db.VarChar(50)
+  tipo              String?  @db.VarChar(50)
+  nivel_integracion String?  @db.VarChar(50)
+  campo_formativo   String?  @db.VarChar(50)
+  porcentaje        Decimal? @db.Decimal
+  total             Decimal? @db.Decimal
+}
+
+model ni_sector {
+  id                                Int      @id @default(autoincrement())
+  ctt_sector                        String?  @db.VarChar(50)
+  no_sector                         Int?
+  campo_formativo                   String?  @db.VarChar(100)
+  nivel_integracion                 String?
+  grado                             String?  @db.VarChar(10)
+  opcion_educativa                  String?  @db.VarChar(200)
+  tipo                              String?  @db.VarChar(100)
+  estudiantes_sector                Int?
+  estudiantes_participantes         Int?
+  escuelas_sector                   Int?
+  escuelas_participantes            Int?
+  porcentaje_escuelas_participacion Decimal? @db.Decimal(200, 10)
+  porcentaje                        Decimal? @db.Decimal(200, 10)
+}
+
+model ni_sostenimiento {
+  id                Int      @id @default(autoincrement())
+  campo_formativo   String?  @db.VarChar(100)
+  nivel             String?  @db.VarChar(100)
+  control           String?  @db.VarChar(50)
+  tipo              String?  @db.VarChar(50)
+  grado             String?  @db.VarChar(50)
+  nivel_integracion String?  @db.VarChar(50)
+  porcentaje        Decimal? @db.Decimal(200, 2)
+  absoluto          Decimal? @db.Decimal
+}
+
+model ni_zona {
+  id                                Int      @id @default(autoincrement())
+  ctt_zona                          String?  @db.VarChar(50)
+  zona                              Int?
+  campo_formativo                   String?  @db.VarChar(100)
+  nivel_integracion                 String?
+  grado                             String?  @db.VarChar(10)
+  opcion_educativa                  String?  @db.VarChar(200)
+  tipo                              String?  @db.VarChar(100)
+  estudiantes_zona                  Int?
+  estudiantes_participantes         Int?
+  escuelas_zona                     Int?
+  escuelas_participantes            Int?
+  porcentaje_escuelas_participacion Decimal? @db.Decimal(200, 10)
+  porcentaje                        Decimal? @db.Decimal(200, 10)
+}

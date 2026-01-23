@@ -1,0 +1,40 @@
+import { Request, Response } from "express";
+import prisma from "../lib/prisma";
+import { count } from "node:console";
+class ZonaController {
+  async getZonas(req: Request, res: Response) {
+    try {
+      const ctt_zona = req.params.ctt_zona;
+      if (!ctt_zona) {
+        return res.status(400).json({
+          success: false,
+          message: "El parámetro ctt_zona es obligatorio",
+        });
+      }
+
+      const zona = await prisma.ni_zona.findMany({
+        where: { ctt_zona: ctt_zona.toString() },
+      });
+      if (zona.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No se encontraron zonas para el ctt_zona proporcionado",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        data: zona,
+        message: "Zonas obtenidas correctamente",
+        count: zona.length,
+      });
+    } catch (error) {
+      console.error("Error al obtener las zonas:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener las zonas",
+      });
+    }
+  }
+}
+
+export default new ZonaController();

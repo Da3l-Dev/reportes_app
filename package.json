@@ -1,0 +1,44 @@
+{
+  "name": "reportes_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts,tsx --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Da3l-Dev/reportes_app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Da3l-Dev/reportes_app/issues"
+  },
+  "homepage": "https://github.com/Da3l-Dev/reportes_app#readme",
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "chart.js": "^4.5.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "puppeteer": "^24.36.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.1.0",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "nodemon": "^3.1.11",
+    "prisma": "^7.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
