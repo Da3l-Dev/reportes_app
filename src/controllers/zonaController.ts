@@ -12,8 +12,8 @@ class ZonaController {
         });
       }
 
-      const zona = await prisma.ni_zona.findMany({
-        where: { ctt_zona: ctt_zona.toString() },
+      const zona = await prisma.analisis_zona.findMany({
+        where: { cct_zona: ctt_zona.toString(), tipo: "Total" },
       });
       if (zona.length === 0) {
         return res.status(404).json({

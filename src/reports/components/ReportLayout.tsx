@@ -1,22 +1,12 @@
-import React from "react";
-export function ReportLayout({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+export function ReportLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head>
         <meta charSet="UTF-8" />
-        <title>{title}</title>
         <link rel="stylesheet" href="/css/layout.css" />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       </head>
-      <body>
-        <h1>{title}</h1>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

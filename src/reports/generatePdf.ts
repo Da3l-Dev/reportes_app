@@ -1,20 +1,27 @@
 import puppeteer from "puppeteer";
-import { renderReport } from "./renderReport";
+import { renderReportZona } from "./renderReport";
 
-export async function generatePdfBuffer() {
-  const html = renderReport();
+// Generar reporte de zona escolar en PDF
+export async function generatePdfZonaEscolar() {
+  const html = renderReportZona();
 
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
 
   await page.setContent(html, { waitUntil: "networkidle0" });
 
+  await page.addStyleTag({ path: "src/reports/css/layout.css" });
   // ⏳ esperar a que Chart.js dibuje
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const pdf = await page.pdf({
-    format: "A4",
     printBackground: true,
+    margin: {
+      top: "0",
+      right: "0",
+      bottom: "0",
+      left: "0",
+    },
   });
 
   await browser.close();
