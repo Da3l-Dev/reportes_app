@@ -3,7 +3,7 @@ let chartCounter = 0;
 type Segment = {
   label: string;
   color: string;
-  values: number[]; // un valor por cada label
+  values: number[];
 };
 
 type BarChartProps = {
@@ -15,14 +15,25 @@ export function BarChart({ labels, segments }: BarChartProps) {
   chartCounter += 1;
   const chartId = `chart-${chartCounter}`;
 
+  // tamaño visual (como antes)
+  const WIDTH = 500;
+  const HEIGHT = 500;
+
+  // mejora de calidad (NO cambia el tamaño visual)
+  const DPR = 2;
+
   return (
     <>
       <canvas
-        className="canva_chart"
         id={chartId}
-        width="500"
-        height="500"
-      ></canvas>
+        className="canva_chart"
+        width={WIDTH * DPR}
+        height={HEIGHT * DPR}
+        style={{
+          width: `${WIDTH}px`,
+          height: `${HEIGHT}px`,
+        }}
+      />
 
       <script
         dangerouslySetInnerHTML={{
@@ -38,6 +49,9 @@ export function BarChart({ labels, segments }: BarChartProps) {
 
               const ctx = canvas.getContext("2d");
 
+              // Alta resolución sin cambiar tamaño visual
+              ctx.scale(${DPR}, ${DPR});
+
               new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -47,17 +61,37 @@ export function BarChart({ labels, segments }: BarChartProps) {
                       label: s.label,
                       data: s.values,
                       backgroundColor: s.color,
-                      stack: "stack-1",
-                      borderWidth: 0,
+                      borderRadius: 6,
+                      borderSkipped: false,
                     })),
                   )}
                 },
                 options: {
                   responsive: false,
                   animation: false,
+                  maintainAspectRatio: false,
                   plugins: {
                     legend: {
-                      position: "bottom"
+                      position: "bottom",
+                      labels: {
+                        boxWidth: 14,
+                        boxHeight: 14,
+                        color: "#374151",
+                        font: {
+                          // 👇 compensación del scale
+                          size: 11 * ${DPR},
+                          weight: "500"
+                        }
+                      }
+                    },
+                    tooltip: {
+                      enabled: true,
+                      backgroundColor: "#111827",
+                      titleColor: "#ffffff",
+                      bodyColor: "#e5e7eb",
+                      bodyFont: {
+                        size: 11 * ${DPR}
+                      }
                     }
                   },
                   scales: {
@@ -65,13 +99,26 @@ export function BarChart({ labels, segments }: BarChartProps) {
                       stacked: true,
                       grid: {
                         display: false
+                      },
+                      ticks: {
+                        color: "#374151",
+                        font: {
+                          size: 11 * ${DPR},
+                          weight: "500"
+                        }
                       }
                     },
                     y: {
                       stacked: true,
                       beginAtZero: true,
+                      grid: {
+                        color: "#e5e7eb"
+                      },
                       ticks: {
-                        precision: 0
+                        color: "#4b5563",
+                        font: {
+                          size: 11 * ${DPR}
+                        }
                       }
                     }
                   }

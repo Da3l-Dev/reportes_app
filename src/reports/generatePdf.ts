@@ -2,8 +2,8 @@ import puppeteer from "puppeteer";
 import { renderReportZona } from "./renderReport";
 
 // Generar reporte de zona escolar en PDF
-export async function generatePdfZonaEscolar() {
-  const html = renderReportZona();
+export async function generatePdfZonaEscolar(data: any) {
+  const html = renderReportZona(data);
 
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
@@ -16,12 +16,15 @@ export async function generatePdfZonaEscolar() {
 
   const pdf = await page.pdf({
     printBackground: true,
+    width: "13in",
+    height: "8.5in",
     margin: {
       top: "0",
       right: "0",
       bottom: "0",
       left: "0",
     },
+    preferCSSPageSize: false,
   });
 
   await browser.close();
