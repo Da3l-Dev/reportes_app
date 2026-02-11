@@ -4,6 +4,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
@@ -15,39 +16,52 @@ body {
 }
 
 .page {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5mm;
-  padding: 5mm;
+  width: 100%;
+  padding: 1mm 5mm;
+  height: 100%;
 }
 
-.first-column,
-.second-column {
-  padding: 1mm;
+/* =========================
+   Páginas específicas
+========================= */
+.graph-page {
+  page-break-after: always; /* Salto solo después de gráficas */
 }
 
-.title_report {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
+.table-page {
+  padding: 15mm 10mm 10mm 10mm; /* Espacio arriba para header + margen */
+  page-break-after: auto; /* Tabla fluye naturalmente */
+  display: block;
+  position: relative;
 }
 
-.subtitle_container {
-  padding: 5px;
-  background-color: #621333;
+/* Header fijo para todas las páginas de tabla */
+.table-page .header_report {
+  position: running(header); /* compatible con paginación */
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin-bottom: 8mm; /* espacio entre header y tabla */
 }
 
-.subtitle_report {
-  font-size: 12px;
-  font-weight: bold;
-  color: white;
-  margin: 0;
-}
-
-table {
+/* Tabla */
+.report-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  font-size: 11px;
+  page-break-inside: auto;
+}
+
+.report-table thead {
+  display: table-header-group; /* esto asegura que el thead se repita en cada página */
+}
+
+.report-table tbody {
+  display: table-row-group;
+}
+
+.report-table tbody tr {
+  page-break-inside: avoid; /* evita cortar filas a la mitad */
 }
 
 th,
@@ -55,49 +69,14 @@ td {
   border: 1px solid #ccc;
   padding: 6px;
   font-size: 11px;
+  text-align: center;
 }
 
 th {
   background: #f3f3f3;
 }
 
-.section,
-table {
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-canvas {
-  width: 100% !important;
-}
-
-.canva_chart {
-  background: #f7f8fa;
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.report-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 11px;
-}
-
-.report-table thead th {
-  background-color: #f3f4f6;
-  color: #111827;
-  font-weight: 600;
-  padding: 6px;
-  border: 1px solid #e5e7eb;
-  text-align: center;
-}
-
-.report-table tbody td {
-  border: 1px solid #e5e7eb;
-  padding: 6px;
-  text-align: center;
-}
-
+/* Celdas especiales */
 .grado-cell {
   font-weight: 600;
   color: #111827;
@@ -113,16 +92,42 @@ canvas {
   color: #111827;
 }
 
+/* Header general */
 .header_report {
   text-align: center;
-  padding: 10px 50px;
+  padding: 5px 0;
 }
 
 .content_logos {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2mm;
 }
 
 .image_logo {
   width: 20%;
+}
+
+.content_data_text {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+/* Gráficas */
+.canva_chart {
+  background: #f7f8fa;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Bloques de sección */
+.section {
+  break-inside: avoid; /* evita cortar secciones */
 }

@@ -15,116 +15,129 @@ export function BarChart({ labels, segments }: BarChartProps) {
   chartCounter += 1;
   const chartId = `chart-${chartCounter}`;
 
-  // tamaño visual (como antes)
-  const WIDTH = 500;
-  const HEIGHT = 500;
-
-  // mejora de calidad (NO cambia el tamaño visual)
-  const DPR = 2;
+  const DPR = 4; // 🔥 alta calidad para PDF
 
   return (
     <>
-      <canvas
-        id={chartId}
-        className="canva_chart"
-        width={WIDTH * DPR}
-        height={HEIGHT * DPR}
-        style={{
-          width: `${WIDTH}px`,
-          height: `${HEIGHT}px`,
-        }}
-      />
+      {/* contenedor manda */}
+
+      <canvas id={chartId} />
 
       <script
         dangerouslySetInnerHTML={{
           __html: `
-            (function () {
-              if (typeof Chart === "undefined") {
-                console.error("Chart.js no está cargado");
-                return;
-              }
+(function () {
+  if (typeof Chart === "undefined") return;
 
-              const canvas = document.getElementById("${chartId}");
-              if (!canvas) return;
+  const canvas = document.getElementById("${chartId}");
+  if (!canvas) return;
 
-              const ctx = canvas.getContext("2d");
+  const container = canvas.parentElement;
+  if (!container) return;
 
-              // Alta resolución sin cambiar tamaño visual
-              ctx.scale(${DPR}, ${DPR});
+  // =========================
+  // TAMAÑO REAL DEL CONTENEDOR
+  // =========================
+  const width = container.clientWidth;
+  const height = Math.min(width, 420); // 👈 evita que se pase en horizontal
 
-              new Chart(ctx, {
-                type: "bar",
-                data: {
-                  labels: ${JSON.stringify(labels)},
-                  datasets: ${JSON.stringify(
-                    segments.map((s) => ({
-                      label: s.label,
-                      data: s.values,
-                      backgroundColor: s.color,
-                      borderRadius: 6,
-                      borderSkipped: false,
-                    })),
-                  )}
-                },
-                options: {
-                  responsive: false,
-                  animation: false,
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      position: "bottom",
-                      labels: {
-                        boxWidth: 14,
-                        boxHeight: 14,
-                        color: "#374151",
-                        font: {
-                          // 👇 compensación del scale
-                          size: 11 * ${DPR},
-                          weight: "500"
-                        }
-                      }
-                    },
-                    tooltip: {
-                      enabled: true,
-                      backgroundColor: "#111827",
-                      titleColor: "#ffffff",
-                      bodyColor: "#e5e7eb",
-                      bodyFont: {
-                        size: 11 * ${DPR}
-                      }
-                    }
-                  },
-                  scales: {
-                    x: {
-                      stacked: true,
-                      grid: {
-                        display: false
-                      },
-                      ticks: {
-                        color: "#374151",
-                        font: {
-                          size: 11 * ${DPR},
-                          weight: "500"
-                        }
-                      }
-                    },
-                    y: {
-                      stacked: true,
-                      beginAtZero: true,
-                      grid: {
-                        color: "#e5e7eb"
-                      },
-                      ticks: {
-                        color: "#4b5563",
-                        font: {
-                          size: 11 * ${DPR}
-                        }
-                      }
-                    }
-                  }
-                }
-              });
-            })();
+  // =========================
+  // CANVAS HD
+  // =========================
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  canvas.width = width * ${DPR};
+  canvas.height = height * ${DPR};
+
+  const ctx = canvas.getContext("2d");
+  ctx.scale(${DPR}, ${DPR});
+  ctx.imageSmoothingEnabled = false;
+
+  // =========================
+  // PLUGIN ETIQUETAS %
+  // =========================
+  const percentageLabelPlugin = {
+    id: "percentageLabelPlugin",
+    afterDatasetsDraw(chart) {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#000000";
+      ctx.font = "bold " + (9 * ${DPR}) + "px Arial";
+
+      chart.data.datasets.forEach((dataset, datasetIndex) => {
+        const meta = chart.getDatasetMeta(datasetIndex);
+        meta.data.forEach((bar, i) => {
+          const value = dataset.data[i];
+          if (!value || value <= 0) return;
+          ctx.fillText(value + "%", bar.x, bar.y + bar.height / 2);
+        });
+      });
+
+      ctx.restore();
+    }
+  };
+
+  // =========================
+  // CHART
+  // =========================
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ${JSON.stringify(labels)},
+      datasets: ${JSON.stringify(
+        segments.map((s) => ({
+          label: s.label,
+          data: s.values,
+          backgroundColor: s.color,
+          borderRadius: 6,
+          borderSkipped: false,
+        })),
+      )}
+    },
+    options: {
+      responsive: false,
+      animation: false,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: {
+            font: {
+              size: 11 * ${DPR},
+              weight: "600",
+            }
+          }
+        },
+        tooltip: { enabled: false }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: {
+            font: {
+              size: 12 * ${DPR},
+              weight: "600",
+              padding: 20,
+            }
+          }
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          max: 100,
+          ticks: {
+            font: { size: 10 * ${DPR} }
+          }
+        }
+      }
+    },
+    plugins: [percentageLabelPlugin]
+  });
+})();
           `,
         }}
       />

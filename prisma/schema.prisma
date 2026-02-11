@@ -181,3 +181,20 @@ model analisis_zona {
   porcentaje_escuela        Decimal? @db.Decimal
   porcentaje_estudiantes    Decimal? @db.Decimal
 }
+
+model analisis_cct_campo {
+  id                Int      @id @default(autoincrement())
+  cct               String?  @db.VarChar(50)
+  cct_sector        String?  @db.VarChar(50)
+  cct_zona          String?  @db.VarChar(50)
+  turno             String?  @db.VarChar(50)
+  opcion_educativa  String?  @db.VarChar(50)
+  grado             Int?
+  nivel             String?  @db.VarChar(50)
+  tipo              String?  @db.VarChar(50)
+  campo_formativo   String?  @db.VarChar(100)
+  nivel_integracion String?  @db.VarChar(10)
+  numero_alumnos    Int?
+  total_cct_grado   Int?
+  porcentaje        Decimal? @db.Decimal
+}

@@ -13,9 +13,9 @@ type BarChartSmallProps = {
 
 /**
  * Gráfica compacta optimizada para PDF
- * - DPR alto
- * - Fuentes y líneas reforzadas
- * - Sin blur en impresión
+ * - Alta resolución real (DPR)
+ * - Etiquetas de porcentaje dentro de barras
+ * - Texto nítido en impresión
  */
 export default function BarChartSmall({
   labels,
@@ -24,11 +24,18 @@ export default function BarChartSmall({
   chartCounter += 1;
   const chartId = `chart-${chartCounter}`;
 
+  /* =========================
+     TAMAÑO VISUAL
+  ========================= */
+
   const WIDTH = 420;
   const HEIGHT = 260;
 
-  // 🔥 clave para PDF
-  const DPR = 3;
+  /* =========================
+     RESOLUCIÓN REAL
+  ========================= */
+
+  const DPR = 8;
 
   return (
     <>
@@ -45,92 +52,128 @@ export default function BarChartSmall({
       <script
         dangerouslySetInnerHTML={{
           __html: `
-          (function () {
-            if (typeof Chart === "undefined") return;
+(function () {
+  if (typeof Chart === "undefined") return;
 
-            const canvas = document.getElementById("${chartId}");
-            if (!canvas) return;
+  const canvas = document.getElementById("${chartId}");
+  if (!canvas) return;
 
-            const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d");
 
-            // Escalado real para alta densidad
-            ctx.scale(${DPR}, ${DPR});
-            ctx.imageSmoothingEnabled = false;
+  // 🔥 Escala real de alta densidad
+  ctx.scale(${DPR}, ${DPR});
+  ctx.imageSmoothingEnabled = false;
 
-            new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: ${JSON.stringify(labels)},
-                datasets: ${JSON.stringify(
-                  segments.map((s) => ({
-                    label: s.label,
-                    data: s.values,
-                    backgroundColor: s.color,
-                    borderRadius: 3,
-                    borderSkipped: false,
-                    barPercentage: 0.9,
-                    categoryPercentage: 0.8,
-                  })),
-                )}
-              },
-              options: {
-                responsive: false,
-                animation: false,
-                maintainAspectRatio: false,
-                devicePixelRatio: ${DPR},
-                plugins: {
-                  legend: {
-                    position: "bottom",
-                    labels: {
-                      boxWidth: 10,
-                      boxHeight: 10,
-                      color: "#111827",
-                      font: {
-                        size: 10 * ${DPR},
-                        weight: "600"
-                      }
-                    }
-                  },
-                  tooltip: {
-                    enabled: false
-                  }
-                },
-                scales: {
-                  x: {
-                    stacked: true,
-                    grid: {
-                      display: false
-                    },
-                    ticks: {
-                      color: "#111827",
-                      font: {
-                        size: 9 * ${DPR},
-                        weight: "600"
-                      }
-                    }
-                  },
-                  y: {
-                    stacked: true,
-                    beginAtZero: true,
-                    max: 100,
-                    grid: {
-                      color: "#e5e7eb",
-                      lineWidth: 1.2
-                    },
-                    ticks: {
-                      stepSize: 20,
-                      color: "#111827",
-                      font: {
-                        size: 9 * ${DPR},
-                        weight: "600"
-                      }
-                    }
-                  }
-                }
-              }
-            });
-          })();
-        `,
+  // =========================
+  // PLUGIN: ETIQUETAS %
+  // =========================
+  const percentageLabelPlugin = {
+    id: "percentageLabelPlugin",
+    afterDatasetsDraw(chart) {
+      const { ctx } = chart;
+
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = "bold " + (8 * ${DPR}) + "px Arial";
+
+      chart.data.datasets.forEach((dataset, datasetIndex) => {
+        const meta = chart.getDatasetMeta(datasetIndex);
+
+        meta.data.forEach((bar, index) => {
+          const value = dataset.data[index];
+          if (!value || value <= 0) return;
+
+          // si la barra es muy pequeña, no pintamos texto
+          if (bar.height < 10) return;
+
+          const x = bar.x;
+          const y = bar.y + bar.height / 2;
+
+          // contraste automático
+          ctx.fillStyle =
+            bar.height > 18 ? "#000000" : "#111827";
+
+          ctx.fillText(value + "%", x, y);
+        });
+      });
+
+      ctx.restore();
+    }
+  };
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ${JSON.stringify(labels)},
+      datasets: ${JSON.stringify(
+        segments.map((s) => ({
+          label: s.label,
+          data: s.values,
+          backgroundColor: s.color,
+          borderRadius: 3,
+          borderSkipped: false,
+          barPercentage: 0.9,
+          categoryPercentage: 0.8,
+        })),
+      )}
+    },
+    options: {
+      responsive: false,
+      animation: false,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: "bottom",
+          labels: {
+            boxWidth: 100,
+            boxHeight: 100,
+            color: "#111827",
+            font: {
+              size: 10 * ${DPR},
+              weight: "600"
+            }
+          }
+        },
+        tooltip: {
+          enabled: false
+        }
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false },
+          ticks: {
+            color: "#111827",
+            font: {
+              size: 8.5 * ${DPR},
+              weight: "600"
+            }
+          }
+        },
+        y: {
+          stacked: true,
+          beginAtZero: true,
+          max: 100,
+          grid: {
+            color: "#e5e7eb",
+            lineWidth: 1
+          },
+          ticks: {
+            stepSize: 20,
+            color: "#111827",
+            font: {
+              size: 8.5 * ${DPR},
+              weight: "600"
+            }
+          }
+        }
+      }
+    },
+    plugins: [percentageLabelPlugin]
+  });
+})();
+          `,
         }}
       />
     </>

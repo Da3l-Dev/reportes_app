@@ -11,7 +11,13 @@ function getImageBase64(relativePath: string) {
 const logoSephBase64 = getImageBase64("src/assets/img/logo_seph.png");
 const logoIheBase64 = getImageBase64("src/assets/img/logo_ihe.png");
 
-export default function Header({ title_report }: { title_report: string }) {
+export default function Header({
+  data,
+  viewText = true,
+}: {
+  data: any;
+  viewText?: boolean;
+}) {
   return (
     <div className="header_report">
       <div className="content_logos">
@@ -26,6 +32,18 @@ export default function Header({ title_report }: { title_report: string }) {
           alt="Logo IHE"
         />
       </div>
+      <h3>Reporte por supervisión</h3>
+      <h4>
+        {data.opcion_educativa || ""} CCT: {data?.cct_zona}
+      </h4>
+      {viewText && (
+        <div className="content_data_text">
+          <p>Estudiantes totales: {data?.estudiantes_zona}</p>
+          <p>Estudiantes participantes: {data?.estudiantes_participantes}</p>
+          <p>Escuelas totales: {data?.escuelas_zona}</p>
+          <p>Escuelas participantes: {data?.escuelas_participantes}</p>
+        </div>
+      )}
     </div>
   );
 }

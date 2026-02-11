@@ -5,19 +5,33 @@ const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
-// export async function previewReport(req: Request, res: Response) {
-//   const pdf = await generatePdfZonaEscolar();
+export async function reportSectorGenerate(req: Request, res: Response) {
+  try {
+    const { cct_sector } = req.params;
 
-//   res.setHeader("Content-Type", "application/pdf");
-//   res.setHeader("Content-Disposition", "inline; filename=reporte.pdf");
+    if (!cct_sector) {
+      return res.status(400).json({
+        success: false,
+        message: "El parámetro cct_sector es obligatorio",
+      });
+    }
 
-//   res.send(pdf);
-// }
+    // Aquí deberías implementar la lógica para obtener los datos del sector
+    // y luego generar el PDF similar a como se hace en reportZonaGenerate
 
-// export async function renderHtmlReport(req: Request, res: Response) {
-//   const html = renderReportZona();
-//   res.send(`<!DOCTYPE html>${html}`);
-// }
+    res.status(200).json({
+      success: true,
+      message: "Reporte de sector generado correctamente",
+      data: null, // Aquí iría el PDF o la información relevante
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Error al generar el reporte de sector",
+    });
+  }
+}
 
 export async function reportZonaGenerate(req: Request, res: Response) {
   try {
@@ -30,17 +44,35 @@ export async function reportZonaGenerate(req: Request, res: Response) {
       });
     }
 
-    const response = await fetch(`http://localhost:${PORT}/zona/${cct_zona}`);
-    const data = await response.json();
+    // Obtener los datos de la zona desde el endpoint correspondientE
+    const responseZona = await fetch(
+      `http://localhost:${PORT}/zona/${cct_zona}`,
+    );
+    const dataZona = await responseZona.json();
 
-    if (!response.ok || !data.data?.length) {
+    if (!responseZona.ok || !dataZona.data?.length) {
       return res.status(404).json({
         success: false,
         message: "No se encontraron datos para la zona",
       });
     }
 
-    const pdf = await generatePdfZonaEscolar(data.data);
+    const dataMapaZona = await fetch(
+      `http://localhost:${PORT}/zona/data/${cct_zona}`,
+    );
+    const dataMapaZonaJson = await dataMapaZona.json();
+
+    if (!dataMapaZona.ok || !dataMapaZonaJson.data?.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No se encontraron datos para la zona",
+      });
+    }
+
+    const pdf = await generatePdfZonaEscolar(
+      dataZona.data,
+      dataMapaZonaJson.data,
+    );
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", "inline; filename=reporte.pdf");

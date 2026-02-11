@@ -35,6 +35,78 @@ class ZonaController {
       });
     }
   }
+
+  async getDataZonas(req: Request, res: Response) {
+    try {
+      const ctt_zona = req.params.ctt_zona;
+      if (!ctt_zona) {
+        return res.status(400).json({
+          success: false,
+          message: "El parámetro ctt_zona es obligatorio",
+        });
+      }
+
+      const zona = await prisma.mapa_base.findMany({
+        where: {
+          cct_zona: ctt_zona.toString(),
+        },
+      });
+      if (zona.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No se encontraron zonas para el ctt_zona proporcionado",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        data: zona,
+        message: "Zonas obtenidas correctamente",
+        count: zona.length,
+      });
+    } catch (error) {
+      console.error("Error al obtener las zonas:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener las zonas",
+      });
+    }
+  }
+
+  async getEscuelasPorZona(req: Request, res: Response) {
+    try {
+      const cct = req.params.cct_escuela;
+      if (!cct) {
+        return res.status(400).json({
+          success: false,
+          message: "El parámetro cct es obligatorio",
+        });
+      }
+
+      const escuela = await prisma.analisis_cct_campo.findMany({
+        where: {
+          cct: cct.toString(),
+        },
+      });
+      if (escuela.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "No se encontraron datos para el cct proporcionado",
+        });
+      }
+      res.status(200).json({
+        success: true,
+        data: escuela,
+        message: "Datos de la escuela obtenidos correctamente",
+        count: escuela.length,
+      });
+    } catch (error) {
+      console.error("Error al obtener los datos de la escuela:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener los datos de la escuela",
+      });
+    }
+  }
 }
 
 export default new ZonaController();
