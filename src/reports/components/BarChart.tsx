@@ -55,6 +55,13 @@ export function BarChart({ labels, segments }: BarChartProps) {
   ctx.imageSmoothingEnabled = false;
 
   // =========================
+  // FUNCIÓN: CORTAR A 1 DECIMAL (SIN REDONDEAR)
+  // =========================
+  function cutOneDecimal(value) {
+    return (Math.floor(Number(value) * 10) / 10).toFixed(1);
+  }
+
+  // =========================
   // PLUGIN ETIQUETAS %
   // =========================
   const percentageLabelPlugin = {
@@ -64,15 +71,23 @@ export function BarChart({ labels, segments }: BarChartProps) {
       ctx.save();
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = "#000000";
       ctx.font = "bold " + (9 * ${DPR}) + "px Arial";
 
       chart.data.datasets.forEach((dataset, datasetIndex) => {
         const meta = chart.getDatasetMeta(datasetIndex);
+
         meta.data.forEach((bar, i) => {
           const value = dataset.data[i];
           if (!value || value <= 0) return;
-          ctx.fillText(value + "%", bar.x, bar.y + bar.height / 2);
+
+          // contraste automático profesional
+          ctx.fillStyle = bar.height > 20 ? "#000000" : "#111827";
+
+          ctx.fillText(
+            cutOneDecimal(value) + "%",
+            bar.x,
+            bar.y + bar.height / 2
+          );
         });
       });
 
@@ -111,7 +126,14 @@ export function BarChart({ labels, segments }: BarChartProps) {
             }
           }
         },
-        tooltip: { enabled: false }
+        tooltip: {
+          enabled: true,
+          callbacks: {
+            label: function(ctx) {
+              return ctx.dataset.label + ": " + cutOneDecimal(ctx.raw) + "%";
+            }
+          }
+        }
       },
       scales: {
         x: {
@@ -121,8 +143,8 @@ export function BarChart({ labels, segments }: BarChartProps) {
             font: {
               size: 12 * ${DPR},
               weight: "600",
-              padding: 20,
-            }
+            },
+            padding: 20,
           }
         },
         y: {
@@ -130,6 +152,9 @@ export function BarChart({ labels, segments }: BarChartProps) {
           beginAtZero: true,
           max: 100,
           ticks: {
+            callback: function(value) {
+              return cutOneDecimal(value) + "%";
+            },
             font: { size: 10 * ${DPR} }
           }
         }

@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
-import { generatePdfZonaEscolar } from "../reports/generatePdf";
-import { renderReportZona } from "../reports/renderReport";
+import {
+  generatePdfSector,
+  generatePdfZonaEscolar,
+} from "../reports/generatePdf";
+import { renderMainView, renderReportZona } from "../reports/renderReport";
 const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -16,14 +19,31 @@ export async function reportSectorGenerate(req: Request, res: Response) {
       });
     }
 
-    // Aquí deberías implementar la lógica para obtener los datos del sector
-    // y luego generar el PDF similar a como se hace en reportZonaGenerate
+    const respose = await fetch(
+      `http://localhost:${PORT}/sector/${cct_sector}`,
+    );
+    const dataSector = await respose.json();
 
-    res.status(200).json({
-      success: true,
-      message: "Reporte de sector generado correctamente",
-      data: null, // Aquí iría el PDF o la información relevante
-    });
+    const resposeEscuelas = await fetch(
+      `http://localhost:${PORT}/sector/escuelas/${cct_sector}`,
+    );
+    const dataEscuelas = await resposeEscuelas.json();
+
+    if (!respose.ok || !dataSector.data?.length) {
+      return res.status(404).json({
+        success: false,
+        message: "No se encontraron datos para el sector",
+      });
+    }
+    const pdf = await generatePdfSector(dataSector.data, dataEscuelas.data);
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `inline; filename=reporte_sector_${cct_sector}.pdf`,
+    );
+
+    res.end(pdf);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -75,7 +95,10 @@ export async function reportZonaGenerate(req: Request, res: Response) {
     );
 
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "inline; filename=reporte.pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `inline; filename=reporte_zona_${cct_zona}.pdf`,
+    );
 
     res.end(pdf);
   } catch (error) {
@@ -84,5 +107,19 @@ export async function reportZonaGenerate(req: Request, res: Response) {
       success: false,
       message: "Error al generar el PDF",
     });
+  }
+}
+
+export async function serveMainView(req: Request, res: Response) {
+  try {
+    // Obtenemos el HTML renderizado desde React
+    const html = await renderMainView();
+
+    // Solo devolvemos el HTML tal cual
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.send(html);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al renderizar la vista principal");
   }
 }

@@ -16,6 +16,7 @@ type BarChartSmallProps = {
  * - Alta resolución real (DPR)
  * - Etiquetas de porcentaje dentro de barras
  * - Texto nítido en impresión
+ * - Porcentajes cortados a 1 decimal (NO redondeo)
  */
 export default function BarChartSmall({
   labels,
@@ -65,6 +66,13 @@ export default function BarChartSmall({
   ctx.imageSmoothingEnabled = false;
 
   // =========================
+  // FUNCIÓN: CORTAR A 1 DECIMAL (SIN REDONDEAR)
+  // =========================
+  function cutOneDecimal(value) {
+    return (Math.floor(Number(value) * 10) / 10).toFixed(1);
+  }
+
+  // =========================
   // PLUGIN: ETIQUETAS %
   // =========================
   const percentageLabelPlugin = {
@@ -94,7 +102,7 @@ export default function BarChartSmall({
           ctx.fillStyle =
             bar.height > 18 ? "#000000" : "#111827";
 
-          ctx.fillText(value + "%", x, y);
+          ctx.fillText(cutOneDecimal(value) + "%", x, y);
         });
       });
 
@@ -136,7 +144,12 @@ export default function BarChartSmall({
           }
         },
         tooltip: {
-          enabled: false
+          enabled: true,
+          callbacks: {
+            label: function(ctx) {
+              return ctx.dataset.label + ": " + cutOneDecimal(ctx.raw) + "%";
+            }
+          }
         }
       },
       scales: {
@@ -156,12 +169,15 @@ export default function BarChartSmall({
           beginAtZero: true,
           max: 100,
           grid: {
-            color: "#e5e7eb",
+            color: "#444444",
             lineWidth: 1
           },
           ticks: {
             stepSize: 20,
             color: "#111827",
+            callback: function(value) {
+              return cutOneDecimal(value) + "%";
+            },
             font: {
               size: 8.5 * ${DPR},
               weight: "600"

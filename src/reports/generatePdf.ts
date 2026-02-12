@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-import { renderReportZona } from "./renderReport";
+import { renderReportSector, renderReportZona } from "./renderReport";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -48,6 +48,53 @@ export async function generatePdfZonaEscolar(
     printBackground: true,
     format: "A4",
     landscape: true, // 👈 ESTO lo hace horizontal
+    margin: {
+      top: "0",
+      right: "0",
+      bottom: "0",
+      left: "0",
+    },
+  });
+
+  await browser.close();
+  return pdf;
+}
+
+export async function generatePdfSector(
+  dataSector: any[],
+  dataEscuelas: any[],
+) {
+  const dataZonaPorEscuela: any[] = [];
+
+  for (const escuela of dataEscuelas) {
+    try {
+      const res = await fetch(
+        `http://localhost:${PORT}/zona/escuela/${escuela.cct}`,
+      );
+
+      if (!res.ok) continue;
+
+      const json = await res.json();
+      if (Array.isArray(json.data)) {
+        dataZonaPorEscuela.push(...json.data);
+      }
+    } catch {}
+  }
+
+  const html = renderReportSector(dataSector, dataEscuelas, dataZonaPorEscuela);
+
+  const browser = await puppeteer.launch({ headless: true });
+  const page = await browser.newPage();
+
+  await page.setContent(html, { waitUntil: "networkidle0" });
+  await page.addStyleTag({ path: "src/reports/css/layout.css" });
+
+  await new Promise((r) => setTimeout(r, 1000));
+
+  const pdf = await page.pdf({
+    printBackground: true,
+    format: "A4",
+    landscape: true,
     margin: {
       top: "0",
       right: "0",

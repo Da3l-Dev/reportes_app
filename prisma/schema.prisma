@@ -49,11 +49,13 @@ model item_opc_educativa {
 
 model mapa_base {
   id                        Int      @id @default(autoincrement())
-  cct                       String?  @db.VarChar(15)
   llave                     String?  @db.VarChar(20)
-  sostenimiento             String?  @db.VarChar(20)
+  cct                       String?  @db.VarChar(15)
+  sostenimiento             String?  @db.VarChar(30)
   turno                     String?  @db.VarChar(20)
   tipo                      String?  @db.VarChar(20)
+  nivel                     String?  @db.VarChar(50)
+  subnivel                  String?  @db.VarChar(50)
   opcion_educativa          String?  @db.VarChar(50)
   nombre                    String?
   matricula                 Int?
@@ -61,12 +63,12 @@ model mapa_base {
   localidad                 String?
   municipio                 String?
   cct_sector                String?  @db.VarChar(15)
-  sector                    String?  @db.VarChar(5)
+  sector                    String?  @db.VarChar(10)
   cct_zona                  String?  @db.VarChar(15)
-  zona                      String?  @db.VarChar(5)
-  seguimiento               String?  @db.VarChar(5)
-  latitud                   Decimal? @db.Decimal(10, 6)
-  longitud                  Decimal? @db.Decimal(10, 6)
+  zona                      String?  @db.VarChar(10)
+  seguimiento               String?  @db.VarChar(10)
+  latitud                   Decimal? @db.Decimal
+  longitud                  Decimal? @db.Decimal
 }
 
 model ni_ctt {
@@ -197,4 +199,24 @@ model analisis_cct_campo {
   numero_alumnos    Int?
   total_cct_grado   Int?
   porcentaje        Decimal? @db.Decimal
+}
+
+model analisis_sector {
+  id                               Int      @id @default(autoincrement())
+  cct_sector                       String?  @db.VarChar(50)
+  sector                           Int?
+  campo_formativo                  String?  @db.VarChar(50)
+  nivel_integracion                String?  @db.VarChar(10)
+  grado                            Int?
+  opcion_educativa                 String?  @db.VarChar(100)
+  tipo                             String?  @db.VarChar(50)
+  estudiantes_sector               Int?
+  estudiantes_participantes        Int?
+  escuelas_participantes           Int?
+  escuelas_cct_zona                Int?
+  matricula_cct_zona               Int?
+  escuelas_sector                  Int?
+  porcentaje_cct_zona              Decimal? @db.Decimal
+  porcentaje_participacion_escuela String?  @db.VarChar(100)
+  porcentaje_estudiantes           Decimal? @db.Decimal
 }
