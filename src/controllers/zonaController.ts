@@ -46,11 +46,24 @@ class ZonaController {
         });
       }
 
-      const zona = await prisma.mapa_base.findMany({
-        where: {
-          cct_zona: ctt_zona.toString(),
-        },
-      });
+      const zona = await prisma.$queryRaw<
+        {
+          id: number;
+          cct_zona: string;
+          nombre_sup_zona: string | null;
+          jefatura: string | null;
+        }[]
+      >`
+        SELECT 
+          mb.*,
+          s.nombre_sup_zona,
+          s.nombre_sup_sector
+        FROM mapa_base mb
+        LEFT JOIN supervisores s
+          ON mb.cct_zona = s.clavecct
+        WHERE mb.cct_zona = ${ctt_zona.toString()}
+        `;
+
       if (zona.length === 0) {
         return res.status(404).json({
           success: false,
@@ -104,6 +117,41 @@ class ZonaController {
       res.status(500).json({
         success: false,
         message: "Error al obtener los datos de la escuela",
+      });
+    }
+  }
+  async getSupervisorZona(req: Request, res: Response) {
+    try {
+      const cct_zona = req.params.cct_zona;
+      if (!cct_zona) {
+        return res.status(400).json({
+          success: false,
+          message: "El parametro cct es obligatorio.",
+        });
+      }
+      const supervisorZona = await prisma.supervisores.findMany({
+        where: {
+          clavecct: cct_zona.toString(),
+        },
+      });
+
+      if (supervisorZona.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: `No se encontraron datos del cct_zona porporcionado`,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: supervisorZona,
+        message: `Datos de supervisor obtenidos correctamente`,
+        count: supervisorZona.length,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: `Error al obtener datos del supervisor zona`,
       });
     }
   }

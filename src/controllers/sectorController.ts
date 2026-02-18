@@ -12,7 +12,6 @@ class SectorController {
           message: "El parámetro ctt_sector es obligatorio",
         });
       }
-      console.log("Recibido ctt_sector:", ctt_sector); // Debug: Verificar el valor recibido
 
       const sectorData = await prisma.analisis_sector.findMany({
         where: { cct_sector: ctt_sector.toString(), tipo: "Total" },
@@ -67,6 +66,40 @@ class SectorController {
       res.status(500).json({
         success: false,
         message: "Error al obtener las escuelas del sector",
+      });
+    }
+  }
+  async getSupervisorSector(req: Request, res: Response) {
+    try {
+      const cct_sector = req.params.cct_sector;
+      if (!cct_sector) {
+        return res.status(400).json({
+          success: false,
+          message: "El parametro cct del sector es obligatorio.",
+        });
+      }
+      const supervisorSector = await prisma.supervisores.findFirst({
+        where: {
+          jefatura: cct_sector.toString(),
+        },
+      });
+
+      if (!supervisorSector) {
+        return res.status(404).json({
+          success: false,
+          message: `No se encontraron datos del cct_sector porporcionado`,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        data: supervisorSector,
+        message: `Datos de supervisor obtenidos correctamente`,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: `Error al obtener datos del supervisor del sector`,
       });
     }
   }

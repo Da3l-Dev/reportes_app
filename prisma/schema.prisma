@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -219,4 +220,13 @@ model analisis_sector {
   porcentaje_cct_zona              Decimal? @db.Decimal
   porcentaje_participacion_escuela String?  @db.VarChar(100)
   porcentaje_estudiantes           Decimal? @db.Decimal
+}
+
+model supervisores {
+  id                Int     @id @default(autoincrement())
+  clavecct          String? @db.VarChar(50)
+  nombre_cct        String? @db.VarChar(100)
+  nombre_sup_zona   String? @db.VarChar(50)
+  jefatura          String? @db.VarChar(50)
+  nombre_sup_sector String? @db.VarChar(50)
 }
