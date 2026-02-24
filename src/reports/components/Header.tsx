@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import React from "react";
 
 function getImageBase64(relativePath: string) {
   const absolutePath = path.resolve(process.cwd(), relativePath);
@@ -21,12 +22,16 @@ export default function Header({
   data,
   viewText = true,
   isZona = true,
+  isOpEdu = false,
   title,
+  children, // 👈 Agregamos children
 }: {
   data: any;
   viewText?: boolean;
   title?: string;
   isZona?: boolean;
+  isOpEdu?: boolean;
+  children?: React.ReactNode; // 👈 Tipo para children
 }) {
   return (
     <div className="header_report">
@@ -45,26 +50,49 @@ export default function Header({
 
       <h3>{title || "Reporte"}</h3>
 
-      <h4>
-        {data?.opcion_educativa || ""} CCT:{" "}
-        {isZona ? data?.cct_zona || "" : data?.cct_sector || ""}
-      </h4>
+      {/* Título de opción educativa */}
+      {isOpEdu ? (
+        <h4>
+          {data?.opcion_educativa || ""} {data?.nivel || ""}{" "}
+          {data?.subnivel || ""}
+        </h4>
+      ) : (
+        <h4>
+          {data?.opcion_educativa || ""} (CCT:{" "}
+          {isZona ? data?.cct_zona || "" : data?.cct_sector || ""})
+        </h4>
+      )}
 
-      {viewText && (
-        <div className="content_data_text">
-          <p>Estudiantes totales: {formatNumber(data?.estudiantes_zona)}</p>
+      {/* Para opción educativa: SOLO mostramos los children (datos estáticos) */}
+      {isOpEdu ? (
+        <div className="content_data_text">{children}</div>
+      ) : (
+        /* Para zona/sector: mostramos los datos normales */
+        <>
+          <div className="content_data_text">
+            {data?.nombre_sup_zona && (
+              <p>JEFE DE ZONA: {data.nombre_sup_zona}</p>
+            )}
+            {data?.nombre_sup_sector && (
+              <p>JEFE DE SECTOR: {data.nombre_sup_sector}</p>
+            )}
+          </div>
 
-          <p>
-            Estudiantes participantes:{" "}
-            {formatNumber(data?.estudiantes_participantes)}
-          </p>
-
-          <p>Escuelas totales: {formatNumber(data?.escuelas_zona)}</p>
-
-          <p>
-            Escuelas participantes: {formatNumber(data?.escuelas_participantes)}
-          </p>
-        </div>
+          {viewText && (
+            <div className="content_data_text">
+              <p>Estudiantes totales: {formatNumber(data?.estudiantes_zona)}</p>
+              <p>
+                Estudiantes participantes:{" "}
+                {formatNumber(data?.estudiantes_participantes)}
+              </p>
+              <p>Escuelas totales: {formatNumber(data?.escuelas_zona)}</p>
+              <p>
+                Escuelas participantes:{" "}
+                {formatNumber(data?.escuelas_participantes)}
+              </p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

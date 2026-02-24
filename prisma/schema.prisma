@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
   previewFeatures = ["relationJoins"]
 }
 
@@ -112,14 +112,14 @@ model ni_grado_turno {
 }
 
 model ni_opcion_educativa {
-  id                Int      @id @default(autoincrement())
-  nivel             String?  @db.VarChar(50)
-  grado             String?  @db.VarChar(50)
-  tipo              String?  @db.VarChar(50)
-  nivel_integracion String?  @db.VarChar(50)
-  campo_formativo   String?  @db.VarChar(50)
-  porcentaje        Decimal? @db.Decimal
-  total             Decimal? @db.Decimal
+  id                Int     @id @default(autoincrement())
+  opcion_educativa  String? @db.VarChar(50)
+  grado             String? @db.VarChar(50)
+  tipo              String? @db.VarChar(50)
+  campo_formativo   String? @db.VarChar(50)
+  nivel_integracion String? @db.VarChar(50)
+  total             Int?
+  porcentaje        String? @db.VarChar(50)
 }
 
 model ni_sector {

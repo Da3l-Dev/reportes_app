@@ -33,11 +33,11 @@ const COLOR_MAP: Record<NivelIntegracion, string> = {
 };
 
 /* =========================
-   CALCULOS GENERALES 
+   HEADER
 ========================= */
 
-function calcularTotalesHeader(dataZona: any[]) {
-  if (!dataZona || dataZona.length === 0) {
+function calcularTotalesHeader(data: any[]) {
+  if (!data || data.length === 0) {
     return {
       cct_sector: "",
       cct_zona: "",
@@ -45,31 +45,31 @@ function calcularTotalesHeader(dataZona: any[]) {
       estudiantes_participantes: 0,
       escuelas_zona: 0,
       opcion_educativa: "",
+      nombre_sup_zona: "",
+      nombre_sup_sector: "",
     };
   }
 
-  const totalEstudiantes = dataZona.reduce(
+  const totalEstudiantes = data.reduce(
     (acc, r) => acc + (Number(r.matricula) || 0),
     0,
   );
 
-  const totalParticipantes = dataZona.reduce(
+  const totalParticipantes = data.reduce(
     (acc, r) => acc + (Number(r.estudiantes_participantes) || 0),
     0,
   );
 
-  const totalEscuelas = dataZona.length;
-
-  const opcion_educativa = dataZona[0].opcion_educativa || "";
-
   return {
-    cct_sector: dataZona[0].cct_sector || "",
-    cct_zona: dataZona[0].cct_zona,
+    cct_sector: data[0].cct_sector || "",
+    cct_zona: data[0].cct_zona,
     estudiantes_zona: totalEstudiantes,
     estudiantes_participantes: totalParticipantes,
-    escuelas_zona: totalEscuelas,
-    escuelas_participantes: totalParticipantes > 0 ? totalEscuelas : 0, // opcional si quieres diferenciar
-    opcion_educativa: opcion_educativa,
+    escuelas_zona: data.length,
+    escuelas_participantes: totalParticipantes > 0 ? data.length : 0,
+    opcion_educativa: data[0].opcion_educativa || "",
+    nombre_sup_zona: data[0].nombre_sup_zona,
+    nombre_sup_sector: data[0].nombre_sup_sector,
   };
 }
 
@@ -92,19 +92,39 @@ function buildSegments(valuesBuilder: (nivel: NivelIntegracion) => number[]) {
   }));
 }
 
+function getPorcentajeValue(registro: any): number {
+  if (!registro) return 0;
+
+  // Caso zona / sector
+  if (registro.porcentaje_estudiantes != null) {
+    return Number(registro.porcentaje_estudiantes) || 0;
+  }
+
+  // Caso opción educativa (viene con coma decimal)
+  if (registro.porcentaje != null) {
+    return Number(String(registro.porcentaje).replace(",", ".")) || 0;
+  }
+
+  return 0;
+}
+
 /* =========================
-   GRÁFICAS
+   BUILDERS
 ========================= */
 
-function buildSegmentsPreescolar(data: any[]) {
+function buildSegmentsResumen(data: any[]) {
   return buildSegments((nivel) =>
-    CAMPOS_FORMATIVOS.map((campo) =>
-      data
-        .filter(
-          (r) => r.campo_formativo === campo && r.nivel_integracion === nivel,
-        )
-        .reduce((acc, r) => acc + Number(r.porcentaje_estudiantes || 0), 0),
-    ),
+    CAMPOS_FORMATIVOS.map((campo) => {
+      const registro = data.find((r) => {
+        if (!r.campo_formativo) return false;
+
+        const backendCampo = r.campo_formativo.trim().toLowerCase();
+        const constanteCampo = campo.trim().toLowerCase();
+
+        return backendCampo === constanteCampo && r.nivel_integracion === nivel;
+      });
+      return getPorcentajeValue(registro);
+    }),
   );
 }
 
@@ -118,60 +138,79 @@ function buildSegmentsPorCampo(data: any[], campo: string) {
   ).sort((a, b) => Number(a) - Number(b));
 
   const segments = buildSegments((nivel) =>
-    grados.map((grado) =>
-      data
-        .filter(
-          (r) =>
-            r.campo_formativo === campo &&
-            String(r.grado) === grado &&
-            r.nivel_integracion === nivel,
-        )
-        .reduce((acc, r) => acc + Number(r.porcentaje_estudiantes || 0), 0),
-    ),
-  );
+    grados.map((grado) => {
+      const registro = data.find(
+        (r) =>
+          r.campo_formativo === campo &&
+          String(r.grado) === grado &&
+          r.nivel_integracion === nivel,
+      );
 
-  return { grados, segments };
-}
-
-function buildSegmentsSector(data: any[]) {
-  return buildSegments((nivel) =>
-    CAMPOS_FORMATIVOS.map((campo) =>
-      data
-        .filter(
-          (r) => r.campo_formativo === campo && r.nivel_integracion === nivel,
-        )
-        .reduce((acc, r) => acc + Number(r.porcentaje_estudiantes || 0), 0),
-    ),
-  );
-}
-
-function buildSegmentsSectorPorCampo(data: any[], campo: string) {
-  const grados = Array.from(
-    new Set(
-      data
-        .filter((r) => r.campo_formativo === campo && r.grado != null)
-        .map((r) => String(r.grado)),
-    ),
-  ).sort((a, b) => Number(a) - Number(b));
-
-  const segments = buildSegments((nivel) =>
-    grados.map((grado) =>
-      data
-        .filter(
-          (r) =>
-            r.campo_formativo === campo &&
-            String(r.grado) === grado &&
-            r.nivel_integracion === nivel,
-        )
-        .reduce((acc, r) => acc + Number(r.porcentaje_estudiantes || 0), 0),
-    ),
+      return getPorcentajeValue(registro);
+    }),
   );
 
   return { grados, segments };
 }
 
 /* =========================
-   RENDER PRINCIPAL
+   BLOQUE UNIVERSAL GRÁFICAS
+========================= */
+
+function renderGraficas(data: any[]) {
+  const preescolar = esPreescolar(data);
+
+  if (preescolar) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "80%",
+        }}
+      >
+        <BarChart
+          labels={[...CAMPOS_FORMATIVOS]}
+          segments={[...buildSegmentsResumen(data)].reverse()}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "10mm",
+      }}
+    >
+      {CAMPOS_FORMATIVOS.map((campo) => {
+        const { grados, segments } = buildSegmentsPorCampo(data, campo);
+
+        return (
+          <div
+            key={campo}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <h4 style={{ fontSize: "11px", textAlign: "center" }}>{campo}</h4>
+
+            <BarChartSmall labels={grados} segments={[...segments].reverse()} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* =========================
+   REPORTES
 ========================= */
 
 export function renderReportZona(
@@ -179,102 +218,25 @@ export function renderReportZona(
   dataMapaZona: any[],
   dataZonaPorEscuela: any[],
 ) {
-  const preescolar = esPreescolar(dataZona);
   const totalesHeader = calcularTotalesHeader(dataMapaZona);
+
   totalesHeader.escuelas_zona = Math.max(
     ...dataZona.map((item) => item.escuelas_zona ?? 0),
   );
 
   return renderToStaticMarkup(
     <ReportLayout>
-      {/* ======================================================
-          PÁGINA 1 – GRÁFICAS
-      ====================================================== */}
       <div className="page page-break">
         <Header title="Reporte de supervisión por zona" data={totalesHeader} />
-
-        {preescolar && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "80%",
-            }}
-          >
-            <BarChart
-              labels={[...CAMPOS_FORMATIVOS]}
-              segments={[...buildSegmentsPreescolar(dataZona)].reverse()}
-            />
-          </div>
-        )}
-
-        {!preescolar && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "10mm",
-            }}
-          >
-            {CAMPOS_FORMATIVOS.map((campo) => {
-              const { grados, segments } = buildSegmentsPorCampo(
-                dataZona,
-                campo,
-              );
-
-              return (
-                <div
-                  key={campo}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <h4
-                    style={{
-                      fontSize: "11px",
-                      textAlign: "center",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {campo}
-                  </h4>
-
-                  <BarChartSmall
-                    labels={grados}
-                    segments={[...segments].reverse()}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
+        {renderGraficas(dataZona)}
       </div>
 
-      {/* ======================================================
-          PÁGINA 2 – TABLAS (2 COLUMNAS)
-      ====================================================== */}
       <div className="page table_page">
         <Header
           title="Reporte de supervisión por zona"
           data={totalesHeader}
           viewText={false}
         />
-        <h3 style={{ margin: 0, padding: 0 }}>
-          <strong>Resultados por escuela</strong>
-        </h3>
-        <p style={{ width: "100%", textAlign: "center", margin: 0 }}>
-          <strong>
-            Nota: se coloca el % maximo del nivel de integración por grado y
-            campo formativo{" "}
-          </strong>
-        </p>
         <div style={{ padding: "5mm 10mm" }}>
           <TablePorEscuela
             dataMapaZona={dataMapaZona}
@@ -291,108 +253,25 @@ export function renderReportSector(
   dataEscuelas: any[],
   dataZonaPorEscuela: any[],
 ) {
-  const preescolar = esPreescolar(dataSector);
   const totalesHeader = calcularTotalesHeader(dataEscuelas);
 
   return renderToStaticMarkup(
     <ReportLayout>
-      {/* ==========================================
-          PÁGINA 1 – GRÁFICAS SECTOR
-      ========================================== */}
       <div className="page page-break">
         <Header
           title="Reporte de supervisión por sector"
           data={totalesHeader}
-          isZona={false}
         />
-
-        {/* ======== PREESCOLAR ======== */}
-        {preescolar && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "80%",
-            }}
-          >
-            <BarChart
-              labels={[...CAMPOS_FORMATIVOS]}
-              segments={[...buildSegmentsSector(dataSector)].reverse()}
-            />
-          </div>
-        )}
-
-        {/* ======== PRIMARIA / SECUNDARIA ======== */}
-        {!preescolar && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "10mm",
-            }}
-          >
-            {CAMPOS_FORMATIVOS.map((campo) => {
-              const { grados, segments } = buildSegmentsSectorPorCampo(
-                dataSector,
-                campo,
-              );
-
-              return (
-                <div
-                  key={campo}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <h4
-                    style={{
-                      fontSize: "11px",
-                      textAlign: "center",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {campo}
-                  </h4>
-
-                  <BarChartSmall
-                    labels={grados}
-                    segments={[...segments].reverse()}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
+        {renderGraficas(dataSector)}
       </div>
 
-      {/* ==========================================
-          PÁGINA 2 – TABLA SECTOR
-      ========================================== */}
       <div className="page page-break">
         <Header
-          title="Reporte por de supervisión por sector"
+          title="Reporte de supervisión por sector"
           data={totalesHeader}
           viewText={false}
           isZona={false}
         />
-
-        <h3 style={{ margin: 0, padding: 0 }}>
-          <strong>Resultados por escuela</strong>
-        </h3>
-        <p style={{ width: "100%", textAlign: "center", margin: 0 }}>
-          <strong>
-            Nota: se coloca el % maximo del nivel de integración por grado y
-            campo formativo{" "}
-          </strong>
-        </p>
-
         <div style={{ marginTop: "10mm" }}>
           <TablePorEscuela
             dataMapaZona={dataEscuelas}
@@ -414,33 +293,72 @@ export async function renderReportGeneral(
 
   return renderToStaticMarkup(
     <ReportLayout>
-      {/* ==========================================
-          PÁGINA 1 – GRÁFICAS GENERAL
-      ========================================== */}
       <div className="page page-break">
         <Header data={totalesHeader} />
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "80%",
-          }}
-        ></div>
+        {renderGraficas(dataGeneral)}
       </div>
 
-      {/* ==========================================
-          PÁGINA 2 – TABLA GENERAL
-      ========================================== */}
       <div className="page page-break">
         <Header data={totalesHeader} />
+        <TablePorEscuela
+          dataMapaZona={dataEscuelas}
+          dataZona={dataZonaPorEscuela}
+        />
+      </div>
+    </ReportLayout>,
+  );
+}
 
-        <div style={{ marginTop: "10mm" }}>
+export async function renderOpcionEduReport(
+  dataOpcion: any[],
+  dataEscuelas: any[],
+  dataZonaPorEscuela: any[],
+) {
+  const totalesHeader = calcularTotalesHeader(dataEscuelas);
+
+  return renderToStaticMarkup(
+    <ReportLayout>
+      {/* ===== PAGINA 1: GRÁFICAS ===== */}
+      <div className="page page-break">
+        <Header
+          title="Reporte de supervisión por opción educativa"
+          data={totalesHeader}
+          isOpEdu={true}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              width: "100%",
+            }}
+          >
+            <p>Estudiantes totales: 55,748</p>
+            <p>Estudiantes participantes: 47,811</p>
+            <p>Escuelas totales:759</p>
+            <p>Escuelas participantes: 671</p>
+          </div>
+          <p style={{ marginTop: "10px" }}>
+            <strong>Nota: </strong>El número de escuelas y de matrícula se
+            obtuvieron del sistema de Control Escolar, con corte al mes de
+            diciembre de 2025.
+          </p>
+        </Header>
+        {renderGraficas(dataOpcion)}
+      </div>
+
+      {/* ===== PAGINA 2: TABLA DE ESCUELAS ===== */}
+      <div className="page page-break">
+        <Header
+          title="Reporte por opción educativa"
+          data={totalesHeader}
+          viewText={false}
+          isOpEdu={true}
+        />
+        <div style={{ marginTop: "10mm", padding: "0 10mm" }}>
           <TablePorEscuela
             dataMapaZona={dataEscuelas}
             dataZona={dataZonaPorEscuela}
+            agruparPorSector={true}
           />
         </div>
       </div>
@@ -451,7 +369,7 @@ export async function renderReportGeneral(
 export async function renderMainView() {
   return renderToStaticMarkup(
     <ReportLayout>
-      <ReportQueryPanel></ReportQueryPanel>
+      <ReportQueryPanel />
     </ReportLayout>,
   );
 }

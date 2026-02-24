@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  generatedPdfOpcEdu,
   generatePdfSector,
   generatePdfZonaEscolar,
 } from "../reports/generatePdf";
@@ -8,6 +9,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
+// Funcion para la generacion de un reporte de un sector por medio de peticion http
 export async function reportSectorGenerate(req: Request, res: Response) {
   try {
     const { cct_sector } = req.params;
@@ -19,6 +21,7 @@ export async function reportSectorGenerate(req: Request, res: Response) {
       });
     }
 
+    // Obtener infomracion
     const respose = await fetch(
       `http://localhost:${PORT}/sector/${cct_sector}`,
     );
@@ -121,5 +124,60 @@ export async function serveMainView(req: Request, res: Response) {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error al renderizar la vista principal");
+  }
+}
+
+export async function renderGeneralReport(req: Request, res: Response) {
+  try {
+    const { cct_sector } = req.params;
+  } catch (error) {}
+}
+
+export async function renderOpcEdu(req: Request, res: Response) {
+  try {
+    const nivel = req.params.nivel;
+    const subnivel = req.params.subnivel;
+
+    if (!nivel || !subnivel) {
+      return res.status(400).json({
+        success: false,
+        message: "Es necesario elegir la opcion educativa y el nivel educativo",
+      });
+    }
+
+    const responseDataOpEdu = await fetch(
+      `http://localhost:${PORT}/opEdu/${nivel}/${subnivel}`,
+    );
+
+    const dataOpcEdu = await responseDataOpEdu.json();
+
+    const responseEscOpEdu = await fetch(
+      `http://localhost:${PORT}/opEdu/escuelas/${nivel}/${subnivel}`,
+      {
+        method: "GET",
+      },
+    );
+
+    const dataEscuelasOpcEdu = await responseEscOpEdu.json();
+
+    const pdf = await generatedPdfOpcEdu(
+      dataOpcEdu.data,
+      dataEscuelasOpcEdu.data,
+    );
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `inline; filename=reporte_sector_${nivel}_${subnivel}.pdf`,
+    );
+
+    res.end(pdf);
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Error al generar el reporte de sector",
+      error: error.message,
+    });
   }
 }

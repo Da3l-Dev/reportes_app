@@ -12,13 +12,11 @@ app.use("/css", express.static("src/reports/css"));
 app.use("/js", express.static("src/public/js"));
 app.use(zonaRouter);
 
-// 🔥 SOLUCIÓN 1: Convertir PORT a número explícitamente
 app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
   console.log(`🌐 Red local: http://${getLocalIP()}:${PORT}`);
 });
 
-// Función helper para obtener IP local
 function getLocalIP(): string {
   const { networkInterfaces } = require("os");
   const nets = networkInterfaces();

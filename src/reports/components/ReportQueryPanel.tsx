@@ -2,13 +2,10 @@ export default function ReportQueryPanel() {
   return (
     <>
       <div className="min-h-screen w-screen overflow-x-hidden relative flex items-center justify-center bg-gradient-to-br from-[#4b0f28] via-[#621333] to-[#8a1c3b]">
-        {/* Decoraciones de fondo */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3"></div>
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-black/20 rounded-full blur-3xl translate-x-1/4 translate-y-1/4"></div>
 
-        {/* Card Glass */}
         <div className="relative w-full max-w-7xl mx-6 backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-14 text-white">
-          {/* Loader Overlay */}
           <div
             id="loadingOverlay"
             className="hidden absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-3xl z-50"
@@ -21,7 +18,6 @@ export default function ReportQueryPanel() {
             </div>
           </div>
 
-          {/* Header */}
           <div className="text-center mb-14">
             <h1 className="text-5xl font-bold tracking-wide">
               Panel de Reportes
@@ -31,7 +27,6 @@ export default function ReportQueryPanel() {
             </p>
           </div>
 
-          {/* Formulario */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
             <div>
               <label className="block text-sm font-semibold mb-3">

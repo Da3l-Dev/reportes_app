@@ -51,9 +51,37 @@ class SectorController {
         });
       }
 
-      const escuelas = await prisma.mapa_base.findMany({
-        where: { cct_sector: ctt_sector.toString() },
-      });
+      const escuelas = await prisma.$queryRaw<
+        {
+          id: number;
+          cct_zona: string;
+          nombre_sup_zona: string | null;
+          nombre_sup_sector: string | null;
+        }[]
+      >`
+        SELECT 
+          mb.*,
+          sz.nombre_sup_zona,
+          ss.nombre_sup_sector
+
+        FROM mapa_base mb
+
+        LEFT JOIN (
+          SELECT DISTINCT ON (clavecct) *
+          FROM supervisores
+          ORDER BY clavecct
+        ) sz
+          ON mb.cct_zona = sz.clavecct
+
+        LEFT JOIN (
+          SELECT DISTINCT ON (jefatura) *
+          FROM supervisores
+          ORDER BY jefatura
+        ) ss
+          ON mb.cct_sector = ss.jefatura
+
+        WHERE mb.cct_sector = ${ctt_sector.toString()}
+        `;
 
       res.status(200).json({
         success: true,
@@ -61,11 +89,12 @@ class SectorController {
         count: escuelas.length,
         message: "Escuelas del sector obtenidas correctamente",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error al obtener las escuelas del sector:", error);
       res.status(500).json({
         success: false,
         message: "Error al obtener las escuelas del sector",
+        error: error.message,
       });
     }
   }
