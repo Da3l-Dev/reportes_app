@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import prisma from "../lib/prisma";
-import { count } from "node:console";
 class ZonaController {
   async getZonas(req: Request, res: Response) {
     try {
@@ -13,7 +12,7 @@ class ZonaController {
       }
 
       const zona = await prisma.analisis_zona.findMany({
-        where: { cct_zona: ctt_zona.toString(), tipo: "Total" },
+        where: { cct_zona: ctt_zona.toString() },
       });
       if (zona.length === 0) {
         return res.status(404).json({
@@ -87,8 +86,8 @@ class ZonaController {
 
   async getEscuelasPorZona(req: Request, res: Response) {
     try {
-      const cct = req.params.cct_escuela;
-      if (!cct) {
+      const llave_escuela = req.params.llave_escuela;
+      if (!llave_escuela) {
         return res.status(400).json({
           success: false,
           message: "El parámetro cct es obligatorio",
@@ -97,7 +96,7 @@ class ZonaController {
 
       const escuela = await prisma.analisis_cct_campo.findMany({
         where: {
-          cct: cct.toString(),
+          llave: llave_escuela.toString(),
         },
       });
       if (escuela.length === 0) {

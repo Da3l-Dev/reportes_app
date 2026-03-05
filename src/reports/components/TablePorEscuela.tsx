@@ -7,6 +7,7 @@ import React from "react";
 type NivelIntegracion = "AD" | "EPD" | "RA" | "SE";
 
 type Escuela = {
+  llave: string;
   cct: string;
   nombre: string;
   opcion_educativa: string;
@@ -23,6 +24,7 @@ type Escuela = {
 };
 
 type RegistroZona = {
+  llave: string;
   cct: string;
   grado: number;
   campo_formativo: string;
@@ -258,6 +260,7 @@ export function TablePorEscuela({
           <th
             key={c}
             style={{
+              alignItems: "center",
               width: "15%",
               padding: "10px 4px",
               backgroundColor: "#f3f3f3",
@@ -321,7 +324,7 @@ export function TablePorEscuela({
                       <strong>{sector.nombre}</strong>
                     </div>
                     <div>
-                      SUPERVISOR DE SECTOR:{" "}
+                      JEFE DE SECTOR:{" "}
                       <strong>{sector.nombre_sup || "NO ASIGNADO"}</strong>
                     </div>
                   </div>
@@ -366,7 +369,7 @@ export function TablePorEscuela({
                         </div>
 
                         <div>
-                          JEFE DE ZONA:{" "}
+                          SUPERVISOR:{" "}
                           <strong>{zona.nombre_sup || "NO ASIGNADO"}</strong>
                         </div>
                       </div>
@@ -501,7 +504,7 @@ export function TablePorEscuela({
 
 // Función auxiliar para renderizar una escuela
 function renderEscuela(escuela: Escuela, dataZona: RegistroZona[]) {
-  const registrosEscuela = dataZona.filter((r) => r.cct === escuela.cct);
+  const registrosEscuela = dataZona.filter((r) => r.llave === escuela.llave);
   const sinDatos = registrosEscuela.length === 0;
   const grados = getGradosPorOpcion(escuela.opcion_educativa);
   const tipoEscuela = getTipoEscuela(escuela.opcion_educativa);
@@ -617,7 +620,7 @@ function renderEscuela(escuela: Escuela, dataZona: RegistroZona[]) {
                   backgroundColor: colorEscuela,
                 }}
               >
-                —
+                N/A
               </td>
             );
           }
@@ -635,7 +638,7 @@ function renderEscuela(escuela: Escuela, dataZona: RegistroZona[]) {
                   backgroundColor: colorEscuela,
                 }}
               >
-                —
+                N/A
               </td>
             );
           }

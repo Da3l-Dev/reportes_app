@@ -9,28 +9,18 @@ type Segment = {
 type BarChartSmallProps = {
   labels: string[];
   segments: Segment[];
+  width?: number;
+  height?: number;
 };
 
-/**
- * Gráfica compacta optimizada para PDF
- * - Alta resolución real (DPR)
- * - Etiquetas de porcentaje dentro de barras
- * - Texto nítido en impresión
- * - Porcentajes cortados a 1 decimal (NO redondeo)
- */
 export default function BarChartSmall({
   labels,
   segments,
+  width = 450,
+  height = 260,
 }: BarChartSmallProps) {
   chartCounter += 1;
   const chartId = `chart-${chartCounter}`;
-
-  /* =========================
-     TAMAÑO VISUAL
-  ========================= */
-
-  const WIDTH = 420;
-  const HEIGHT = 260;
 
   /* =========================
      RESOLUCIÓN REAL
@@ -42,11 +32,11 @@ export default function BarChartSmall({
     <>
       <canvas
         id={chartId}
-        width={WIDTH * DPR}
-        height={HEIGHT * DPR}
+        width={width * DPR}
+        height={height * DPR}
         style={{
-          width: `${WIDTH}px`,
-          height: `${HEIGHT}px`,
+          width: `${width}px`,
+          height: `${height}px`,
         }}
       />
 
@@ -61,8 +51,13 @@ export default function BarChartSmall({
 
   const ctx = canvas.getContext("2d");
 
+  // Pasar las dimensiones al script
+  const chartWidth = ${width};
+  const chartHeight = ${height};
+  const DPR = ${DPR};
+
   // 🔥 Escala real de alta densidad
-  ctx.scale(${DPR}, ${DPR});
+  ctx.scale(DPR, DPR);
   ctx.imageSmoothingEnabled = false;
 
   // =========================
@@ -83,7 +78,10 @@ export default function BarChartSmall({
       ctx.save();
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.font = "bold " + (8 * ${DPR}) + "px Arial";
+      
+      // Ajustar tamaño de fuente basado en la altura
+      const fontSize = Math.max(7, Math.min(10, Math.floor(chartHeight / 25)));
+      ctx.font = "bold " + (fontSize * DPR) + "px Arial";
 
       chart.data.datasets.forEach((dataset, datasetIndex) => {
         const meta = chart.getDatasetMeta(datasetIndex);
@@ -134,11 +132,11 @@ export default function BarChartSmall({
         legend: {
           position: "bottom",
           labels: {
-            boxWidth: 100,
-            boxHeight: 100,
+            boxWidth: Math.max(60, Math.min(100, Math.floor(chartWidth / 8))),
+            boxHeight: Math.max(60, Math.min(100, Math.floor(chartWidth / 8))),
             color: "#111827",
             font: {
-              size: 10 * ${DPR},
+              size: Math.max(8, Math.min(12, Math.floor(chartHeight / 25))) * DPR,
               weight: "600"
             }
           }
@@ -159,7 +157,7 @@ export default function BarChartSmall({
           ticks: {
             color: "#111827",
             font: {
-              size: 8.5 * ${DPR},
+              size: Math.max(7, Math.min(10, Math.floor(chartHeight / 30))) * DPR,
               weight: "600"
             }
           }
@@ -179,7 +177,7 @@ export default function BarChartSmall({
               return cutOneDecimal(value) + "%";
             },
             font: {
-              size: 8.5 * ${DPR},
+              size: Math.max(7, Math.min(10, Math.floor(chartHeight / 30))) * DPR,
               weight: "600"
             }
           }

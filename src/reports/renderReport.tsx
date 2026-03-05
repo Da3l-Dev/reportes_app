@@ -5,6 +5,7 @@ import BarChartSmall from "./components/BarChartSmall";
 import Header from "./components/Header";
 import { TablePorEscuela } from "./components/TablePorEscuela";
 import ReportQueryPanel from "./components/ReportQueryPanel";
+import { TablaRequiereAtencion } from "./components/TablaRequiereAtencion";
 
 /* =========================
    TIPOS
@@ -95,7 +96,7 @@ function buildSegments(valuesBuilder: (nivel: NivelIntegracion) => number[]) {
 function getPorcentajeValue(registro: any): number {
   if (!registro) return 0;
 
-  // Caso zona / sector
+  // Caso zona / sector (viene de /zona/escuela/{cct})
   if (registro.porcentaje_estudiantes != null) {
     return Number(registro.porcentaje_estudiantes) || 0;
   }
@@ -109,10 +110,63 @@ function getPorcentajeValue(registro: any): number {
 }
 
 /* =========================
+   FUNCIÓN PARA TRANSFORMAR DATOS DE SECTOR
+========================= */
+
+function transformarDatosSector(dataSector: any[]): any[] {
+  if (!dataSector || dataSector.length === 0) return [];
+
+  // Si los datos ya tienen la estructura correcta, devolverlos
+  if (dataSector[0]?.campo_formativo) {
+    return dataSector;
+  }
+
+  const datosTransformados: any[] = [];
+
+  dataSector.forEach((item: any) => {
+    if (item.campo_formativo && item.grado && item.nivel_integracion) {
+      datosTransformados.push({
+        campo_formativo: item.campo_formativo,
+        grado: item.grado,
+        nivel_integracion: item.nivel_integracion,
+        porcentaje: item.porcentaje || item.porcentaje_estudiantes || "0",
+        estudiantes_participantes: item.estudiantes_participantes || 0,
+        matricula: item.matricula || 0,
+      });
+    }
+    // Si es un resumen por grado (como en el ejemplo que mostraste antes)
+    else if (item.grado && item.campos) {
+      // Expandir los campos por grado
+      Object.entries(item.campos || {}).forEach(
+        ([campo, valores]: [string, any]) => {
+          if (campo && valores) {
+            datosTransformados.push({
+              campo_formativo: campo,
+              grado: item.grado,
+              nivel_integracion: valores.nivel || "SE",
+              porcentaje: valores.porcentaje || "0",
+              estudiantes_participantes: item.estudiantes_participantes || 0,
+              matricula: item.matricula || 0,
+            });
+          }
+        },
+      );
+    }
+  });
+
+  return datosTransformados;
+}
+
+/* =========================
    BUILDERS
 ========================= */
 
 function buildSegmentsResumen(data: any[]) {
+  // Si no hay datos, retornar segments vacíos
+  if (!data || data.length === 0) {
+    return buildSegments((nivel) => CAMPOS_FORMATIVOS.map(() => 0));
+  }
+
   return buildSegments((nivel) =>
     CAMPOS_FORMATIVOS.map((campo) => {
       const registro = data.find((r) => {
@@ -157,10 +211,15 @@ function buildSegmentsPorCampo(data: any[], campo: string) {
    BLOQUE UNIVERSAL GRÁFICAS
 ========================= */
 
-function renderGraficas(data: any[]) {
-  const preescolar = esPreescolar(data);
+function renderGraficas(
+  data: any[],
+  widthGrafica?: Number,
+  heightGrafica?: Number,
+) {
+  const datosParaGraficas = transformarDatosSector(data);
+  const preescolar = esPreescolar(datosParaGraficas);
 
-  if (preescolar) {
+  if (preescolar || datosParaGraficas.length === 0) {
     return (
       <div
         style={{
@@ -168,12 +227,12 @@ function renderGraficas(data: any[]) {
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
-          height: "80%",
+          paddingTop: "7mm",
         }}
       >
         <BarChart
           labels={[...CAMPOS_FORMATIVOS]}
-          segments={[...buildSegmentsResumen(data)].reverse()}
+          segments={[...buildSegmentsResumen(datosParaGraficas)].reverse()}
         />
       </div>
     );
@@ -184,11 +243,16 @@ function renderGraficas(data: any[]) {
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
-        gap: "10mm",
+        gap: "5mm",
+        width: "100%",
+        overflow: "hidden",
       }}
     >
       {CAMPOS_FORMATIVOS.map((campo) => {
-        const { grados, segments } = buildSegmentsPorCampo(data, campo);
+        const { grados, segments } = buildSegmentsPorCampo(
+          datosParaGraficas,
+          campo,
+        );
 
         return (
           <div
@@ -197,11 +261,38 @@ function renderGraficas(data: any[]) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              minHeight: 0,
+              overflow: "hidden",
             }}
           >
-            <h4 style={{ fontSize: "11px", textAlign: "center" }}>{campo}</h4>
-
-            <BarChartSmall labels={grados} segments={[...segments].reverse()} />
+            <h4
+              style={{
+                fontSize: "12px",
+                textAlign: "center",
+                fontWeight: 600,
+                color: "#000000",
+                margin: "5px 0",
+              }}
+            >
+              {campo}
+            </h4>
+            <div
+              style={{
+                flex: 1,
+                width: "100%",
+                minHeight: 0,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <BarChartSmall
+                labels={grados}
+                segments={[...segments].reverse()}
+                {...(widthGrafica && { width: Number(widthGrafica) })}
+                {...(heightGrafica && { height: Number(heightGrafica) })}
+              />
+            </div>
           </div>
         );
       })}
@@ -313,16 +404,27 @@ export async function renderOpcionEduReport(
   dataOpcion: any[],
   dataEscuelas: any[],
   dataZonaPorEscuela: any[],
+  totalesOpEdu: any,
 ) {
-  const totalesHeader = calcularTotalesHeader(dataEscuelas);
+  // Calcular total de escuelas existentes
+  const totalEscuelasExistentes = dataEscuelas.length;
+
+  // Calcular escuelas participantes (escuelas que tienen registros)
+  const escuelasParticipantesSet = new Set(
+    dataZonaPorEscuela.map((item) => item.cct_registro || item.cct_escuela),
+  );
+  const totalEscuelasParticipantes = escuelasParticipantesSet.size;
+
+  // Formatear números con comas
+  const formatearNumero = (num: number) => num.toLocaleString("es-MX");
 
   return renderToStaticMarkup(
     <ReportLayout>
       {/* ===== PAGINA 1: GRÁFICAS ===== */}
       <div className="page page-break">
         <Header
-          title="Reporte de supervisión por opción educativa"
-          data={totalesHeader}
+          title={`REPORTE DE SUPERVISION ${dataEscuelas[0].nivel} ${dataEscuelas[0].subnivel}`}
+          data={[]}
           isOpEdu={true}
         >
           <div
@@ -330,18 +432,19 @@ export async function renderOpcionEduReport(
               display: "flex",
               justifyContent: "space-around",
               width: "100%",
+              flexWrap: "wrap",
+              gap: "10px",
             }}
           >
-            <p>Estudiantes totales: 55,748</p>
-            <p>Estudiantes participantes: 47,811</p>
-            <p>Escuelas totales:759</p>
-            <p>Escuelas participantes: 671</p>
+            <p>
+              Matricula Total: {formatearNumero(totalesOpEdu?.total_alumnos)}
+            </p>
+            <p>Escuelas totales: {formatearNumero(totalEscuelasExistentes)}</p>
+            <p>
+              Escuelas participantes:{" "}
+              {formatearNumero(totalEscuelasParticipantes)}
+            </p>
           </div>
-          <p style={{ marginTop: "10px" }}>
-            <strong>Nota: </strong>El número de escuelas y de matrícula se
-            obtuvieron del sistema de Control Escolar, con corte al mes de
-            diciembre de 2025.
-          </p>
         </Header>
         {renderGraficas(dataOpcion)}
       </div>
@@ -350,7 +453,7 @@ export async function renderOpcionEduReport(
       <div className="page page-break">
         <Header
           title="Reporte por opción educativa"
-          data={totalesHeader}
+          data={[]}
           viewText={false}
           isOpEdu={true}
         />
@@ -364,6 +467,331 @@ export async function renderOpcionEduReport(
       </div>
     </ReportLayout>,
   );
+}
+
+export async function renderEscuela(
+  dataNiEscuela: any[],
+  dataGeneralEscuela: any[],
+  dataZona: any[],
+) {
+  // Calcular cuántas páginas necesitamos para la tabla
+  const MAX_ROWS_PER_PAGE = 15;
+  const tablaData = procesarDatosTabla(dataNiEscuela, 30);
+
+  // PRIMERA PÁGINA - SIEMPRE SE DIBUJA (GRÁFICAS DE ESCUELA)
+  const primeraPagina = (
+    <div
+      key="primera-pagina"
+      className="page page-break"
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <Header
+        data={[]}
+        isOpEdu={true}
+        title={` REPORTE ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+      >
+        <h4>{dataGeneralEscuela[0].nombre}</h4>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%",
+          }}
+        >
+          <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
+          <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
+          <p>MATRICULA TOTAL: {dataGeneralEscuela[0].matricula}</p>
+          <p>
+            MATRICULA PARTICIPANTE:{" "}
+            {dataGeneralEscuela[0].estudiantes_participantes}
+          </p>
+        </div>
+      </Header>
+      {renderGraficas(dataNiEscuela)}
+    </div>
+  );
+
+  if (tablaData.length === 0) {
+    // Si no hay datos, mostramos primera página + página de zona
+    return renderToStaticMarkup(
+      <ReportLayout>
+        {primeraPagina}
+        <div
+          className="page"
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+          }}
+        >
+          <Header
+            data={[]}
+            isOpEdu={true}
+            title={` REPORTE ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+          >
+            <h4>{dataGeneralEscuela[0].nombre}</h4>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                width: "100%",
+              }}
+            >
+              <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
+              <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
+              <p>MATRICULA TOTAL: {dataGeneralEscuela[0].matricula}</p>
+              <p>
+                MATRICULA PARTICIPANTE:{" "}
+                {dataGeneralEscuela[0].estudiantes_participantes}
+              </p>
+            </div>
+          </Header>
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              flex: 1,
+              minHeight: 0,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                gridColumn: "1 / 2",
+              }}
+            >
+              <p
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  margin: "0 0 5mm 0",
+                  fontSize: "12px",
+                }}
+              >
+                Nivel de integración a nivel zona
+              </p>
+              <div
+                style={{
+                  padding: "0",
+                }}
+              >
+                {dataZona[0] ? (
+                  renderGraficas(dataZona[0], 290, 250)
+                ) : (
+                  <p style={{ textAlign: "center", color: "#999" }}>
+                    Sin datos
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                minHeight: 0,
+                overflow: "hidden",
+              }}
+            >
+              <TablaRequiereAtencion data={dataNiEscuela} umbral={30} />
+            </div>
+          </div>
+        </div>
+      </ReportLayout>,
+    );
+  }
+
+  // Si hay muchas filas, generamos páginas adicionales
+  const totalPages = Math.ceil(tablaData.length / MAX_ROWS_PER_PAGE);
+
+  // Crear un array con todas las páginas de tabla
+  const pages = [];
+
+  for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+    const start = pageIndex * MAX_ROWS_PER_PAGE;
+    const end = start + MAX_ROWS_PER_PAGE;
+    const pageData = filterDataByRange(dataNiEscuela, start, end, 30);
+
+    pages.push(
+      <div
+        key={`tabla-page-${pageIndex}`}
+        className={`page ${pageIndex < totalPages - 1 ? "page-break" : ""}`}
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          marginTop: "100px",
+        }}
+      >
+        <Header
+          data={[]}
+          isOpEdu={true}
+          title={` REPORTE ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+        >
+          <h4>{dataGeneralEscuela[0].nombre}</h4>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              width: "100%",
+            }}
+          >
+            <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
+            <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
+            <p>MATRICULA TOTAL: {dataGeneralEscuela[0].matricula}</p>
+            <p>
+              MATRICULA PARTICIPANTE:{" "}
+              {dataGeneralEscuela[0].estudiantes_participantes}
+            </p>
+          </div>
+          {pageIndex > 0 && (
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "12px",
+                color: "#666",
+                marginTop: "5px",
+              }}
+            >
+              Continuación de tabla de áreas que requieren atención (Página{" "}
+              {pageIndex + 1}/{totalPages})
+            </p>
+          )}
+        </Header>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: pageIndex === 0 ? "1fr 1fr" : "1fr",
+            flex: 1,
+            minHeight: 0,
+            gap: "20px",
+          }}
+        >
+          {pageIndex === 0 && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                gridColumn: "1 / 2",
+              }}
+            >
+              <p
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  margin: "0 0 5mm 0",
+                  fontSize: "12px",
+                }}
+              >
+                Nivel de integración a nivel zona
+              </p>
+              <div
+                style={{
+                  padding: "0",
+                }}
+              >
+                {dataZona[0] ? (
+                  renderGraficas(dataZona[0], 290, 250)
+                ) : (
+                  <p style={{ textAlign: "center", color: "#999" }}>
+                    Sin datos
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+              overflow: "hidden",
+              gridColumn: pageIndex === 0 ? "2 / 3" : "1 / 2",
+            }}
+          >
+            <TablaRequiereAtencion
+              data={pageData}
+              umbral={30}
+              showHeader={true}
+              pageInfo={{
+                current: pageIndex + 1,
+                total: totalPages,
+                totalAreas: tablaData.length,
+              }}
+            />
+          </div>
+        </div>
+      </div>,
+    );
+  }
+
+  return renderToStaticMarkup(
+    <ReportLayout>
+      {primeraPagina}
+      {pages}
+    </ReportLayout>,
+  );
+}
+// Función auxiliar para procesar los datos de la tabla
+function procesarDatosTabla(data: any[], umbral: number) {
+  const mapa = new Map();
+
+  data.forEach((item) => {
+    if (item.nivel_integracion === "RA" || item.nivel_integracion === "SE") {
+      const key = `${item.grado}-${item.campo_formativo}`;
+
+      if (!mapa.has(key)) {
+        mapa.set(key, {
+          grado: item.grado,
+          campo_formativo: item.campo_formativo,
+          valores: { AD: 0, EPD: 0, RA: 0, SE: 0 },
+          total_alumnos: item.total_cct_grado,
+        });
+      }
+
+      const row = mapa.get(key);
+      row.valores[item.nivel_integracion] = parseFloat(item.porcentaje) || 0;
+    }
+  });
+
+  return Array.from(mapa.values())
+    .filter((row) => row.valores.RA >= umbral || row.valores.SE >= umbral)
+    .sort((a, b) => {
+      if (a.grado !== b.grado) return a.grado - b.grado;
+      return a.campo_formativo.localeCompare(b.campo_formativo);
+    });
+}
+
+// Función auxiliar para filtrar datos por rango
+function filterDataByRange(
+  data: any[],
+  start: number,
+  end: number,
+  umbral: number = 30,
+) {
+  const processedData = procesarDatosTabla(data, umbral);
+  const keysInRange = processedData
+    .slice(start, end)
+    .map((row) => `${row.grado}-${row.campo_formativo}`);
+
+  return data.filter((item) => {
+    if (item.nivel_integracion !== "RA" && item.nivel_integracion !== "SE")
+      return false;
+    const key = `${item.grado}-${item.campo_formativo}`;
+    return keysInRange.includes(key);
+  });
 }
 
 export async function renderMainView() {

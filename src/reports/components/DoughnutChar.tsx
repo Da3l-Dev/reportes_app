@@ -3,24 +3,22 @@ let chartCounter = 0;
 type Segment = {
   label: string;
   color: string;
-  values: number[];
+  values: number[]; // Un valor por campo formativo
 };
 
-type BarChartProps = {
-  labels: string[];
-  segments: Segment[];
+type DoughnutChartProps = {
+  labels: string[]; // Los niveles (AD, EPD, RA, SE)
+  segments: Segment[]; // Un segmento por campo formativo
 };
 
-export function BarChart({ labels, segments }: BarChartProps) {
+export function DoughnutChart({ labels, segments }: DoughnutChartProps) {
   chartCounter += 1;
-  const chartId = `chart-${chartCounter}`;
+  const chartId = `doughnut-${chartCounter}`;
 
   const DPR = 4; // 🔥 alta calidad para PDF
 
   return (
     <>
-      {/* contenedor manda */}
-
       <canvas id={chartId} />
 
       <script
@@ -39,7 +37,7 @@ export function BarChart({ labels, segments }: BarChartProps) {
   // TAMAÑO REAL DEL CONTENEDOR
   // =========================
   const width = container.clientWidth;
-  const height = Math.min(width,600); // 👈 evita que se pase en horizontal
+  const height = Math.min(width, 420);
 
   // =========================
   // CANVAS HD
@@ -55,38 +53,53 @@ export function BarChart({ labels, segments }: BarChartProps) {
   ctx.imageSmoothingEnabled = false;
 
   // =========================
-  // FUNCIÓN: CORTAR A 1 DECIMAL (SIN REDONDEAR)
+  // FUNCIÓN: CORTAR A 1 DECIMAL
   // =========================
   function cutOneDecimal(value) {
     return (Math.floor(Number(value) * 10) / 10).toFixed(1);
   }
 
   // =========================
-  // PLUGIN ETIQUETAS %
+  // PLUGIN ETIQUETAS PARA MÚLTIPLES DATASETS
   // =========================
   const percentageLabelPlugin = {
     id: "percentageLabelPlugin",
     afterDatasetsDraw(chart) {
       const { ctx } = chart;
       ctx.save();
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.font = "bold " + (9 * ${DPR}) + "px Arial";
-
+      
       chart.data.datasets.forEach((dataset, datasetIndex) => {
         const meta = chart.getDatasetMeta(datasetIndex);
+        
+        if (!meta.data || !dataset.data) return;
 
-        meta.data.forEach((bar, i) => {
-          const value = dataset.data[i];
+        const total = dataset.data.reduce((a, b) => a + b, 0);
+        
+        meta.data.forEach((element, index) => {
+          const value = dataset.data[index];
           if (!value || value <= 0) return;
 
-          // contraste automático profesional
-          ctx.fillStyle = bar.height > 20 ? "#000000" : "#111827";
+          const percentage = (value / total) * 100;
+          if (percentage < 5) return;
 
+          // Posición para la etiqueta
+          const model = element;
+          const angle = (model.startAngle + model.endAngle) / 2;
+          const radius = (model.outerRadius - model.innerRadius) * 0.7 + model.innerRadius;
+          
+          const x = model.x + Math.cos(angle) * radius;
+          const y = model.y + Math.sin(angle) * radius;
+
+          ctx.fillStyle = "#ffffff";
+          ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+          ctx.shadowBlur = 4;
+          ctx.shadowOffsetX = 1;
+          ctx.shadowOffsetY = 1;
+          
           ctx.fillText(
-            cutOneDecimal(value) + "%",
-            bar.x,
-            bar.y + bar.height / 2
+            cutOneDecimal(percentage) + "%",
+            x,
+            y
           );
         });
       });
@@ -96,19 +109,20 @@ export function BarChart({ labels, segments }: BarChartProps) {
   };
 
   // =========================
-  // CHART
+  // CHART CON MÚLTIPLES DATASETS
   // =========================
   new Chart(ctx, {
-    type: "bar",
+    type: "doughnut",
     data: {
-      labels: ${JSON.stringify(labels)},
+      labels: ${JSON.stringify(labels)}, // Niveles: ["AD", "EPD", "RA", "SE"]
       datasets: ${JSON.stringify(
-        segments.map((s) => ({
-          label: s.label,
-          data: s.values,
-          backgroundColor: s.color,
+        segments.map((s, index) => ({
+          label: s.label, // Nombre del campo formativo
+          data: s.values, // Array de 4 valores (uno por nivel)
+          backgroundColor: s.color, // Color único para este dataset
+          borderColor: "white",
+          borderWidth: 2,
           borderRadius: 6,
-          borderSkipped: false,
         })),
       )}
     },
@@ -116,6 +130,7 @@ export function BarChart({ labels, segments }: BarChartProps) {
       responsive: false,
       animation: false,
       maintainAspectRatio: false,
+      cutout: "60%",
       plugins: {
         legend: {
           position: "bottom",
@@ -123,39 +138,19 @@ export function BarChart({ labels, segments }: BarChartProps) {
             font: {
               size: 11 * ${DPR},
               weight: "600",
-            }
+            },
+            padding: 20,
           }
         },
         tooltip: {
           enabled: true,
           callbacks: {
             label: function(ctx) {
-              return ctx.dataset.label + ": " + cutOneDecimal(ctx.raw) + "%";
+              const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+              const percentage = (ctx.raw / total) * 100;
+              return ctx.dataset.label + " - " + ctx.label + ": " + 
+                     cutOneDecimal(ctx.raw) + " (" + cutOneDecimal(percentage) + "%)";
             }
-          }
-        }
-      },
-      scales: {
-        x: {
-          stacked: true,
-          grid: { display: false },
-          ticks: {
-            font: {
-              size: 12 * ${DPR},
-              weight: "600",
-            },
-            padding: 20,
-          }
-        },
-        y: {
-          stacked: true,
-          beginAtZero: true,
-          max: 100,
-          ticks: {
-            callback: function(value) {
-              return cutOneDecimal(value) + "%";
-            },
-            font: { size: 10 * ${DPR} }
           }
         }
       }

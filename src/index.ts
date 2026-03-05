@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-import zonaRouter from "./routes/routes";
+import router from "./routes/routes";
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use("/css", express.static("src/reports/css"));
 app.use("/js", express.static("src/public/js"));
-app.use(zonaRouter);
+app.use(router);
 
 app.listen(Number(PORT), "0.0.0.0", () => {
   console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);

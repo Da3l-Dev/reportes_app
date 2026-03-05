@@ -188,6 +188,7 @@ model analisis_zona {
 model analisis_cct_campo {
   id                Int      @id @default(autoincrement())
   cct               String?  @db.VarChar(50)
+  llave             String?  @db.VarChar(20)
   cct_sector        String?  @db.VarChar(50)
   cct_zona          String?  @db.VarChar(50)
   turno             String?  @db.VarChar(50)
@@ -229,4 +230,11 @@ model supervisores {
   nombre_sup_zona   String? @db.VarChar(50)
   jefatura          String? @db.VarChar(50)
   nombre_sup_sector String? @db.VarChar(50)
+}
+
+model totales_opedu {
+  id               Int     @id @default(autoincrement())
+  opcion_educativa String? @db.VarChar(50)
+  total_escuelas   Int?
+  total_alumnos    Int?
 }

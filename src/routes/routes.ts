@@ -2,42 +2,54 @@ import { Router } from "express";
 import ZonaController from "../controllers/zonaController";
 import {
   renderOpcEdu,
+  reportEscuelas,
   reportSectorGenerate,
   reportZonaGenerate,
   serveMainView,
+  viewOpcEduHtml,
 } from "../controllers/pdfController";
 import sectorController from "../controllers/sectorController";
 import escuelasController from "../controllers/escuelasController";
-const zonaRouter = Router();
+import itemsController from "../controllers/itemsController";
+const router = Router();
 // Rutas para datos de la zona
-zonaRouter.get("/", serveMainView);
-zonaRouter.get("/zona/:ctt_zona", ZonaController.getZonas);
-zonaRouter.get("/pdf/zona/:cct_zona", reportZonaGenerate);
-zonaRouter.get("/zona/data/:ctt_zona", ZonaController.getDataZonas);
-zonaRouter.get("/zona/escuela/:cct_escuela", ZonaController.getEscuelasPorZona);
-zonaRouter.get(
+router.get("/", serveMainView);
+router.get("/zona/:ctt_zona", ZonaController.getZonas);
+router.get("/pdf/zona/:cct_zona", reportZonaGenerate);
+router.get("/zona/data/:ctt_zona", ZonaController.getDataZonas);
+router.get("/zona/escuela/:llave_escuela", ZonaController.getEscuelasPorZona);
+router.get(
   "/zona/supervisor/:cct_zona/:nivel_educativo",
   ZonaController.getSupervisorZona,
 );
 
 // Rutas para sector
-zonaRouter.get("/sector/:cct_sector", sectorController.getDataSector);
-zonaRouter.get(
-  "/sector/escuelas/:cct_sector",
-  sectorController.getEcuelasSector,
-);
-zonaRouter.get("/pdf/sector/:cct_sector", reportSectorGenerate);
-zonaRouter.get(
+router.get("/sector/:cct_sector", sectorController.getDataSector);
+router.get("/sector/escuelas/:cct_sector", sectorController.getEcuelasSector);
+router.get("/pdf/sector/:cct_sector", reportSectorGenerate);
+router.get(
   "/sector/supervisor/:cct_sector",
   sectorController.getSupervisorSector,
 );
 
 // Rutas para opciones educativas
-zonaRouter.get("/opEdu/:nivel/:subnivel", escuelasController.getEscuelasData);
-zonaRouter.get(
+router.get("/opEdu/:nivel/:subnivel", escuelasController.getOpcionEduData);
+router.get(
   "/opEdu/escuelas/:nivel/:subnivel",
   escuelasController.getEscuelasOpcionEducativa,
 );
+router.get(`/opEdu/pdf/:nivel/:subnivel`, renderOpcEdu);
+router.get("/preview/opEdu/:nivel/:subnivel", viewOpcEduHtml);
+router.get("/opEdu/total/:nivel/:subnivel", escuelasController.getTotalOpedu);
 
-zonaRouter.get(`/opEdu/pdf/:nivel/:subnivel`, renderOpcEdu);
-export default zonaRouter;
+// Rutas de escuelas
+router.get("/escuela/:llave_escuela", escuelasController.getNiEscuelaData);
+router.get(
+  "/escuela/data/:llave_escuela",
+  escuelasController.getGeneralEscuelaData,
+);
+router.get("/pdf/escuela/:llave_escuela", reportEscuelas);
+
+// Rutas de items
+router.get("/item/escuela/:llave_escuela", itemsController.getItemEscuela);
+export default router;
