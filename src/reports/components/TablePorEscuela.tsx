@@ -360,12 +360,12 @@ export function TablePorEscuela({
                         }}
                       >
                         <div>
-                          <strong>{zona.nombre}</strong>
+                          NO. ZONA:{" "}
+                          <strong>{zona.numero ?? "Sin número"}</strong>
                         </div>
 
                         <div>
-                          NO. ZONA:{" "}
-                          <strong>{zona.numero ?? "Sin número"}</strong>
+                          <strong>{zona.nombre}</strong>
                         </div>
 
                         <div>
@@ -620,7 +620,7 @@ function renderEscuela(escuela: Escuela, dataZona: RegistroZona[]) {
                   backgroundColor: colorEscuela,
                 }}
               >
-                N/A
+                N/D
               </td>
             );
           }
@@ -638,7 +638,7 @@ function renderEscuela(escuela: Escuela, dataZona: RegistroZona[]) {
                   backgroundColor: colorEscuela,
                 }}
               >
-                N/A
+                N/D
               </td>
             );
           }

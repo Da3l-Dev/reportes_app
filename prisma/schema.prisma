@@ -233,8 +233,9 @@ model supervisores {
 }
 
 model totales_opedu {
-  id               Int     @id @default(autoincrement())
-  opcion_educativa String? @db.VarChar(50)
-  total_escuelas   Int?
-  total_alumnos    Int?
+  id                           Int     @id @default(autoincrement())
+  opcion_educativa             String? @db.VarChar(50)
+  total_escuelas_participantes Int?
+  total_alumnos                Int?
+  total_escuela_absoluto       Int?
 }

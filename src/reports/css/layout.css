@@ -101,6 +101,7 @@ th {
 .content_logos {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 2mm;
 }
 
@@ -129,5 +130,15 @@ h3 {
 
 /* Bloques de sección */
 .section {
-  break-inside: avoid; /* evita cortar secciones */
+  break-inside: avoid;
+}
+
+.title_pdf {
+  font-size: 20px;
+  font-weight: 600;
+  color: #4a4a4a;
+}
+
+.notes {
+  padding: 10px;
 }

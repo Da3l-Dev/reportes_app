@@ -40,12 +40,11 @@ export default function Header({
           className="image_logo"
           src={`data:image/png;base64,${logoSephBase64}`}
           alt="Logo SEPH"
+          style={{ height: "80px", width: "auto" }}
         />
-        <img
-          className="image_logo"
-          src={`data:image/png;base64,${logoIheBase64}`}
-          alt="Logo IHE"
-        />
+        <h1 className="title_pdf">
+          EJERCICIOS INTEGRADORES DEL APRENDIZAJE 25-26
+        </h1>
       </div>
 
       <h3>{title || "Reporte"}</h3>
@@ -58,8 +57,8 @@ export default function Header({
         </h4>
       ) : (
         <h4>
-          {data?.opcion_educativa || ""} (CCT:{" "}
-          {isZona ? data?.cct_zona || "" : data?.cct_sector || ""})
+          {data?.opcion_educativa || ""} CCT:{" "}
+          {isZona ? data?.cct_zona || "" : data?.cct_sector || ""}
         </h4>
       )}
 
@@ -70,7 +69,7 @@ export default function Header({
         /* Para zona/sector: mostramos los datos normales */
         <>
           <div className="content_data_text">
-            {data?.nombre_sup_zona && (
+            {data?.nombre_sup_zona && isZona && (
               <p>JEFE DE ZONA: {data.nombre_sup_zona}</p>
             )}
             {data?.nombre_sup_sector && (

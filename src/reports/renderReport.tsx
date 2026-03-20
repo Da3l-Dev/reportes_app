@@ -318,16 +318,28 @@ export function renderReportZona(
   return renderToStaticMarkup(
     <ReportLayout>
       <div className="page page-break">
-        <Header title="Reporte de supervisión por zona" data={totalesHeader} />
+        <Header title="Reporte de Resultados" data={totalesHeader} />
         {renderGraficas(dataZona)}
+
+        <p className="notes">
+          <strong>Nota:</strong> Las presentes gráficas ilustran el universo
+          total de estudiantes pertenecientes la zona {dataZona[0].cct_zona} así
+          como la distribución porcentual de los mismos según sus niveles de
+          integración académica.
+        </p>
       </div>
 
       <div className="page table_page">
         <Header
-          title="Reporte de supervisión por zona"
+          title="Reporte de Resultados"
           data={totalesHeader}
           viewText={false}
         />
+        <p className="notes">
+          <strong>Nota:</strong> Los resultados que se presentan a continuación
+          están organizados por escuela, y destacan el porcentaje más alto de
+          nivel de integración alcanzado en cada grado y campo formativo.
+        </p>
         <div style={{ padding: "5mm 10mm" }}>
           <TablePorEscuela
             dataMapaZona={dataMapaZona}
@@ -350,19 +362,32 @@ export function renderReportSector(
     <ReportLayout>
       <div className="page page-break">
         <Header
-          title="Reporte de supervisión por sector"
+          title="Reporte de Resultados"
           data={totalesHeader}
+          isZona={false}
         />
         {renderGraficas(dataSector)}
+        <p className="notes">
+          <strong>Nota:</strong> Las presentes gráficas ilustran el universo
+          total de estudiantes pertenecientes al sector{" "}
+          <strong>{dataSector[0].cct_sector}</strong> así como la distribución
+          porcentual de los mismos según sus niveles de integración académica.
+        </p>
       </div>
 
       <div className="page page-break">
         <Header
-          title="Reporte de supervisión por sector"
+          title="Reporte de Resultados"
           data={totalesHeader}
           viewText={false}
           isZona={false}
         />
+        <p className="notes">
+          <strong>Nota:</strong> Los resultados que se presentan a continuación
+          están organizados por zona y escuela, y destacan el porcentaje más
+          alto de nivel de integración alcanzado en cada grado y campo
+          formativo.
+        </p>
         <div style={{ marginTop: "10mm" }}>
           <TablePorEscuela
             dataMapaZona={dataEscuelas}
@@ -423,7 +448,7 @@ export async function renderOpcionEduReport(
       {/* ===== PAGINA 1: GRÁFICAS ===== */}
       <div className="page page-break">
         <Header
-          title={`REPORTE DE SUPERVISION ${dataEscuelas[0].nivel} ${dataEscuelas[0].subnivel}`}
+          title={`REPORTE DE RESULTADOS ${dataEscuelas[0].nivel} ${dataEscuelas[0].subnivel}`}
           data={[]}
           isOpEdu={true}
         >
@@ -439,7 +464,10 @@ export async function renderOpcionEduReport(
             <p>
               Matricula Total: {formatearNumero(totalesOpEdu?.total_alumnos)}
             </p>
-            <p>Escuelas totales: {formatearNumero(totalEscuelasExistentes)}</p>
+            <p>
+              Escuelas totales:{" "}
+              {formatearNumero(totalesOpEdu?.total_escuela_absoluto)}
+            </p>
             <p>
               Escuelas participantes:{" "}
               {formatearNumero(totalEscuelasParticipantes)}
@@ -447,6 +475,13 @@ export async function renderOpcionEduReport(
           </div>
         </Header>
         {renderGraficas(dataOpcion)}
+        <p className="notes">
+          <strong>Nota:</strong> Las presentes gráficas ilustran el universo
+          total de estudiantes pertenecientes al sistema de{" "}
+          {dataEscuelas[0].nivel} {dataEscuelas[0].subnivel}, así como la
+          distribución porcentual de los mismos según sus niveles de integración
+          académica.
+        </p>
       </div>
 
       {/* ===== PAGINA 2: TABLA DE ESCUELAS ===== */}
@@ -457,6 +492,12 @@ export async function renderOpcionEduReport(
           viewText={false}
           isOpEdu={true}
         />
+        <p className="notes">
+          <strong>Nota:</strong> Los resultados que se presentan a continuación
+          están organizados por escuela, agrupados por sector y zona, y destacan
+          el porcentaje más alto de nivel de integración alcanzado en cada grado
+          y campo formativo.
+        </p>
         <div style={{ marginTop: "10mm", padding: "0 10mm" }}>
           <TablePorEscuela
             dataMapaZona={dataEscuelas}
@@ -475,7 +516,7 @@ export async function renderEscuela(
   dataZona: any[],
 ) {
   // Calcular cuántas páginas necesitamos para la tabla
-  const MAX_ROWS_PER_PAGE = 15;
+  const MAX_ROWS_PER_PAGE = 10;
   const tablaData = procesarDatosTabla(dataNiEscuela, 30);
 
   // PRIMERA PÁGINA - SIEMPRE SE DIBUJA (GRÁFICAS DE ESCUELA)
@@ -491,7 +532,7 @@ export async function renderEscuela(
       <Header
         data={[]}
         isOpEdu={true}
-        title={` REPORTE ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+        title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
       >
         <h4>{dataGeneralEscuela[0].nombre}</h4>
         <div
@@ -511,6 +552,13 @@ export async function renderEscuela(
         </div>
       </Header>
       {renderGraficas(dataNiEscuela)}
+      <p className="notes">
+        <strong>Nota:</strong> Las presentes gráficas ilustran el universo total
+        de estudiantes pertenecientes a la escuela{" "}
+        <strong>{dataGeneralEscuela[0].nombre}</strong>, así como la
+        distribución porcentual de los mismos según sus niveles de integración
+        académica.
+      </p>
     </div>
   );
 
@@ -531,7 +579,7 @@ export async function renderEscuela(
           <Header
             data={[]}
             isOpEdu={true}
-            title={` REPORTE ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+            title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
           >
             <h4>{dataGeneralEscuela[0].nombre}</h4>
             <div
@@ -577,6 +625,7 @@ export async function renderEscuela(
               >
                 Nivel de integración a nivel zona
               </p>
+
               <div
                 style={{
                   padding: "0",
@@ -708,6 +757,11 @@ export async function renderEscuela(
                     Sin datos
                   </p>
                 )}
+                <p className="notes">
+                  <strong>Nota:</strong> Estos resultados permiten analizar los
+                  niveles de integración a nivel zona para que exista un
+                  contraste con la escuela.
+                </p>
               </div>
             </div>
           )}
