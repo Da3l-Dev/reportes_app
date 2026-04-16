@@ -29,10 +29,14 @@ jobs:
 
       - name: Subir dist a rama build
         run: |
+          # configurar identidad de git
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
           # cambiar/crear rama build
           git checkout -B build
 
-          # eliminar archivos versionados (sin romper .git)
+          # eliminar archivos versionados (sin borrar .git)
           git rm -rf . > /dev/null 2>&1 || true
 
           # mover dist al root
@@ -43,5 +47,5 @@ jobs:
           git add .
           git diff --cached --quiet || git commit -m "Deploy build"
 
-          # push forzado a rama build
+          # push a rama build
           git push origin build --force
