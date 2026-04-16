@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --watch src --ext ts,tsx --exec ts-node src/index.ts",
-    "build": "tsc && cp -r src/assets dist/assets && cp -r src/reports dist/reports",
+    "build": "tsc && mkdir -p dist/assets && mkdir -p dist/reports && cp -r src/assets/* dist/assets/ && cp -r src/reports/* dist/reports/",
     "start": "node dist/index.js"
   },
   "repository": {
