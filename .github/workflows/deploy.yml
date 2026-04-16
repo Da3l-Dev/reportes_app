@@ -27,14 +27,17 @@ jobs:
 
       - name: Subir dist a rama build
         run: |
-          cd dist
-          git init
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          # cambiar a rama build
+          git checkout -B build
+
+          # borrar todo menos dist
+          find . -mindepth 1 -not -path "./dist*" -delete
+
+          # mover dist al root
+          mv dist/* .
+          rm -rf dist
 
           git add .
-          git commit -m "Deploy build"
+          git commit -m "Deploy build" || echo "No changes"
 
-          git branch -M build
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Da3l-Dev/REPORTES_EIA.git
-          git push -f origin build
+          git push origin build --force
