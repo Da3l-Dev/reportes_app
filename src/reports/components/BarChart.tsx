@@ -15,12 +15,10 @@ export function BarChart({ labels, segments }: BarChartProps) {
   chartCounter += 1;
   const chartId = `chart-${chartCounter}`;
 
-  const DPR = 4; // 🔥 alta calidad para PDF
+  const DPR = 4;
 
   return (
     <>
-      {/* contenedor manda */}
-
       <canvas id={chartId} />
 
       <script
@@ -36,10 +34,10 @@ export function BarChart({ labels, segments }: BarChartProps) {
   if (!container) return;
 
   // =========================
-  // TAMAÑO REAL DEL CONTENEDOR
+  // TAMAÑO
   // =========================
-  const width = container.clientWidth;
-  const height = Math.min(width,600); // 👈 evita que se pase en horizontal
+  const width = container.clientWidth * 1.5;
+  const height = Math.min(width, 600);
 
   // =========================
   // CANVAS HD
@@ -55,14 +53,39 @@ export function BarChart({ labels, segments }: BarChartProps) {
   ctx.imageSmoothingEnabled = false;
 
   // =========================
-  // FUNCIÓN: CORTAR A 1 DECIMAL (SIN REDONDEAR)
+  // UTIL
   // =========================
   function cutOneDecimal(value) {
     return (Math.floor(Number(value) * 10) / 10).toFixed(1);
   }
 
   // =========================
-  // PLUGIN ETIQUETAS %
+  // WRAP LABELS
+  // =========================
+  function wrapLabel(label) {
+    const maxChars = 12;
+    if (label.length <= maxChars) return label;
+
+    const words = label.split(" ");
+    const lines = [];
+    let currentLine = "";
+
+    words.forEach(word => {
+      if ((currentLine + word).length > maxChars) {
+        lines.push(currentLine.trim());
+        currentLine = word + " ";
+      } else {
+        currentLine += word + " ";
+      }
+    });
+
+    if (currentLine) lines.push(currentLine.trim());
+
+    return lines;
+  }
+
+  // =========================
+  // PLUGIN %
   // =========================
   const percentageLabelPlugin = {
     id: "percentageLabelPlugin",
@@ -80,7 +103,6 @@ export function BarChart({ labels, segments }: BarChartProps) {
           const value = dataset.data[i];
           if (!value || value <= 0) return;
 
-          // contraste automático profesional
           ctx.fillStyle = bar.height > 20 ? "#000000" : "#111827";
 
           ctx.fillText(
@@ -96,12 +118,27 @@ export function BarChart({ labels, segments }: BarChartProps) {
   };
 
   // =========================
+  // MAPA SIGNIFICADOS
+  // =========================
+  const legendMap = {
+    AD: "Aprendizaje Desarrollado",
+    EPD: "En proceso de desarrollo",
+    RA: "Requiere Atención",
+    SE: "Sin evidencia"
+  };
+
+  // =========================
+  // ORDEN PERSONALIZADO
+  // =========================
+  const legendOrder = ["SE", "RA", "EPD", "AD"];
+
+  // =========================
   // CHART
   // =========================
   new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ${JSON.stringify(labels)},
+      labels: ${JSON.stringify(labels)}.map(wrapLabel),
       datasets: ${JSON.stringify(
         segments.map((s) => ({
           label: s.label,
@@ -116,16 +153,56 @@ export function BarChart({ labels, segments }: BarChartProps) {
       responsive: false,
       animation: false,
       maintainAspectRatio: false,
+
+      layout: {
+        padding: {
+          left: 10,
+          right: 10,
+          top: 10,
+          bottom: 30
+        }
+      },
+
       plugins: {
         legend: {
-          position: "bottom",
+          position: "right",
           labels: {
+            boxWidth: 14,
+            padding: 12,
             font: {
               size: 11 * ${DPR},
               weight: "600",
+            },
+
+            // 🔥 MULTILÍNEA + ORDEN
+            generateLabels: function(chart) {
+              const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+
+              return original
+                .map(label => {
+                  const key = label.text;
+                  const desc = legendMap[key];
+
+                  if (!desc) return label;
+
+                  return {
+                    ...label,
+                    text: [
+                      key,
+                      desc
+                    ]
+                  };
+                })
+                .sort((a, b) => {
+                  const aKey = Array.isArray(a.text) ? a.text[0] : a.text;
+                  const bKey = Array.isArray(b.text) ? b.text[0] : b.text;
+
+                  return legendOrder.indexOf(aKey) - legendOrder.indexOf(bKey);
+                });
             }
           }
         },
+
         tooltip: {
           enabled: true,
           callbacks: {
@@ -135,18 +212,29 @@ export function BarChart({ labels, segments }: BarChartProps) {
           }
         }
       },
+
       scales: {
         x: {
           stacked: true,
           grid: { display: false },
           ticks: {
+            maxRotation: 0,
+            minRotation: 0,
+            align: "center",
+            crossAlign: "center",
+            padding: 15,
             font: {
-              size: 12 * ${DPR},
+              size: function(ctx) {
+                const count = ctx.chart.data.labels.length;
+                if (count > 10) return 9 * ${DPR};
+                if (count > 5) return 10 * ${DPR};
+                return 12 * ${DPR};
+              },
               weight: "600",
-            },
-            padding: 20,
+            }
           }
         },
+
         y: {
           stacked: true,
           beginAtZero: true,
@@ -155,11 +243,21 @@ export function BarChart({ labels, segments }: BarChartProps) {
             callback: function(value) {
               return cutOneDecimal(value) + "%";
             },
-            font: { size: 10 * ${DPR} }
+            font: {
+              size: 10 * ${DPR}
+            }
           }
+        }
+      },
+
+      datasets: {
+        bar: {
+          barPercentage: 0.8,
+          categoryPercentage: 0.7
         }
       }
     },
+
     plugins: [percentageLabelPlugin]
   });
 })();

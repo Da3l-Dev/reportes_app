@@ -11,6 +11,7 @@ import {
 import sectorController from "../controllers/sectorController";
 import escuelasController from "../controllers/escuelasController";
 import itemsController from "../controllers/itemsController";
+import alumnosPrioritariosController from "../controllers/alumnosPrioritariosController";
 const router = Router();
 // Rutas para datos de la zona
 router.get("/", serveMainView);
@@ -52,4 +53,40 @@ router.get("/pdf/escuela/:llave_escuela", reportEscuelas);
 
 // Rutas de items
 router.get("/item/escuela/:llave_escuela", itemsController.getItemEscuela);
+
+// Ruta alumnos prioritarios
+router.get(
+  "/alumnos-prioritarios/preescolar/general/:llave_escuela",
+  alumnosPrioritariosController.getDataPreescolarGeneral,
+);
+
+router.get(
+  "/alumnos-prioritarios/preescolar/indigena/:llave_escuela",
+  alumnosPrioritariosController.getDataPreescolarIndigena,
+);
+
+router.get(
+  "/alumnos-prioritarios/primaria/general/:llave_escuela",
+  alumnosPrioritariosController.getDataPrimariaGeneral,
+);
+
+router.get(
+  "/alumnos-prioritarios/primaria/indigena/:llave_escuela",
+  alumnosPrioritariosController.getDataPrimariaIndigena,
+);
+
+router.get(
+  "/alumnos-prioritarios/secundaria/general/:llave_escuela",
+  alumnosPrioritariosController.getDataSecundariaGeneral,
+);
+
+router.get(
+  "/alumnos-prioritarios/secundaria/tecnica/:llave_escuela",
+  alumnosPrioritariosController.getDataSecundariaTecnica,
+);
+
+router.get(
+  "/alumnos-prioritarios/telesecundaria/:llave_escuela",
+  alumnosPrioritariosController.getDataTelesecundaria,
+);
 export default router;

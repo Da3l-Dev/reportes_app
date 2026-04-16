@@ -239,3 +239,467 @@ model totales_opedu {
   total_alumnos                Int?
   total_escuela_absoluto       Int?
 }
+
+model alumnos_prioritarios_primaria_indigena {
+  IDENTIFICACION   String  @map("ï»¿IDENTIFICACION") @db.VarChar
+  ENT              Decimal @db.Decimal
+  LLAVE            String  @db.VarChar
+  CVL_ALUMN        Decimal @db.Decimal
+  NOMALUMNO        String  @db.VarChar
+  MATR_EDO         Decimal @db.Decimal
+  CCT              String  @db.VarChar
+  ID_TURNO         Decimal @db.Decimal
+  CONTROL          String  @db.VarChar
+  ID_NIVEL         Boolean
+  opcion_educativa String  @db.VarChar
+  TURNO            String  @db.VarChar
+  GRADO            Decimal @db.Decimal
+  SEXO             String  @db.VarChar
+  GRUPO            String  @db.VarChar
+  ORIGEN_ARCHIVO   String  @map("__ORIGEN_ARCHIVO") @db.VarChar
+  ORIGEN_HOJA      String  @map("__ORIGEN_HOJA") @db.VarChar
+  PX3DE1C4A1       Decimal @db.Decimal
+  PX3DE2C4A1       Decimal @db.Decimal
+  PX3EE1C3A1       Decimal @db.Decimal
+  PX3EE2C1A1       Decimal @db.Decimal
+  PX3EE2C3A2       Decimal @db.Decimal
+  PX3LE1C1A1       Decimal @db.Decimal
+  PX3LE2C3A1       Decimal @db.Decimal
+  PX3SE1C2A1       Decimal @db.Decimal
+  PX3SE1C2A2       Decimal @db.Decimal
+  PX3SE2C2A1       Decimal @db.Decimal
+  PX4DE1C3A1       Decimal @db.Decimal
+  PX4DE1C3B1       Decimal @db.Decimal
+  PX4DE2C3A1       Decimal @db.Decimal
+  PX4DE2C3B1       Decimal @db.Decimal
+  PX4DE2C3C1       Decimal @db.Decimal
+  PX4DE2C3C2       Decimal @db.Decimal
+  PX4EE1C2A1       Decimal @db.Decimal
+  PX4EE1C2A2       Decimal @db.Decimal
+  PX4EE1C2A3       Decimal @db.Decimal
+  PX4EE1C2B1       Decimal @db.Decimal
+  PX4EE2C2A1       Decimal @db.Decimal
+  PX4LE1C4A1       Decimal @db.Decimal
+  PX4LE1C4A2       Decimal @db.Decimal
+  PX4LE1C4A3       Decimal @db.Decimal
+  PX4LE2C5A1       Decimal @db.Decimal
+  PX4LE2C5A2       Decimal @db.Decimal
+  PX4LE2C5A3       Decimal @db.Decimal
+  PX4SE1C1A1       Decimal @db.Decimal
+  PX4SE1C1A2       Decimal @db.Decimal
+  PX4SE1C1B1       Decimal @db.Decimal
+  PX4SE1C1B2       Decimal @db.Decimal
+  PX4SE1C1B3       Decimal @db.Decimal
+  PX4SE2C1A1       Decimal @db.Decimal
+  PX4SE2C1B1       Decimal @db.Decimal
+  PX4SE2C4A1       Decimal @db.Decimal
+  PX4SE2C4B1       Decimal @db.Decimal
+  PX5DE1C1A1       Decimal @db.Decimal
+  PX5DE1C1B1       Decimal @db.Decimal
+  PX5DE1C1B2       Decimal @db.Decimal
+  PX5DE2C2A1       Decimal @db.Decimal
+  PX5DE2C2B1       Decimal @db.Decimal
+  PX5DE2C2C1       Decimal @db.Decimal
+  PX5DE2C2D1       Decimal @db.Decimal
+  PX5EE1C2A1       Decimal @db.Decimal
+  PX5EE1C2B1       Decimal @db.Decimal
+  PX5EE1C2C1       Decimal @db.Decimal
+  PX5EE2C4A1       Decimal @db.Decimal
+  PX5EE2C4B1       Decimal @db.Decimal
+  PX5LE1C4A1       Decimal @db.Decimal
+  PX5LE1C4B1       Decimal @db.Decimal
+  PX5LE2C3A1       Decimal @db.Decimal
+  PX5LE2C3A2       Decimal @db.Decimal
+  PX5LE2C3B1       Decimal @db.Decimal
+  PX5LE2C3C1       Decimal @db.Decimal
+  PX5SE1C3A1       Decimal @db.Decimal
+  PX5SE1C3B1       Decimal @db.Decimal
+  PX5SE2C1A1       Decimal @db.Decimal
+  PX5SE2C1B1       Decimal @db.Decimal
+  PX5SE2C1C1       Decimal @db.Decimal
+  PX5SE2C1C2       Decimal @db.Decimal
+  PX5SE2C1C3       Decimal @db.Decimal
+  NIVEL_ETICA      String  @db.VarChar
+  NIVEL_HUMANO     String  @db.VarChar
+  NIVEL_LENGUAJES  String  @db.VarChar
+  NIVEL_SABERES    String  @db.VarChar
+  id               Int     @id @default(autoincrement())
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model alumnos_prioritarios_preescolar_general {
+  cv_cct                 String  @map("ï»¿cv_cct") @db.VarChar
+  Ent                    Decimal @db.Decimal
+  LLAVE                  String  @db.VarChar
+  Nombre_Alumno          String  @map("Nombre Alumno") @db.VarChar
+  Matr_Edo               Boolean
+  Id_Turno               Boolean
+  CONTROL                String  @db.VarChar
+  Id_Nivel               Boolean
+  NIVEL                  String  @db.VarChar
+  SUBNIVEL               String  @db.VarChar
+  OPCION_EDUCATIVA       String  @db.VarChar
+  TURNO                  String  @db.VarChar
+  GRADO                  Decimal @db.Decimal
+  Sexo                   String  @db.VarChar
+  GRUPO                  String  @db.VarChar
+  CCT_SECTOR             String  @db.VarChar
+  SECTOR                 Decimal @db.Decimal
+  CCT_ZONA               String  @db.VarChar
+  ZONA                   Decimal @db.Decimal
+  KX2LE1C1A1             Decimal @db.Decimal
+  KX2DE1C1A2             Decimal @db.Decimal
+  KX2LE1C2A1             Decimal @db.Decimal
+  KX2SE1C2A2             Decimal @db.Decimal
+  KX2LE1C3A1             Decimal @db.Decimal
+  KX2EE1C3A2             Decimal @db.Decimal
+  KX2SE2C1A1             Decimal @db.Decimal
+  KX2LE2C2A1             Decimal @db.Decimal
+  KX2EE2C3A1             Decimal @db.Decimal
+  KX2LE2C4A1             Decimal @db.Decimal
+  KX2DE2C4A2             Decimal @db.Decimal
+  Nivel_Lenguajes        String  @db.VarChar
+  Nivel_Saberes          String  @db.VarChar
+  Nivel_Humano           String  @db.VarChar
+  Nivel_Etica            String  @db.VarChar
+  Tipo                   String  @db.VarChar
+  En_escuela_prioritaria String  @map("En escuela prioritaria") @db.VarChar
+  id                     Int     @id @default(autoincrement())
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model alumnos_prioritarios_preescolar_indigena {
+  cv_cct                 String  @db.VarChar
+  Ent                    Decimal @db.Decimal
+  LLAVE                  String  @db.VarChar
+  Nombre_Alumno          String  @map("Nombre Alumno") @db.VarChar
+  Matr_Edo               Boolean
+  Id_Turno               Boolean
+  CONTROL                String  @db.VarChar
+  Id_Nivel               Boolean
+  NIVEL                  String  @db.VarChar
+  SUBNIVEL               String  @db.VarChar
+  OPCION_EDUCATIVA       String  @db.VarChar
+  TURNO                  String  @db.VarChar
+  GRADO                  Decimal @db.Decimal
+  Sexo                   String  @db.VarChar
+  GRUPO                  String  @db.VarChar
+  CCT_SECTOR             String  @db.VarChar
+  SECTOR                 Decimal @db.Decimal
+  CCT_ZONA               String  @db.VarChar
+  ZONA                   Decimal @db.Decimal
+  KX2LE1C1A1             Decimal @db.Decimal
+  KX2DE1C1A2             Decimal @db.Decimal
+  KX2LE1C2A1             Decimal @db.Decimal
+  KX2SE1C2A2             Decimal @db.Decimal
+  KX2LE1C3A1             Decimal @db.Decimal
+  KX2EE1C3A2             Decimal @db.Decimal
+  KX2SE2C1A1             Decimal @db.Decimal
+  KX2LE2C2A1             Decimal @db.Decimal
+  KX2EE2C3A1             Decimal @db.Decimal
+  KX2LE2C4A1             Decimal @db.Decimal
+  KX2DE2C4A2             Decimal @db.Decimal
+  Nivel_Lenguajes        String  @db.VarChar
+  Nivel_Saberes          String  @db.VarChar
+  Nivel_Humano           String  @db.VarChar
+  Nivel_Etica            String  @db.VarChar
+  Tipo                   String  @db.VarChar
+  En_escuela_prioritaria String  @map("En escuela prioritaria") @db.VarChar
+  id                     Int     @id @default(autoincrement())
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model alumnos_prioritarios_primaria_general {
+  IDENTIFICACION   String  @map("ï»¿IDENTIFICACION") @db.VarChar
+  ENT              Decimal @db.Decimal
+  LLAVE            String  @db.VarChar
+  CVL_ALUMN        Decimal @db.Decimal
+  NOMALUMNO        String  @db.VarChar
+  MATR_EDO         String? @db.VarChar
+  CCT              String  @db.VarChar
+  ID_TURNO         Decimal @db.Decimal
+  CONTROL          String  @db.VarChar
+  ID_NIVEL         Boolean
+  opcion_educativa String  @db.VarChar
+  TURNO            String  @db.VarChar
+  GRADO            Decimal @db.Decimal
+  SEXO             String  @db.VarChar
+  GRUPO            String  @db.VarChar
+  ORIGEN_ARCHIVO   String  @map("__ORIGEN_ARCHIVO") @db.VarChar
+  ORIGEN_HOJA      String  @map("__ORIGEN_HOJA") @db.VarChar
+  PX3DE1C4A1       Decimal @db.Decimal
+  PX3DE2C4A1       Decimal @db.Decimal
+  PX3EE1C3A1       Decimal @db.Decimal
+  PX3EE2C1A1       Decimal @db.Decimal
+  PX3EE2C3A2       Decimal @db.Decimal
+  PX3LE1C1A1       Decimal @db.Decimal
+  PX3LE2C3A1       Decimal @db.Decimal
+  PX3SE1C2A1       Decimal @db.Decimal
+  PX3SE1C2A2       Decimal @db.Decimal
+  PX3SE2C2A1       Decimal @db.Decimal
+  PX4DE1C3A1       Decimal @db.Decimal
+  PX4DE1C3B1       Decimal @db.Decimal
+  PX4DE2C3A1       Decimal @db.Decimal
+  PX4DE2C3B1       Decimal @db.Decimal
+  PX4DE2C3C1       Decimal @db.Decimal
+  PX4DE2C3C2       Decimal @db.Decimal
+  PX4EE1C2A1       Decimal @db.Decimal
+  PX4EE1C2A2       Decimal @db.Decimal
+  PX4EE1C2A3       Decimal @db.Decimal
+  PX4EE1C2B1       Decimal @db.Decimal
+  PX4EE2C2A1       Decimal @db.Decimal
+  PX4LE1C4A1       Decimal @db.Decimal
+  PX4LE1C4A2       Decimal @db.Decimal
+  PX4LE1C4A3       Decimal @db.Decimal
+  PX4LE2C5A1       Decimal @db.Decimal
+  PX4LE2C5A2       Decimal @db.Decimal
+  PX4LE2C5A3       Decimal @db.Decimal
+  PX4SE1C1A1       Decimal @db.Decimal
+  PX4SE1C1A2       Decimal @db.Decimal
+  PX4SE1C1B1       Decimal @db.Decimal
+  PX4SE1C1B2       Decimal @db.Decimal
+  PX4SE1C1B3       Decimal @db.Decimal
+  PX4SE2C1A1       Decimal @db.Decimal
+  PX4SE2C1B1       Decimal @db.Decimal
+  PX4SE2C4A1       Decimal @db.Decimal
+  PX4SE2C4B1       Decimal @db.Decimal
+  PX5DE1C1A1       Decimal @db.Decimal
+  PX5DE1C1B1       Decimal @db.Decimal
+  PX5DE1C1B2       Decimal @db.Decimal
+  PX5DE2C2A1       Decimal @db.Decimal
+  PX5DE2C2B1       Decimal @db.Decimal
+  PX5DE2C2C1       Decimal @db.Decimal
+  PX5DE2C2D1       Decimal @db.Decimal
+  PX5EE1C2A1       Decimal @db.Decimal
+  PX5EE1C2B1       Decimal @db.Decimal
+  PX5EE1C2C1       Decimal @db.Decimal
+  PX5EE2C4A1       Decimal @db.Decimal
+  PX5EE2C4B1       Decimal @db.Decimal
+  PX5LE1C4A1       Decimal @db.Decimal
+  PX5LE1C4B1       Decimal @db.Decimal
+  PX5LE2C3A1       Decimal @db.Decimal
+  PX5LE2C3A2       Decimal @db.Decimal
+  PX5LE2C3B1       Decimal @db.Decimal
+  PX5LE2C3C1       Decimal @db.Decimal
+  PX5SE1C3A1       Decimal @db.Decimal
+  PX5SE1C3B1       Decimal @db.Decimal
+  PX5SE2C1A1       Decimal @db.Decimal
+  PX5SE2C1B1       Decimal @db.Decimal
+  PX5SE2C1C1       Decimal @db.Decimal
+  PX5SE2C1C2       Decimal @db.Decimal
+  PX5SE2C1C3       Decimal @db.Decimal
+  NIVEL_ETICA      String  @db.VarChar
+  NIVEL_HUMANO     String  @db.VarChar
+  NIVEL_LENGUAJES  String  @db.VarChar
+  NIVEL_SABERES    String  @db.VarChar
+  id               Int     @id @default(autoincrement())
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model alumnos_prioritarios_secundaria_general {
+  IDENTIFICACION   String   @map("ï»¿IDENTIFICACION") @db.VarChar
+  ENT              Decimal  @db.Decimal
+  LLAVE            String   @db.VarChar
+  CVL_ALUMN        Decimal? @db.Decimal
+  NOMALUMNO        String   @db.VarChar
+  MATR_EDO         Decimal  @db.Decimal
+  CCT              String   @db.VarChar
+  ID_TURNO         Decimal  @db.Decimal
+  CONTROL          String   @db.VarChar
+  ID_NIVEL         Decimal  @db.Decimal
+  opcion_educativa String   @db.VarChar
+  TURNO            String   @db.VarChar
+  GRADO            Decimal  @db.Decimal
+  SEXO             String   @db.VarChar
+  GRUPO            String   @db.VarChar
+  SA6DE1C5A1       Decimal  @db.Decimal
+  SA6DE1C5B1       Decimal  @db.Decimal
+  SA6DE1C5C1       Decimal  @db.Decimal
+  SA6DE2C4A1       Decimal  @db.Decimal
+  SA6EE1C4A1       Decimal  @db.Decimal
+  SA6EE1C4B1       Decimal  @db.Decimal
+  SA6EE2C3A1       Decimal  @db.Decimal
+  SA6EE2C3B1       Decimal  @db.Decimal
+  SA6EE2C3C1       Decimal  @db.Decimal
+  SA6LE1C3A1       Decimal  @db.Decimal
+  SA6LE2C1A1       Decimal  @db.Decimal
+  SA6LE2C1A2       Decimal  @db.Decimal
+  SA6SE1C1A1       Decimal  @db.Decimal
+  SA6SE1C1A2       Decimal  @db.Decimal
+  SA6SE1C1A3       Decimal  @db.Decimal
+  SA6SE1C2A1       Decimal  @db.Decimal
+  SA6SE1C2A2       Decimal  @db.Decimal
+  SA6SE2C2A1       Decimal  @db.Decimal
+  SA6SE2C2A2       Decimal  @db.Decimal
+  SA6SE2C2B1       Decimal  @db.Decimal
+  SA6SE2C2B2       Decimal  @db.Decimal
+  SB6DE1C4A1       Decimal  @db.Decimal
+  SB6DE1C4A2       Decimal  @db.Decimal
+  SB6DE2C4A1       Decimal  @db.Decimal
+  SB6DE2C4A2       Decimal  @db.Decimal
+  SB6EE1C3A1       Decimal  @db.Decimal
+  SB6EE1C3A2       Decimal  @db.Decimal
+  SB6EE2C3A1       Decimal  @db.Decimal
+  SB6EE2C3A2       Decimal  @db.Decimal
+  SB6EE2C3A3       Decimal  @db.Decimal
+  SB6LE1C1A1       Decimal  @db.Decimal
+  SB6LE1C1A2       Decimal  @db.Decimal
+  SB6LE1C1A3       Decimal  @db.Decimal
+  SB6LE2C1A1       Decimal  @db.Decimal
+  SB6LE2C1A2       Decimal  @db.Decimal
+  SB6LE2C1A3       Decimal  @db.Decimal
+  SB6SE1C2A1       Decimal  @db.Decimal
+  SB6SE1C2A2       Decimal  @db.Decimal
+  SB6SE1C2B1       Decimal  @db.Decimal
+  SB6SE2C2A1       Decimal  @db.Decimal
+  SB6SE2C2A2       Decimal  @db.Decimal
+  NIVEL_ETICA      String   @db.VarChar
+  NIVEL_HUMANO     String   @db.VarChar
+  NIVEL_LENGUAJES  String   @db.VarChar
+  NIVEL_SABERES    String   @db.VarChar
+  /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  // 263 Boolean? @map("263")
+  /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  id               Int      @id @default(autoincrement())
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model alumnos_prioritarios_secundaria_tecnica {
+  IDENTIFICACION   String  @map("ï»¿IDENTIFICACION") @db.VarChar
+  ENT              Decimal @db.Decimal
+  LLAVE            String  @db.VarChar
+  CVL_ALUMN        Decimal @db.Decimal
+  NOMALUMNO        String  @db.VarChar
+  MATR_EDO         Decimal @db.Decimal
+  CCT              String  @db.VarChar
+  ID_TURNO         Decimal @db.Decimal
+  CONTROL          String  @db.VarChar
+  ID_NIVEL         Decimal @db.Decimal
+  opcion_educativa String  @db.VarChar
+  TURNO            String  @db.VarChar
+  GRADO            Decimal @db.Decimal
+  SEXO             String  @db.VarChar
+  GRUPO            String  @db.VarChar
+  ORIGEN_ARCHIVO   String  @map("__ORIGEN_ARCHIVO") @db.VarChar
+  ORIGEN_HOJA      String  @map("__ORIGEN_HOJA") @db.VarChar
+  SA6DE1C5A1       Decimal @db.Decimal
+  SA6DE1C5B1       Decimal @db.Decimal
+  SA6DE1C5C1       Decimal @db.Decimal
+  SA6DE2C4A1       Decimal @db.Decimal
+  SA6EE1C4A1       Decimal @db.Decimal
+  SA6EE1C4B1       Decimal @db.Decimal
+  SA6EE2C3A1       Decimal @db.Decimal
+  SA6EE2C3B1       Decimal @db.Decimal
+  SA6EE2C3C1       Decimal @db.Decimal
+  SA6LE1C3A1       Decimal @db.Decimal
+  SA6LE2C1A1       Decimal @db.Decimal
+  SA6LE2C1A2       Decimal @db.Decimal
+  SA6SE1C1A1       Decimal @db.Decimal
+  SA6SE1C1A2       Decimal @db.Decimal
+  SA6SE1C1A3       Decimal @db.Decimal
+  SA6SE1C2A1       Decimal @db.Decimal
+  SA6SE1C2A2       Decimal @db.Decimal
+  SA6SE2C2A1       Decimal @db.Decimal
+  SA6SE2C2A2       Decimal @db.Decimal
+  SA6SE2C2B1       Decimal @db.Decimal
+  SA6SE2C2B2       Decimal @db.Decimal
+  SB6DE1C4A1       Decimal @db.Decimal
+  SB6DE1C4A2       Decimal @db.Decimal
+  SB6DE2C4A1       Decimal @db.Decimal
+  SB6DE2C4A2       Decimal @db.Decimal
+  SB6EE1C3A1       Decimal @db.Decimal
+  SB6EE1C3A2       Decimal @db.Decimal
+  SB6EE2C3A1       Decimal @db.Decimal
+  SB6EE2C3A2       Decimal @db.Decimal
+  SB6EE2C3A3       Decimal @db.Decimal
+  SB6LE1C1A1       Decimal @db.Decimal
+  SB6LE1C1A2       Decimal @db.Decimal
+  SB6LE1C1A3       Decimal @db.Decimal
+  SB6LE2C1A1       Decimal @db.Decimal
+  SB6LE2C1A2       Decimal @db.Decimal
+  SB6LE2C1A3       Decimal @db.Decimal
+  SB6SE1C2A1       Decimal @db.Decimal
+  SB6SE1C2A2       Decimal @db.Decimal
+  SB6SE1C2B1       Decimal @db.Decimal
+  SB6SE2C2A1       Decimal @db.Decimal
+  SB6SE2C2A2       Decimal @db.Decimal
+  NIVEL_ETICA      String  @db.VarChar
+  NIVEL_HUMANO     String  @db.VarChar
+  NIVEL_LENGUAJES  String  @db.VarChar
+  NIVEL_SABERES    String  @db.VarChar
+  id               Int     @id @default(autoincrement())
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model alumnos_prioritarios_telesecundaria {
+  IDENTIFICACION   String  @map("ï»¿IDENTIFICACION") @db.VarChar
+  ENT              Decimal @db.Decimal
+  LLAVE            String  @db.VarChar
+  CVL_ALUMN        Decimal @db.Decimal
+  NOMALUMNO        String  @db.VarChar
+  MATR_EDO         String  @db.VarChar
+  CCT              String  @db.VarChar
+  ID_TURNO         Decimal @db.Decimal
+  CONTROL          String  @db.VarChar
+  ID_NIVEL         Decimal @db.Decimal
+  opcion_educativa String  @db.VarChar
+  TURNO            String  @db.VarChar
+  GRADO            Decimal @db.Decimal
+  SEXO             String  @db.VarChar
+  GRUPO            String  @db.VarChar
+  ORIGEN_ARCHIVO   String  @map("__ORIGEN_ARCHIVO") @db.VarChar
+  ORIGEN_HOJA      String  @map("__ORIGEN_HOJA") @db.VarChar
+  SA6DE1C5A1       Decimal @db.Decimal
+  SA6DE1C5B1       Decimal @db.Decimal
+  SA6DE1C5C1       Decimal @db.Decimal
+  SA6DE2C4A1       Decimal @db.Decimal
+  SA6EE1C4A1       Decimal @db.Decimal
+  SA6EE1C4B1       Decimal @db.Decimal
+  SA6EE2C3A1       Decimal @db.Decimal
+  SA6EE2C3B1       Decimal @db.Decimal
+  SA6EE2C3C1       Decimal @db.Decimal
+  SA6LE1C3A1       Decimal @db.Decimal
+  SA6LE2C1A1       Decimal @db.Decimal
+  SA6LE2C1A2       Decimal @db.Decimal
+  SA6SE1C1A1       Decimal @db.Decimal
+  SA6SE1C1A2       Decimal @db.Decimal
+  SA6SE1C1A3       Decimal @db.Decimal
+  SA6SE1C2A1       Decimal @db.Decimal
+  SA6SE1C2A2       Decimal @db.Decimal
+  SA6SE2C2A1       Decimal @db.Decimal
+  SA6SE2C2A2       Decimal @db.Decimal
+  SA6SE2C2B1       Decimal @db.Decimal
+  SA6SE2C2B2       Decimal @db.Decimal
+  SB6DE1C4A1       Decimal @db.Decimal
+  SB6DE1C4A2       Decimal @db.Decimal
+  SB6DE2C4A1       Decimal @db.Decimal
+  SB6DE2C4A2       Decimal @db.Decimal
+  SB6EE1C3A1       Decimal @db.Decimal
+  SB6EE1C3A2       Decimal @db.Decimal
+  SB6EE2C3A1       Decimal @db.Decimal
+  SB6EE2C3A2       Decimal @db.Decimal
+  SB6EE2C3A3       Decimal @db.Decimal
+  SB6LE1C1A1       Decimal @db.Decimal
+  SB6LE1C1A2       Decimal @db.Decimal
+  SB6LE1C1A3       Decimal @db.Decimal
+  SB6LE2C1A1       Decimal @db.Decimal
+  SB6LE2C1A2       Decimal @db.Decimal
+  SB6LE2C1A3       Decimal @db.Decimal
+  SB6SE1C2A1       Decimal @db.Decimal
+  SB6SE1C2A2       Decimal @db.Decimal
+  SB6SE1C2B1       Decimal @db.Decimal
+  SB6SE2C2A1       Decimal @db.Decimal
+  SB6SE2C2A2       Decimal @db.Decimal
+  NIVEL_ETICA      String  @db.VarChar
+  NIVEL_HUMANO     String  @db.VarChar
+  NIVEL_LENGUAJES  String  @db.VarChar
+  NIVEL_SABERES    String  @db.VarChar
+  id               Int     @id @default(autoincrement())
+
+}

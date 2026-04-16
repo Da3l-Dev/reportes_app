@@ -29,66 +29,69 @@ class Escuelas {
           zona: number;
           sector: number;
           turno: string;
+          localidad: string;
           municipio: string;
           nombre_sup_zona: string | null;
           nombre_sup_sector: string | null;
         }[]
       >`
-  SELECT 
-    mb.llave,
-    mb.id,
-    mb.cct,
-    mb.nombre,
-    mb.opcion_educativa,
-    mb.cct_zona,
-    mb.cct_sector,
-    mb.nivel,
-    mb.subnivel,
-    mb.zona,
-    mb.sector,
-    mb.turno,
-    mb.municipio,
-    sz.nombre_sup_zona,
-    ss.nombre_sup_sector
+      SELECT 
+        mb.llave,
+        mb.id,
+        mb.cct,
+        mb.nombre,
+        mb.opcion_educativa,
+        mb.cct_zona,
+        mb.cct_sector,
+        mb.nivel,
+        mb.subnivel,
+        mb.zona,
+        mb.sector,
+        mb.turno,
+        mb.localidad,
+        mb.municipio,
+        sz.nombre_sup_zona,
+        ss.nombre_sup_sector
 
-  FROM mapa_base mb
+      FROM mapa_base mb
 
-  LEFT JOIN (
-    SELECT DISTINCT ON (clavecct) *
-    FROM supervisores
-    ORDER BY clavecct
-  ) sz
-    ON mb.cct_zona = sz.clavecct
+      LEFT JOIN (
+        SELECT DISTINCT ON (clavecct) *
+        FROM supervisores
+        ORDER BY clavecct
+      ) sz
+        ON mb.cct_zona = sz.clavecct
 
-  LEFT JOIN (
-    SELECT DISTINCT ON (jefatura) *
-    FROM supervisores
-    ORDER BY jefatura
-  ) ss
-    ON mb.cct_sector = ss.jefatura
+      LEFT JOIN (
+        SELECT DISTINCT ON (jefatura) *
+        FROM supervisores
+        ORDER BY jefatura
+      ) ss
+        ON mb.cct_sector = ss.jefatura
 
-  WHERE mb.subnivel = ${subnivel.toString().toUpperCase()}
-    AND mb.nivel = ${nivel.toString().toUpperCase()}
-  
-  GROUP BY 
-    mb.llave,
-    mb.id,
-    mb.cct,
-    mb.nombre,
-    mb.opcion_educativa,
-    mb.cct_zona,
-    mb.cct_sector,
-    mb.nivel,
-    mb.subnivel,
-    mb.zona,
-    mb.sector,
-    mb.turno,
-    mb.municipio,
-    sz.nombre_sup_zona,
-    ss.nombre_sup_sector
-    
-  ORDER BY mb.sector, mb.zona, mb.nombre
-`;
+      WHERE mb.subnivel = ${subnivel.toString().toUpperCase()}
+        AND mb.nivel = ${nivel.toString().toUpperCase()}
+      
+      GROUP BY 
+        mb.llave,
+        mb.id,
+        mb.cct,
+        mb.nombre,
+        mb.opcion_educativa,
+        mb.cct_zona,
+        mb.cct_sector,
+        mb.nivel,
+        mb.subnivel,
+        mb.zona,
+        mb.sector,
+        mb.turno,
+        mb.localidad, -- 👈 agregado aquí
+        mb.municipio,
+        sz.nombre_sup_zona,
+        ss.nombre_sup_sector
+        
+      ORDER BY mb.sector, mb.zona, mb.nombre
+    `;
 
       if (dataEscuelasOpcionEducativa.length === 0) {
         return res.status(404).json({

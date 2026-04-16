@@ -21,6 +21,7 @@ type Escuela = {
   nombre_sup_sector?: string;
   turno?: string;
   municipio?: string;
+  localidad?: string;
 };
 
 type RegistroZona = {
@@ -321,11 +322,11 @@ export function TablePorEscuela({
                     }}
                   >
                     <div>
-                      <strong>{sector.nombre}</strong>
+                      <strong>{sector.nombre || "N/A"}</strong>
                     </div>
                     <div>
                       JEFE DE SECTOR:{" "}
-                      <strong>{sector.nombre_sup || "NO ASIGNADO"}</strong>
+                      <strong>{sector.nombre_sup || "N/A"}</strong>
                     </div>
                   </div>
                 </td>
@@ -594,6 +595,9 @@ function renderEscuela(escuela: Escuela, dataZona: RegistroZona[]) {
                 </span>
                 <span style={{ display: "inline-block" }}>
                   📍Municipio: <strong>{escuela.municipio || "S/M"}</strong>
+                </span>
+                <span style={{ display: "inline-block" }}>
+                  🗺️ Localidad: <strong>{escuela.localidad || "S/M"}</strong>
                 </span>
               </div>
             </td>

@@ -312,6 +312,7 @@ export async function generatedPdfOpcEdu(
 export async function generatedPdfEscuela(
   dataNiEscuela: any[],
   dataGeneraEscuela: any[],
+  dataAlumnosPrioritarios: any[],
 ) {
   let dataZonaNiEscuela: any[] = [];
 
@@ -330,6 +331,7 @@ export async function generatedPdfEscuela(
     dataNiEscuela,
     dataGeneraEscuela,
     dataZonaNiEscuela,
+    dataAlumnosPrioritarios,
   );
   const browser = await puppeteer.launch({
     headless: true,

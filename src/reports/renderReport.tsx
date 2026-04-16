@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import { TablePorEscuela } from "./components/TablePorEscuela";
 import ReportQueryPanel from "./components/ReportQueryPanel";
 import { TablaRequiereAtencion } from "./components/TablaRequiereAtencion";
-
+import TablaPrioridad from "./components/TablaPrioridad";
 /* =========================
    TIPOS
 ========================= */
@@ -77,6 +77,26 @@ function calcularTotalesHeader(data: any[]) {
 /* =========================
    UTILIDADES
 ========================= */
+const pluralizar = (texto: string) => {
+  console.log(`TEXTO ------> ${texto}`);
+  if (!texto) return "";
+
+  let t = texto;
+
+  // Quitar plural existente
+  if (t.endsWith("ES")) {
+    t = t.slice(0, -2);
+  } else if (t.endsWith("S")) {
+    t = t.slice(0, -1);
+  }
+
+  // Agregar plural correcto
+  if (t.endsWith("L")) {
+    return t + "ES"; // PREESCOLAR → PREESCOLARES
+  }
+
+  return t + "S"; // PRIMARIA → PRIMARIAS
+};
 
 function esPreescolar(data: any[]) {
   const grados = new Set(
@@ -318,14 +338,17 @@ export function renderReportZona(
   return renderToStaticMarkup(
     <ReportLayout>
       <div className="page page-break">
-        <Header title="Reporte de Resultados" data={totalesHeader} />
+        <Header
+          title={`REPORTE DE RESULTADOS ZONA ${dataZona[0].cct_zona}`}
+          data={totalesHeader}
+        />
         {renderGraficas(dataZona)}
 
         <p className="notes">
           <strong>Nota:</strong> Las presentes gráficas ilustran el universo
-          total de estudiantes pertenecientes la zona {dataZona[0].cct_zona} así
-          como la distribución porcentual de los mismos según sus niveles de
-          integración académica.
+          total de estudiantes participantes de la zona {dataZona[0].cct_zona}{" "}
+          así como la distribución porcentual de los mismos según sus niveles de
+          integración.
         </p>
       </div>
 
@@ -336,9 +359,10 @@ export function renderReportZona(
           viewText={false}
         />
         <p className="notes">
-          <strong>Nota:</strong> Los resultados que se presentan a continuación
-          están organizados por escuela, y destacan el porcentaje más alto de
-          nivel de integración alcanzado en cada grado y campo formativo.
+          <strong>Notas:</strong> Los resultados que se presentan a continuación
+          están organizados por escuela y presentan, para cada grado y campo
+          formativo, el nivel de integración predominante, independientemente de
+          que corresponda a niveles altos o bajos.
         </p>
         <div style={{ padding: "5mm 10mm" }}>
           <TablePorEscuela
@@ -362,31 +386,31 @@ export function renderReportSector(
     <ReportLayout>
       <div className="page page-break">
         <Header
-          title="Reporte de Resultados"
+          title={`REPORTE DE RESULTADOS SECTOR ${dataSector[0].cct_sector}`}
           data={totalesHeader}
           isZona={false}
         />
         {renderGraficas(dataSector)}
         <p className="notes">
           <strong>Nota:</strong> Las presentes gráficas ilustran el universo
-          total de estudiantes pertenecientes al sector{" "}
+          total de estudiantes participantes del sector{" "}
           <strong>{dataSector[0].cct_sector}</strong> así como la distribución
-          porcentual de los mismos según sus niveles de integración académica.
+          porcentual de los mismos según sus niveles de integración.
         </p>
       </div>
 
       <div className="page page-break">
         <Header
-          title="Reporte de Resultados"
+          title={`REPORTE DE RESULTADOS SECTOR ${dataSector[0].cct_sector}`}
           data={totalesHeader}
           viewText={false}
           isZona={false}
         />
         <p className="notes">
-          <strong>Nota:</strong> Los resultados que se presentan a continuación
-          están organizados por zona y escuela, y destacan el porcentaje más
-          alto de nivel de integración alcanzado en cada grado y campo
-          formativo.
+          <strong>Notas:</strong> Los resultados que se presentan a continuación
+          están organizados por escuela y presentan, para cada grado y campo
+          formativo, el nivel de integración predominante, independientemente de
+          que corresponda a niveles altos o bajos.
         </p>
         <div style={{ marginTop: "10mm" }}>
           <TablePorEscuela
@@ -431,6 +455,8 @@ export async function renderOpcionEduReport(
   dataZonaPorEscuela: any[],
   totalesOpEdu: any,
 ) {
+  const nivelPlural = pluralizar(dataEscuelas[0].nivel);
+  const subnivelPlural = pluralizar(dataEscuelas[0].subnivel);
   // Calcular total de escuelas existentes
   const totalEscuelasExistentes = dataEscuelas.length;
 
@@ -439,7 +465,6 @@ export async function renderOpcionEduReport(
     dataZonaPorEscuela.map((item) => item.cct_registro || item.cct_escuela),
   );
   const totalEscuelasParticipantes = escuelasParticipantesSet.size;
-
   // Formatear números con comas
   const formatearNumero = (num: number) => num.toLocaleString("es-MX");
 
@@ -448,7 +473,7 @@ export async function renderOpcionEduReport(
       {/* ===== PAGINA 1: GRÁFICAS ===== */}
       <div className="page page-break">
         <Header
-          title={`REPORTE DE RESULTADOS ${dataEscuelas[0].nivel} ${dataEscuelas[0].subnivel}`}
+          title={`REPORTE DE RESULTADOS ${nivelPlural} ${subnivelPlural}`}
           data={[]}
           isOpEdu={true}
         >
@@ -462,7 +487,8 @@ export async function renderOpcionEduReport(
             }}
           >
             <p>
-              Matricula Total: {formatearNumero(totalesOpEdu?.total_alumnos)}
+              Matricula Participante:{" "}
+              {formatearNumero(totalesOpEdu?.total_alumnos)}
             </p>
             <p>
               Escuelas totales:{" "}
@@ -474,13 +500,14 @@ export async function renderOpcionEduReport(
             </p>
           </div>
         </Header>
+
         {renderGraficas(dataOpcion)}
         <p className="notes">
           <strong>Nota:</strong> Las presentes gráficas ilustran el universo
-          total de estudiantes pertenecientes al sistema de{" "}
+          total de estudiantes participantes al sistema de{" "}
           {dataEscuelas[0].nivel} {dataEscuelas[0].subnivel}, así como la
-          distribución porcentual de los mismos según sus niveles de integración
-          académica.
+          distribución porcentual de los mismos según sus niveles de
+          integración.
         </p>
       </div>
 
@@ -493,10 +520,10 @@ export async function renderOpcionEduReport(
           isOpEdu={true}
         />
         <p className="notes">
-          <strong>Nota:</strong> Los resultados que se presentan a continuación
-          están organizados por escuela, agrupados por sector y zona, y destacan
-          el porcentaje más alto de nivel de integración alcanzado en cada grado
-          y campo formativo.
+          <strong>Notas:</strong> Los resultados que se presentan a continuación
+          están organizados por escuela y presentan, para cada grado y campo
+          formativo, el nivel de integración predominante, independientemente de
+          que corresponda a niveles altos o bajos.
         </p>
         <div style={{ marginTop: "10mm", padding: "0 10mm" }}>
           <TablePorEscuela
@@ -514,6 +541,7 @@ export async function renderEscuela(
   dataNiEscuela: any[],
   dataGeneralEscuela: any[],
   dataZona: any[],
+  dataAlumnosPrioritarios: any[],
 ) {
   // Calcular cuántas páginas necesitamos para la tabla
   const MAX_ROWS_PER_PAGE = 10;
@@ -534,7 +562,9 @@ export async function renderEscuela(
         isOpEdu={true}
         title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
       >
-        <h4>{dataGeneralEscuela[0].nombre}</h4>
+        <h4>
+          {dataGeneralEscuela[0].nombre} {dataGeneralEscuela[0].llave}
+        </h4>
         <div
           style={{
             display: "flex",
@@ -542,28 +572,68 @@ export async function renderEscuela(
             width: "100%",
           }}
         >
+          <p>🕛 TURNO: {dataGeneralEscuela[0].turno}</p>
           <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
           <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
-          <p>MATRICULA TOTAL: {dataGeneralEscuela[0].matricula}</p>
-          <p>
-            MATRICULA PARTICIPANTE:{" "}
-            {dataGeneralEscuela[0].estudiantes_participantes}
-          </p>
+          <p>MATRICULA PARTICIPANTE: {dataGeneralEscuela[0].matricula}</p>
         </div>
       </Header>
       {renderGraficas(dataNiEscuela)}
       <p className="notes">
         <strong>Nota:</strong> Las presentes gráficas ilustran el universo total
-        de estudiantes pertenecientes a la escuela{" "}
+        de estudiantes participantes a la escuela{" "}
         <strong>{dataGeneralEscuela[0].nombre}</strong>, así como la
-        distribución porcentual de los mismos según sus niveles de integración
-        académica.
+        distribución porcentual de los mismos según sus niveles de integración.
       </p>
     </div>
   );
 
+  // 🔥 NUEVA HOJA (SOLO AGREGADA, SIN TOCAR NADA)
+  const paginaPrioridad = (
+    <div className="page page-break">
+      <Header
+        data={[]}
+        isOpEdu={true}
+        title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+      >
+        <h4>
+          {dataGeneralEscuela[0].nombre} {dataGeneralEscuela[0].llave}
+        </h4>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            width: "100%",
+          }}
+        >
+          <p>🕛 TURNO: {dataGeneralEscuela[0].turno}</p>
+          <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
+          <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
+          <p>MATRICULA PARTICIPANTE: {dataGeneralEscuela[0].matricula}</p>
+        </div>
+      </Header>
+
+      <p className="notes text-sm text-gray-700 leading-relaxed">
+        <strong>Nota:</strong> Se prioriza a las y los estudiantes de acuerdo
+        con las siguientes combinaciones de resultados, en orden de importancia:
+      </p>
+
+      <ul className="mt-2 ml-4 space-y-1 text-sm text-gray-700 list-disc">
+        <li className="font-semibold text-[#A71D27]">
+          MUY ALTA: Quienes obtuvieron únicamente RA o SE en los cuatro campos.
+        </li>
+        <li className="font-semibold text-[#F38C2D]">
+          ALTA: Quienes obtuvieron únicamente RA o SE en tres campos.
+        </li>
+        <li className="font-semibold text-[#FACA58]">
+          MEDIA: Quienes obtuvieron RA o SE en uno o dos campos.
+        </li>
+      </ul>
+      <TablaPrioridad data={dataAlumnosPrioritarios} />
+    </div>
+  );
+
   if (tablaData.length === 0) {
-    // Si no hay datos, mostramos primera página + página de zona
     return renderToStaticMarkup(
       <ReportLayout>
         {primeraPagina}
@@ -589,13 +659,10 @@ export async function renderEscuela(
                 width: "100%",
               }}
             >
+              <p>🕛 TURNO: {dataGeneralEscuela[0].turno}</p>
               <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
               <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
-              <p>MATRICULA TOTAL: {dataGeneralEscuela[0].matricula}</p>
-              <p>
-                MATRICULA PARTICIPANTE:{" "}
-                {dataGeneralEscuela[0].estudiantes_participantes}
-              </p>
+              <p>MATRICULA PARTICIPANTE: {dataGeneralEscuela[0].matricula}</p>
             </div>
           </Header>
 
@@ -626,11 +693,7 @@ export async function renderEscuela(
                 Nivel de integración a nivel zona
               </p>
 
-              <div
-                style={{
-                  padding: "0",
-                }}
-              >
+              <div>
                 {dataZona[0] ? (
                   renderGraficas(dataZona[0], 290, 250)
                 ) : (
@@ -641,27 +704,22 @@ export async function renderEscuela(
               </div>
             </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-                minHeight: 0,
-                overflow: "hidden",
-              }}
-            >
+            <div>
               <TablaRequiereAtencion data={dataNiEscuela} umbral={30} />
+              <p>
+                <strong>Nota:</strong>{" "}
+              </p>
             </div>
           </div>
         </div>
+
+        {/* 🔥 SOLO AÑADIDO */}
+        {paginaPrioridad}
       </ReportLayout>,
     );
   }
 
-  // Si hay muchas filas, generamos páginas adicionales
   const totalPages = Math.ceil(tablaData.length / MAX_ROWS_PER_PAGE);
-
-  // Crear un array con todas las páginas de tabla
   const pages = [];
 
   for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
@@ -694,13 +752,10 @@ export async function renderEscuela(
               width: "100%",
             }}
           >
+            <p>🕛 TURNO: {dataGeneralEscuela[0].turno}</p>
             <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
             <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
-            <p>MATRICULA TOTAL: {dataGeneralEscuela[0].matricula}</p>
-            <p>
-              MATRICULA PARTICIPANTE:{" "}
-              {dataGeneralEscuela[0].estudiantes_participantes}
-            </p>
+            <p>MATRICULA PARTICIPANTE: {dataGeneralEscuela[0].matricula}</p>
           </div>
           {pageIndex > 0 && (
             <p
@@ -727,14 +782,7 @@ export async function renderEscuela(
           }}
         >
           {pageIndex === 0 && (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-                gridColumn: "1 / 2",
-              }}
-            >
+            <div>
               <p
                 style={{
                   textAlign: "center",
@@ -745,11 +793,8 @@ export async function renderEscuela(
               >
                 Nivel de integración a nivel zona
               </p>
-              <div
-                style={{
-                  padding: "0",
-                }}
-              >
+
+              <div>
                 {dataZona[0] ? (
                   renderGraficas(dataZona[0], 290, 250)
                 ) : (
@@ -757,6 +802,7 @@ export async function renderEscuela(
                     Sin datos
                   </p>
                 )}
+
                 <p className="notes">
                   <strong>Nota:</strong> Estos resultados permiten analizar los
                   niveles de integración a nivel zona para que exista un
@@ -766,15 +812,15 @@ export async function renderEscuela(
             </div>
           )}
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              height: "100%",
-              overflow: "hidden",
-              gridColumn: pageIndex === 0 ? "2 / 3" : "1 / 2",
-            }}
-          >
+          <div>
+            <p>
+              <strong>Nota: </strong>Los resultados se presentan por grado y
+              campo formativo. El total corresponde al número de alumnos por
+              grado; sin embargo, un mismo alumno puede aparecer en más de un
+              campo formativo. Por ello, los resultados deben interpretarse por
+              grado.
+            </p>
+
             <TablaRequiereAtencion
               data={pageData}
               umbral={30}
@@ -795,6 +841,9 @@ export async function renderEscuela(
     <ReportLayout>
       {primeraPagina}
       {pages}
+
+      {/* 🔥 SOLO ESTO SE AGREGA */}
+      {paginaPrioridad}
     </ReportLayout>,
   );
 }

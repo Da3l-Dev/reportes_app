@@ -10,6 +10,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
+function normalizeText(text: string) {
+  return text
+    .toLowerCase()
+    .normalize("NFD") // separa letras y acentos
+    .replace(/[\u0300-\u036f]/g, ""); // elimina acentos
+}
+
 export async function reportSectorGenerate(req: Request, res: Response) {
   try {
     const { cct_sector } = req.params;
@@ -209,9 +216,23 @@ export async function reportEscuelas(req: Request, res: Response) {
 
     const dataGeneralEscuela = await responseGeneralData.json();
 
+    const nivel = dataGeneralEscuela.data[0].nivel;
+    const subnivel = dataGeneralEscuela.data[0].subnivel;
+
+    const nivelFormatted = normalizeText(nivel);
+    const subnivelFormatted = normalizeText(subnivel);
+
+    const DataAlumnosPrioritarios = await fetch(
+      `http://localhost:${PORT}/alumnos-prioritarios/${nivelFormatted}/${subnivelFormatted}/${llave}`,
+    );
+
+    const dataAlumnosPrioritarios = await DataAlumnosPrioritarios.json();
+
+    // console.log(dataAlumnosPrioritarios);
     const pdf = await generatedPdfEscuela(
       dataNiEscuela.data,
       dataGeneralEscuela.data,
+      dataAlumnosPrioritarios.data,
     );
 
     res.setHeader("Content-Type", "application/pdf");
@@ -227,6 +248,7 @@ export async function reportEscuelas(req: Request, res: Response) {
     res.status(500).json({
       success: false,
       message: "Error al generar el PDF",
+      error: error instanceof Error ? error.message : String(error),
     });
   }
 }
