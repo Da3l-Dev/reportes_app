@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Clonar repo
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Instalar dependencias
         run: npm install
@@ -27,17 +29,19 @@ jobs:
 
       - name: Subir dist a rama build
         run: |
-          # cambiar a rama build
+          # cambiar/crear rama build
           git checkout -B build
 
-          # borrar todo menos dist
-          find . -mindepth 1 -not -path "./dist*" -delete
+          # eliminar archivos versionados (sin romper .git)
+          git rm -rf . > /dev/null 2>&1 || true
 
           # mover dist al root
           mv dist/* .
           rm -rf dist
 
+          # agregar y commit
           git add .
-          git commit -m "Deploy build" || echo "No changes"
+          git diff --cached --quiet || git commit -m "Deploy build"
 
+          # push forzado a rama build
           git push origin build --force
