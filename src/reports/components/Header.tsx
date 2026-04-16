@@ -4,12 +4,12 @@ import React from "react";
 
 function getImageBase64(relativePath: string) {
   const absolutePath = path.resolve(process.cwd(), relativePath);
+  console.log(absolutePath);
   const buffer = fs.readFileSync(absolutePath);
   return buffer.toString("base64");
 }
 
-const logoSephBase64 = getImageBase64("src/assets/img/logo_seph.png");
-const logoIheBase64 = getImageBase64("src/assets/img/logo_ihe.png");
+const logoSephBase64 = getImageBase64("assets/img/logo_seph.png");
 
 /* =========================
    FORMATEADOR DE NÚMEROS
