@@ -1,0 +1,34 @@
+name: Build and Deploy Dist
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v3
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Subir dist a otro repo
+        run: |
+          cd dist
+          git init
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add .
+          git commit -m "Deploy build"
+
+          git branch -M main
+          git remote add origin https://x-access-token:${{ secrets.BUILD_REPO_TOKEN }}@github.com/Da3l-Dev/REPORTES_EIA.git
+          git push -f origin main
