@@ -1,0 +1,2024 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model alumnos_prioritarios_preescolar_indigena
+ * The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+ */
+export type alumnos_prioritarios_preescolar_indigenaModel = runtime.Types.Result.DefaultSelection<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload>;
+export type AggregateAlumnos_prioritarios_preescolar_indigena = {
+    _count: Alumnos_prioritarios_preescolar_indigenaCountAggregateOutputType | null;
+    _avg: Alumnos_prioritarios_preescolar_indigenaAvgAggregateOutputType | null;
+    _sum: Alumnos_prioritarios_preescolar_indigenaSumAggregateOutputType | null;
+    _min: Alumnos_prioritarios_preescolar_indigenaMinAggregateOutputType | null;
+    _max: Alumnos_prioritarios_preescolar_indigenaMaxAggregateOutputType | null;
+};
+export type Alumnos_prioritarios_preescolar_indigenaAvgAggregateOutputType = {
+    Ent: runtime.Decimal | null;
+    GRADO: runtime.Decimal | null;
+    SECTOR: runtime.Decimal | null;
+    ZONA: runtime.Decimal | null;
+    KX2LE1C1A1: runtime.Decimal | null;
+    KX2DE1C1A2: runtime.Decimal | null;
+    KX2LE1C2A1: runtime.Decimal | null;
+    KX2SE1C2A2: runtime.Decimal | null;
+    KX2LE1C3A1: runtime.Decimal | null;
+    KX2EE1C3A2: runtime.Decimal | null;
+    KX2SE2C1A1: runtime.Decimal | null;
+    KX2LE2C2A1: runtime.Decimal | null;
+    KX2EE2C3A1: runtime.Decimal | null;
+    KX2LE2C4A1: runtime.Decimal | null;
+    KX2DE2C4A2: runtime.Decimal | null;
+    id: number | null;
+};
+export type Alumnos_prioritarios_preescolar_indigenaSumAggregateOutputType = {
+    Ent: runtime.Decimal | null;
+    GRADO: runtime.Decimal | null;
+    SECTOR: runtime.Decimal | null;
+    ZONA: runtime.Decimal | null;
+    KX2LE1C1A1: runtime.Decimal | null;
+    KX2DE1C1A2: runtime.Decimal | null;
+    KX2LE1C2A1: runtime.Decimal | null;
+    KX2SE1C2A2: runtime.Decimal | null;
+    KX2LE1C3A1: runtime.Decimal | null;
+    KX2EE1C3A2: runtime.Decimal | null;
+    KX2SE2C1A1: runtime.Decimal | null;
+    KX2LE2C2A1: runtime.Decimal | null;
+    KX2EE2C3A1: runtime.Decimal | null;
+    KX2LE2C4A1: runtime.Decimal | null;
+    KX2DE2C4A2: runtime.Decimal | null;
+    id: number | null;
+};
+export type Alumnos_prioritarios_preescolar_indigenaMinAggregateOutputType = {
+    cv_cct: string | null;
+    Ent: runtime.Decimal | null;
+    LLAVE: string | null;
+    Nombre_Alumno: string | null;
+    Matr_Edo: boolean | null;
+    Id_Turno: boolean | null;
+    CONTROL: string | null;
+    Id_Nivel: boolean | null;
+    NIVEL: string | null;
+    SUBNIVEL: string | null;
+    OPCION_EDUCATIVA: string | null;
+    TURNO: string | null;
+    GRADO: runtime.Decimal | null;
+    Sexo: string | null;
+    GRUPO: string | null;
+    CCT_SECTOR: string | null;
+    SECTOR: runtime.Decimal | null;
+    CCT_ZONA: string | null;
+    ZONA: runtime.Decimal | null;
+    KX2LE1C1A1: runtime.Decimal | null;
+    KX2DE1C1A2: runtime.Decimal | null;
+    KX2LE1C2A1: runtime.Decimal | null;
+    KX2SE1C2A2: runtime.Decimal | null;
+    KX2LE1C3A1: runtime.Decimal | null;
+    KX2EE1C3A2: runtime.Decimal | null;
+    KX2SE2C1A1: runtime.Decimal | null;
+    KX2LE2C2A1: runtime.Decimal | null;
+    KX2EE2C3A1: runtime.Decimal | null;
+    KX2LE2C4A1: runtime.Decimal | null;
+    KX2DE2C4A2: runtime.Decimal | null;
+    Nivel_Lenguajes: string | null;
+    Nivel_Saberes: string | null;
+    Nivel_Humano: string | null;
+    Nivel_Etica: string | null;
+    Tipo: string | null;
+    En_escuela_prioritaria: string | null;
+    id: number | null;
+};
+export type Alumnos_prioritarios_preescolar_indigenaMaxAggregateOutputType = {
+    cv_cct: string | null;
+    Ent: runtime.Decimal | null;
+    LLAVE: string | null;
+    Nombre_Alumno: string | null;
+    Matr_Edo: boolean | null;
+    Id_Turno: boolean | null;
+    CONTROL: string | null;
+    Id_Nivel: boolean | null;
+    NIVEL: string | null;
+    SUBNIVEL: string | null;
+    OPCION_EDUCATIVA: string | null;
+    TURNO: string | null;
+    GRADO: runtime.Decimal | null;
+    Sexo: string | null;
+    GRUPO: string | null;
+    CCT_SECTOR: string | null;
+    SECTOR: runtime.Decimal | null;
+    CCT_ZONA: string | null;
+    ZONA: runtime.Decimal | null;
+    KX2LE1C1A1: runtime.Decimal | null;
+    KX2DE1C1A2: runtime.Decimal | null;
+    KX2LE1C2A1: runtime.Decimal | null;
+    KX2SE1C2A2: runtime.Decimal | null;
+    KX2LE1C3A1: runtime.Decimal | null;
+    KX2EE1C3A2: runtime.Decimal | null;
+    KX2SE2C1A1: runtime.Decimal | null;
+    KX2LE2C2A1: runtime.Decimal | null;
+    KX2EE2C3A1: runtime.Decimal | null;
+    KX2LE2C4A1: runtime.Decimal | null;
+    KX2DE2C4A2: runtime.Decimal | null;
+    Nivel_Lenguajes: string | null;
+    Nivel_Saberes: string | null;
+    Nivel_Humano: string | null;
+    Nivel_Etica: string | null;
+    Tipo: string | null;
+    En_escuela_prioritaria: string | null;
+    id: number | null;
+};
+export type Alumnos_prioritarios_preescolar_indigenaCountAggregateOutputType = {
+    cv_cct: number;
+    Ent: number;
+    LLAVE: number;
+    Nombre_Alumno: number;
+    Matr_Edo: number;
+    Id_Turno: number;
+    CONTROL: number;
+    Id_Nivel: number;
+    NIVEL: number;
+    SUBNIVEL: number;
+    OPCION_EDUCATIVA: number;
+    TURNO: number;
+    GRADO: number;
+    Sexo: number;
+    GRUPO: number;
+    CCT_SECTOR: number;
+    SECTOR: number;
+    CCT_ZONA: number;
+    ZONA: number;
+    KX2LE1C1A1: number;
+    KX2DE1C1A2: number;
+    KX2LE1C2A1: number;
+    KX2SE1C2A2: number;
+    KX2LE1C3A1: number;
+    KX2EE1C3A2: number;
+    KX2SE2C1A1: number;
+    KX2LE2C2A1: number;
+    KX2EE2C3A1: number;
+    KX2LE2C4A1: number;
+    KX2DE2C4A2: number;
+    Nivel_Lenguajes: number;
+    Nivel_Saberes: number;
+    Nivel_Humano: number;
+    Nivel_Etica: number;
+    Tipo: number;
+    En_escuela_prioritaria: number;
+    id: number;
+    _all: number;
+};
+export type Alumnos_prioritarios_preescolar_indigenaAvgAggregateInputType = {
+    Ent?: true;
+    GRADO?: true;
+    SECTOR?: true;
+    ZONA?: true;
+    KX2LE1C1A1?: true;
+    KX2DE1C1A2?: true;
+    KX2LE1C2A1?: true;
+    KX2SE1C2A2?: true;
+    KX2LE1C3A1?: true;
+    KX2EE1C3A2?: true;
+    KX2SE2C1A1?: true;
+    KX2LE2C2A1?: true;
+    KX2EE2C3A1?: true;
+    KX2LE2C4A1?: true;
+    KX2DE2C4A2?: true;
+    id?: true;
+};
+export type Alumnos_prioritarios_preescolar_indigenaSumAggregateInputType = {
+    Ent?: true;
+    GRADO?: true;
+    SECTOR?: true;
+    ZONA?: true;
+    KX2LE1C1A1?: true;
+    KX2DE1C1A2?: true;
+    KX2LE1C2A1?: true;
+    KX2SE1C2A2?: true;
+    KX2LE1C3A1?: true;
+    KX2EE1C3A2?: true;
+    KX2SE2C1A1?: true;
+    KX2LE2C2A1?: true;
+    KX2EE2C3A1?: true;
+    KX2LE2C4A1?: true;
+    KX2DE2C4A2?: true;
+    id?: true;
+};
+export type Alumnos_prioritarios_preescolar_indigenaMinAggregateInputType = {
+    cv_cct?: true;
+    Ent?: true;
+    LLAVE?: true;
+    Nombre_Alumno?: true;
+    Matr_Edo?: true;
+    Id_Turno?: true;
+    CONTROL?: true;
+    Id_Nivel?: true;
+    NIVEL?: true;
+    SUBNIVEL?: true;
+    OPCION_EDUCATIVA?: true;
+    TURNO?: true;
+    GRADO?: true;
+    Sexo?: true;
+    GRUPO?: true;
+    CCT_SECTOR?: true;
+    SECTOR?: true;
+    CCT_ZONA?: true;
+    ZONA?: true;
+    KX2LE1C1A1?: true;
+    KX2DE1C1A2?: true;
+    KX2LE1C2A1?: true;
+    KX2SE1C2A2?: true;
+    KX2LE1C3A1?: true;
+    KX2EE1C3A2?: true;
+    KX2SE2C1A1?: true;
+    KX2LE2C2A1?: true;
+    KX2EE2C3A1?: true;
+    KX2LE2C4A1?: true;
+    KX2DE2C4A2?: true;
+    Nivel_Lenguajes?: true;
+    Nivel_Saberes?: true;
+    Nivel_Humano?: true;
+    Nivel_Etica?: true;
+    Tipo?: true;
+    En_escuela_prioritaria?: true;
+    id?: true;
+};
+export type Alumnos_prioritarios_preescolar_indigenaMaxAggregateInputType = {
+    cv_cct?: true;
+    Ent?: true;
+    LLAVE?: true;
+    Nombre_Alumno?: true;
+    Matr_Edo?: true;
+    Id_Turno?: true;
+    CONTROL?: true;
+    Id_Nivel?: true;
+    NIVEL?: true;
+    SUBNIVEL?: true;
+    OPCION_EDUCATIVA?: true;
+    TURNO?: true;
+    GRADO?: true;
+    Sexo?: true;
+    GRUPO?: true;
+    CCT_SECTOR?: true;
+    SECTOR?: true;
+    CCT_ZONA?: true;
+    ZONA?: true;
+    KX2LE1C1A1?: true;
+    KX2DE1C1A2?: true;
+    KX2LE1C2A1?: true;
+    KX2SE1C2A2?: true;
+    KX2LE1C3A1?: true;
+    KX2EE1C3A2?: true;
+    KX2SE2C1A1?: true;
+    KX2LE2C2A1?: true;
+    KX2EE2C3A1?: true;
+    KX2LE2C4A1?: true;
+    KX2DE2C4A2?: true;
+    Nivel_Lenguajes?: true;
+    Nivel_Saberes?: true;
+    Nivel_Humano?: true;
+    Nivel_Etica?: true;
+    Tipo?: true;
+    En_escuela_prioritaria?: true;
+    id?: true;
+};
+export type Alumnos_prioritarios_preescolar_indigenaCountAggregateInputType = {
+    cv_cct?: true;
+    Ent?: true;
+    LLAVE?: true;
+    Nombre_Alumno?: true;
+    Matr_Edo?: true;
+    Id_Turno?: true;
+    CONTROL?: true;
+    Id_Nivel?: true;
+    NIVEL?: true;
+    SUBNIVEL?: true;
+    OPCION_EDUCATIVA?: true;
+    TURNO?: true;
+    GRADO?: true;
+    Sexo?: true;
+    GRUPO?: true;
+    CCT_SECTOR?: true;
+    SECTOR?: true;
+    CCT_ZONA?: true;
+    ZONA?: true;
+    KX2LE1C1A1?: true;
+    KX2DE1C1A2?: true;
+    KX2LE1C2A1?: true;
+    KX2SE1C2A2?: true;
+    KX2LE1C3A1?: true;
+    KX2EE1C3A2?: true;
+    KX2SE2C1A1?: true;
+    KX2LE2C2A1?: true;
+    KX2EE2C3A1?: true;
+    KX2LE2C4A1?: true;
+    KX2DE2C4A2?: true;
+    Nivel_Lenguajes?: true;
+    Nivel_Saberes?: true;
+    Nivel_Humano?: true;
+    Nivel_Etica?: true;
+    Tipo?: true;
+    En_escuela_prioritaria?: true;
+    id?: true;
+    _all?: true;
+};
+export type Alumnos_prioritarios_preescolar_indigenaAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which alumnos_prioritarios_preescolar_indigena to aggregate.
+     */
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of alumnos_prioritarios_preescolar_indigenas to fetch.
+     */
+    orderBy?: Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput | Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` alumnos_prioritarios_preescolar_indigenas from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` alumnos_prioritarios_preescolar_indigenas.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned alumnos_prioritarios_preescolar_indigenas
+    **/
+    _count?: true | Alumnos_prioritarios_preescolar_indigenaCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: Alumnos_prioritarios_preescolar_indigenaAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: Alumnos_prioritarios_preescolar_indigenaSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: Alumnos_prioritarios_preescolar_indigenaMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: Alumnos_prioritarios_preescolar_indigenaMaxAggregateInputType;
+};
+export type GetAlumnos_prioritarios_preescolar_indigenaAggregateType<T extends Alumnos_prioritarios_preescolar_indigenaAggregateArgs> = {
+    [P in keyof T & keyof AggregateAlumnos_prioritarios_preescolar_indigena]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateAlumnos_prioritarios_preescolar_indigena[P]> : Prisma.GetScalarType<T[P], AggregateAlumnos_prioritarios_preescolar_indigena[P]>;
+};
+export type alumnos_prioritarios_preescolar_indigenaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    orderBy?: Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithAggregationInput | Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithAggregationInput[];
+    by: Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum[] | Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum;
+    having?: Prisma.alumnos_prioritarios_preescolar_indigenaScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: Alumnos_prioritarios_preescolar_indigenaCountAggregateInputType | true;
+    _avg?: Alumnos_prioritarios_preescolar_indigenaAvgAggregateInputType;
+    _sum?: Alumnos_prioritarios_preescolar_indigenaSumAggregateInputType;
+    _min?: Alumnos_prioritarios_preescolar_indigenaMinAggregateInputType;
+    _max?: Alumnos_prioritarios_preescolar_indigenaMaxAggregateInputType;
+};
+export type Alumnos_prioritarios_preescolar_indigenaGroupByOutputType = {
+    cv_cct: string;
+    Ent: runtime.Decimal;
+    LLAVE: string;
+    Nombre_Alumno: string;
+    Matr_Edo: boolean;
+    Id_Turno: boolean;
+    CONTROL: string;
+    Id_Nivel: boolean;
+    NIVEL: string;
+    SUBNIVEL: string;
+    OPCION_EDUCATIVA: string;
+    TURNO: string;
+    GRADO: runtime.Decimal;
+    Sexo: string;
+    GRUPO: string;
+    CCT_SECTOR: string;
+    SECTOR: runtime.Decimal;
+    CCT_ZONA: string;
+    ZONA: runtime.Decimal;
+    KX2LE1C1A1: runtime.Decimal;
+    KX2DE1C1A2: runtime.Decimal;
+    KX2LE1C2A1: runtime.Decimal;
+    KX2SE1C2A2: runtime.Decimal;
+    KX2LE1C3A1: runtime.Decimal;
+    KX2EE1C3A2: runtime.Decimal;
+    KX2SE2C1A1: runtime.Decimal;
+    KX2LE2C2A1: runtime.Decimal;
+    KX2EE2C3A1: runtime.Decimal;
+    KX2LE2C4A1: runtime.Decimal;
+    KX2DE2C4A2: runtime.Decimal;
+    Nivel_Lenguajes: string;
+    Nivel_Saberes: string;
+    Nivel_Humano: string;
+    Nivel_Etica: string;
+    Tipo: string;
+    En_escuela_prioritaria: string;
+    id: number;
+    _count: Alumnos_prioritarios_preescolar_indigenaCountAggregateOutputType | null;
+    _avg: Alumnos_prioritarios_preescolar_indigenaAvgAggregateOutputType | null;
+    _sum: Alumnos_prioritarios_preescolar_indigenaSumAggregateOutputType | null;
+    _min: Alumnos_prioritarios_preescolar_indigenaMinAggregateOutputType | null;
+    _max: Alumnos_prioritarios_preescolar_indigenaMaxAggregateOutputType | null;
+};
+type GetAlumnos_prioritarios_preescolar_indigenaGroupByPayload<T extends alumnos_prioritarios_preescolar_indigenaGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<Alumnos_prioritarios_preescolar_indigenaGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof Alumnos_prioritarios_preescolar_indigenaGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], Alumnos_prioritarios_preescolar_indigenaGroupByOutputType[P]> : Prisma.GetScalarType<T[P], Alumnos_prioritarios_preescolar_indigenaGroupByOutputType[P]>;
+}>>;
+export type alumnos_prioritarios_preescolar_indigenaWhereInput = {
+    AND?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput | Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput[];
+    OR?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput[];
+    NOT?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput | Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput[];
+    cv_cct?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Ent?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nombre_Alumno?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Matr_Edo?: Prisma.BoolFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    Id_Turno?: Prisma.BoolFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    CONTROL?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Id_Nivel?: Prisma.BoolFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    NIVEL?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    SUBNIVEL?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    OPCION_EDUCATIVA?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    TURNO?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    GRADO?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    GRUPO?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    CCT_SECTOR?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    SECTOR?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    ZONA?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Saberes?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Humano?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Etica?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Tipo?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    En_escuela_prioritaria?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    id?: Prisma.IntFilter<"alumnos_prioritarios_preescolar_indigena"> | number;
+};
+export type alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput = {
+    cv_cct?: Prisma.SortOrder;
+    Ent?: Prisma.SortOrder;
+    LLAVE?: Prisma.SortOrder;
+    Nombre_Alumno?: Prisma.SortOrder;
+    Matr_Edo?: Prisma.SortOrder;
+    Id_Turno?: Prisma.SortOrder;
+    CONTROL?: Prisma.SortOrder;
+    Id_Nivel?: Prisma.SortOrder;
+    NIVEL?: Prisma.SortOrder;
+    SUBNIVEL?: Prisma.SortOrder;
+    OPCION_EDUCATIVA?: Prisma.SortOrder;
+    TURNO?: Prisma.SortOrder;
+    GRADO?: Prisma.SortOrder;
+    Sexo?: Prisma.SortOrder;
+    GRUPO?: Prisma.SortOrder;
+    CCT_SECTOR?: Prisma.SortOrder;
+    SECTOR?: Prisma.SortOrder;
+    CCT_ZONA?: Prisma.SortOrder;
+    ZONA?: Prisma.SortOrder;
+    KX2LE1C1A1?: Prisma.SortOrder;
+    KX2DE1C1A2?: Prisma.SortOrder;
+    KX2LE1C2A1?: Prisma.SortOrder;
+    KX2SE1C2A2?: Prisma.SortOrder;
+    KX2LE1C3A1?: Prisma.SortOrder;
+    KX2EE1C3A2?: Prisma.SortOrder;
+    KX2SE2C1A1?: Prisma.SortOrder;
+    KX2LE2C2A1?: Prisma.SortOrder;
+    KX2EE2C3A1?: Prisma.SortOrder;
+    KX2LE2C4A1?: Prisma.SortOrder;
+    KX2DE2C4A2?: Prisma.SortOrder;
+    Nivel_Lenguajes?: Prisma.SortOrder;
+    Nivel_Saberes?: Prisma.SortOrder;
+    Nivel_Humano?: Prisma.SortOrder;
+    Nivel_Etica?: Prisma.SortOrder;
+    Tipo?: Prisma.SortOrder;
+    En_escuela_prioritaria?: Prisma.SortOrder;
+    id?: Prisma.SortOrder;
+};
+export type alumnos_prioritarios_preescolar_indigenaWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput | Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput[];
+    OR?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput[];
+    NOT?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput | Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput[];
+    cv_cct?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Ent?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nombre_Alumno?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Matr_Edo?: Prisma.BoolFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    Id_Turno?: Prisma.BoolFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    CONTROL?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Id_Nivel?: Prisma.BoolFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    NIVEL?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    SUBNIVEL?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    OPCION_EDUCATIVA?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    TURNO?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    GRADO?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    GRUPO?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    CCT_SECTOR?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    SECTOR?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    ZONA?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2?: Prisma.DecimalFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Saberes?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Humano?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Etica?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Tipo?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    En_escuela_prioritaria?: Prisma.StringFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+}, "id">;
+export type alumnos_prioritarios_preescolar_indigenaOrderByWithAggregationInput = {
+    cv_cct?: Prisma.SortOrder;
+    Ent?: Prisma.SortOrder;
+    LLAVE?: Prisma.SortOrder;
+    Nombre_Alumno?: Prisma.SortOrder;
+    Matr_Edo?: Prisma.SortOrder;
+    Id_Turno?: Prisma.SortOrder;
+    CONTROL?: Prisma.SortOrder;
+    Id_Nivel?: Prisma.SortOrder;
+    NIVEL?: Prisma.SortOrder;
+    SUBNIVEL?: Prisma.SortOrder;
+    OPCION_EDUCATIVA?: Prisma.SortOrder;
+    TURNO?: Prisma.SortOrder;
+    GRADO?: Prisma.SortOrder;
+    Sexo?: Prisma.SortOrder;
+    GRUPO?: Prisma.SortOrder;
+    CCT_SECTOR?: Prisma.SortOrder;
+    SECTOR?: Prisma.SortOrder;
+    CCT_ZONA?: Prisma.SortOrder;
+    ZONA?: Prisma.SortOrder;
+    KX2LE1C1A1?: Prisma.SortOrder;
+    KX2DE1C1A2?: Prisma.SortOrder;
+    KX2LE1C2A1?: Prisma.SortOrder;
+    KX2SE1C2A2?: Prisma.SortOrder;
+    KX2LE1C3A1?: Prisma.SortOrder;
+    KX2EE1C3A2?: Prisma.SortOrder;
+    KX2SE2C1A1?: Prisma.SortOrder;
+    KX2LE2C2A1?: Prisma.SortOrder;
+    KX2EE2C3A1?: Prisma.SortOrder;
+    KX2LE2C4A1?: Prisma.SortOrder;
+    KX2DE2C4A2?: Prisma.SortOrder;
+    Nivel_Lenguajes?: Prisma.SortOrder;
+    Nivel_Saberes?: Prisma.SortOrder;
+    Nivel_Humano?: Prisma.SortOrder;
+    Nivel_Etica?: Prisma.SortOrder;
+    Tipo?: Prisma.SortOrder;
+    En_escuela_prioritaria?: Prisma.SortOrder;
+    id?: Prisma.SortOrder;
+    _count?: Prisma.alumnos_prioritarios_preescolar_indigenaCountOrderByAggregateInput;
+    _avg?: Prisma.alumnos_prioritarios_preescolar_indigenaAvgOrderByAggregateInput;
+    _max?: Prisma.alumnos_prioritarios_preescolar_indigenaMaxOrderByAggregateInput;
+    _min?: Prisma.alumnos_prioritarios_preescolar_indigenaMinOrderByAggregateInput;
+    _sum?: Prisma.alumnos_prioritarios_preescolar_indigenaSumOrderByAggregateInput;
+};
+export type alumnos_prioritarios_preescolar_indigenaScalarWhereWithAggregatesInput = {
+    AND?: Prisma.alumnos_prioritarios_preescolar_indigenaScalarWhereWithAggregatesInput | Prisma.alumnos_prioritarios_preescolar_indigenaScalarWhereWithAggregatesInput[];
+    OR?: Prisma.alumnos_prioritarios_preescolar_indigenaScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.alumnos_prioritarios_preescolar_indigenaScalarWhereWithAggregatesInput | Prisma.alumnos_prioritarios_preescolar_indigenaScalarWhereWithAggregatesInput[];
+    cv_cct?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Ent?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nombre_Alumno?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Matr_Edo?: Prisma.BoolWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    Id_Turno?: Prisma.BoolWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    CONTROL?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Id_Nivel?: Prisma.BoolWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | boolean;
+    NIVEL?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    SUBNIVEL?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    OPCION_EDUCATIVA?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    TURNO?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    GRADO?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    GRUPO?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    CCT_SECTOR?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    SECTOR?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    ZONA?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2?: Prisma.DecimalWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Saberes?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Humano?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Nivel_Etica?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    Tipo?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    En_escuela_prioritaria?: Prisma.StringWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | string;
+    id?: Prisma.IntWithAggregatesFilter<"alumnos_prioritarios_preescolar_indigena"> | number;
+};
+export type alumnos_prioritarios_preescolar_indigenaCreateInput = {
+    cv_cct: string;
+    Ent: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE: string;
+    Nombre_Alumno: string;
+    Matr_Edo: boolean;
+    Id_Turno: boolean;
+    CONTROL: string;
+    Id_Nivel: boolean;
+    NIVEL: string;
+    SUBNIVEL: string;
+    OPCION_EDUCATIVA: string;
+    TURNO: string;
+    GRADO: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo: string;
+    GRUPO: string;
+    CCT_SECTOR: string;
+    SECTOR: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA: string;
+    ZONA: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes: string;
+    Nivel_Saberes: string;
+    Nivel_Humano: string;
+    Nivel_Etica: string;
+    Tipo: string;
+    En_escuela_prioritaria: string;
+};
+export type alumnos_prioritarios_preescolar_indigenaUncheckedCreateInput = {
+    cv_cct: string;
+    Ent: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE: string;
+    Nombre_Alumno: string;
+    Matr_Edo: boolean;
+    Id_Turno: boolean;
+    CONTROL: string;
+    Id_Nivel: boolean;
+    NIVEL: string;
+    SUBNIVEL: string;
+    OPCION_EDUCATIVA: string;
+    TURNO: string;
+    GRADO: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo: string;
+    GRUPO: string;
+    CCT_SECTOR: string;
+    SECTOR: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA: string;
+    ZONA: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes: string;
+    Nivel_Saberes: string;
+    Nivel_Humano: string;
+    Nivel_Etica: string;
+    Tipo: string;
+    En_escuela_prioritaria: string;
+    id?: number;
+};
+export type alumnos_prioritarios_preescolar_indigenaUpdateInput = {
+    cv_cct?: Prisma.StringFieldUpdateOperationsInput | string;
+    Ent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nombre_Alumno?: Prisma.StringFieldUpdateOperationsInput | string;
+    Matr_Edo?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    Id_Turno?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    CONTROL?: Prisma.StringFieldUpdateOperationsInput | string;
+    Id_Nivel?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    NIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    SUBNIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    OPCION_EDUCATIVA?: Prisma.StringFieldUpdateOperationsInput | string;
+    TURNO?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRADO?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRUPO?: Prisma.StringFieldUpdateOperationsInput | string;
+    CCT_SECTOR?: Prisma.StringFieldUpdateOperationsInput | string;
+    SECTOR?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA?: Prisma.StringFieldUpdateOperationsInput | string;
+    ZONA?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Saberes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Humano?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Etica?: Prisma.StringFieldUpdateOperationsInput | string;
+    Tipo?: Prisma.StringFieldUpdateOperationsInput | string;
+    En_escuela_prioritaria?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+export type alumnos_prioritarios_preescolar_indigenaUncheckedUpdateInput = {
+    cv_cct?: Prisma.StringFieldUpdateOperationsInput | string;
+    Ent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nombre_Alumno?: Prisma.StringFieldUpdateOperationsInput | string;
+    Matr_Edo?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    Id_Turno?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    CONTROL?: Prisma.StringFieldUpdateOperationsInput | string;
+    Id_Nivel?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    NIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    SUBNIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    OPCION_EDUCATIVA?: Prisma.StringFieldUpdateOperationsInput | string;
+    TURNO?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRADO?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRUPO?: Prisma.StringFieldUpdateOperationsInput | string;
+    CCT_SECTOR?: Prisma.StringFieldUpdateOperationsInput | string;
+    SECTOR?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA?: Prisma.StringFieldUpdateOperationsInput | string;
+    ZONA?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Saberes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Humano?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Etica?: Prisma.StringFieldUpdateOperationsInput | string;
+    Tipo?: Prisma.StringFieldUpdateOperationsInput | string;
+    En_escuela_prioritaria?: Prisma.StringFieldUpdateOperationsInput | string;
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type alumnos_prioritarios_preescolar_indigenaCreateManyInput = {
+    cv_cct: string;
+    Ent: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE: string;
+    Nombre_Alumno: string;
+    Matr_Edo: boolean;
+    Id_Turno: boolean;
+    CONTROL: string;
+    Id_Nivel: boolean;
+    NIVEL: string;
+    SUBNIVEL: string;
+    OPCION_EDUCATIVA: string;
+    TURNO: string;
+    GRADO: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo: string;
+    GRUPO: string;
+    CCT_SECTOR: string;
+    SECTOR: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA: string;
+    ZONA: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes: string;
+    Nivel_Saberes: string;
+    Nivel_Humano: string;
+    Nivel_Etica: string;
+    Tipo: string;
+    En_escuela_prioritaria: string;
+    id?: number;
+};
+export type alumnos_prioritarios_preescolar_indigenaUpdateManyMutationInput = {
+    cv_cct?: Prisma.StringFieldUpdateOperationsInput | string;
+    Ent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nombre_Alumno?: Prisma.StringFieldUpdateOperationsInput | string;
+    Matr_Edo?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    Id_Turno?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    CONTROL?: Prisma.StringFieldUpdateOperationsInput | string;
+    Id_Nivel?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    NIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    SUBNIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    OPCION_EDUCATIVA?: Prisma.StringFieldUpdateOperationsInput | string;
+    TURNO?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRADO?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRUPO?: Prisma.StringFieldUpdateOperationsInput | string;
+    CCT_SECTOR?: Prisma.StringFieldUpdateOperationsInput | string;
+    SECTOR?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA?: Prisma.StringFieldUpdateOperationsInput | string;
+    ZONA?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Saberes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Humano?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Etica?: Prisma.StringFieldUpdateOperationsInput | string;
+    Tipo?: Prisma.StringFieldUpdateOperationsInput | string;
+    En_escuela_prioritaria?: Prisma.StringFieldUpdateOperationsInput | string;
+};
+export type alumnos_prioritarios_preescolar_indigenaUncheckedUpdateManyInput = {
+    cv_cct?: Prisma.StringFieldUpdateOperationsInput | string;
+    Ent?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    LLAVE?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nombre_Alumno?: Prisma.StringFieldUpdateOperationsInput | string;
+    Matr_Edo?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    Id_Turno?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    CONTROL?: Prisma.StringFieldUpdateOperationsInput | string;
+    Id_Nivel?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    NIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    SUBNIVEL?: Prisma.StringFieldUpdateOperationsInput | string;
+    OPCION_EDUCATIVA?: Prisma.StringFieldUpdateOperationsInput | string;
+    TURNO?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRADO?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Sexo?: Prisma.StringFieldUpdateOperationsInput | string;
+    GRUPO?: Prisma.StringFieldUpdateOperationsInput | string;
+    CCT_SECTOR?: Prisma.StringFieldUpdateOperationsInput | string;
+    SECTOR?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    CCT_ZONA?: Prisma.StringFieldUpdateOperationsInput | string;
+    ZONA?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE1C1A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE1C2A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE1C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE1C3A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2SE2C1A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C2A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2EE2C3A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2LE2C4A1?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    KX2DE2C4A2?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    Nivel_Lenguajes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Saberes?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Humano?: Prisma.StringFieldUpdateOperationsInput | string;
+    Nivel_Etica?: Prisma.StringFieldUpdateOperationsInput | string;
+    Tipo?: Prisma.StringFieldUpdateOperationsInput | string;
+    En_escuela_prioritaria?: Prisma.StringFieldUpdateOperationsInput | string;
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+};
+export type alumnos_prioritarios_preescolar_indigenaCountOrderByAggregateInput = {
+    cv_cct?: Prisma.SortOrder;
+    Ent?: Prisma.SortOrder;
+    LLAVE?: Prisma.SortOrder;
+    Nombre_Alumno?: Prisma.SortOrder;
+    Matr_Edo?: Prisma.SortOrder;
+    Id_Turno?: Prisma.SortOrder;
+    CONTROL?: Prisma.SortOrder;
+    Id_Nivel?: Prisma.SortOrder;
+    NIVEL?: Prisma.SortOrder;
+    SUBNIVEL?: Prisma.SortOrder;
+    OPCION_EDUCATIVA?: Prisma.SortOrder;
+    TURNO?: Prisma.SortOrder;
+    GRADO?: Prisma.SortOrder;
+    Sexo?: Prisma.SortOrder;
+    GRUPO?: Prisma.SortOrder;
+    CCT_SECTOR?: Prisma.SortOrder;
+    SECTOR?: Prisma.SortOrder;
+    CCT_ZONA?: Prisma.SortOrder;
+    ZONA?: Prisma.SortOrder;
+    KX2LE1C1A1?: Prisma.SortOrder;
+    KX2DE1C1A2?: Prisma.SortOrder;
+    KX2LE1C2A1?: Prisma.SortOrder;
+    KX2SE1C2A2?: Prisma.SortOrder;
+    KX2LE1C3A1?: Prisma.SortOrder;
+    KX2EE1C3A2?: Prisma.SortOrder;
+    KX2SE2C1A1?: Prisma.SortOrder;
+    KX2LE2C2A1?: Prisma.SortOrder;
+    KX2EE2C3A1?: Prisma.SortOrder;
+    KX2LE2C4A1?: Prisma.SortOrder;
+    KX2DE2C4A2?: Prisma.SortOrder;
+    Nivel_Lenguajes?: Prisma.SortOrder;
+    Nivel_Saberes?: Prisma.SortOrder;
+    Nivel_Humano?: Prisma.SortOrder;
+    Nivel_Etica?: Prisma.SortOrder;
+    Tipo?: Prisma.SortOrder;
+    En_escuela_prioritaria?: Prisma.SortOrder;
+    id?: Prisma.SortOrder;
+};
+export type alumnos_prioritarios_preescolar_indigenaAvgOrderByAggregateInput = {
+    Ent?: Prisma.SortOrder;
+    GRADO?: Prisma.SortOrder;
+    SECTOR?: Prisma.SortOrder;
+    ZONA?: Prisma.SortOrder;
+    KX2LE1C1A1?: Prisma.SortOrder;
+    KX2DE1C1A2?: Prisma.SortOrder;
+    KX2LE1C2A1?: Prisma.SortOrder;
+    KX2SE1C2A2?: Prisma.SortOrder;
+    KX2LE1C3A1?: Prisma.SortOrder;
+    KX2EE1C3A2?: Prisma.SortOrder;
+    KX2SE2C1A1?: Prisma.SortOrder;
+    KX2LE2C2A1?: Prisma.SortOrder;
+    KX2EE2C3A1?: Prisma.SortOrder;
+    KX2LE2C4A1?: Prisma.SortOrder;
+    KX2DE2C4A2?: Prisma.SortOrder;
+    id?: Prisma.SortOrder;
+};
+export type alumnos_prioritarios_preescolar_indigenaMaxOrderByAggregateInput = {
+    cv_cct?: Prisma.SortOrder;
+    Ent?: Prisma.SortOrder;
+    LLAVE?: Prisma.SortOrder;
+    Nombre_Alumno?: Prisma.SortOrder;
+    Matr_Edo?: Prisma.SortOrder;
+    Id_Turno?: Prisma.SortOrder;
+    CONTROL?: Prisma.SortOrder;
+    Id_Nivel?: Prisma.SortOrder;
+    NIVEL?: Prisma.SortOrder;
+    SUBNIVEL?: Prisma.SortOrder;
+    OPCION_EDUCATIVA?: Prisma.SortOrder;
+    TURNO?: Prisma.SortOrder;
+    GRADO?: Prisma.SortOrder;
+    Sexo?: Prisma.SortOrder;
+    GRUPO?: Prisma.SortOrder;
+    CCT_SECTOR?: Prisma.SortOrder;
+    SECTOR?: Prisma.SortOrder;
+    CCT_ZONA?: Prisma.SortOrder;
+    ZONA?: Prisma.SortOrder;
+    KX2LE1C1A1?: Prisma.SortOrder;
+    KX2DE1C1A2?: Prisma.SortOrder;
+    KX2LE1C2A1?: Prisma.SortOrder;
+    KX2SE1C2A2?: Prisma.SortOrder;
+    KX2LE1C3A1?: Prisma.SortOrder;
+    KX2EE1C3A2?: Prisma.SortOrder;
+    KX2SE2C1A1?: Prisma.SortOrder;
+    KX2LE2C2A1?: Prisma.SortOrder;
+    KX2EE2C3A1?: Prisma.SortOrder;
+    KX2LE2C4A1?: Prisma.SortOrder;
+    KX2DE2C4A2?: Prisma.SortOrder;
+    Nivel_Lenguajes?: Prisma.SortOrder;
+    Nivel_Saberes?: Prisma.SortOrder;
+    Nivel_Humano?: Prisma.SortOrder;
+    Nivel_Etica?: Prisma.SortOrder;
+    Tipo?: Prisma.SortOrder;
+    En_escuela_prioritaria?: Prisma.SortOrder;
+    id?: Prisma.SortOrder;
+};
+export type alumnos_prioritarios_preescolar_indigenaMinOrderByAggregateInput = {
+    cv_cct?: Prisma.SortOrder;
+    Ent?: Prisma.SortOrder;
+    LLAVE?: Prisma.SortOrder;
+    Nombre_Alumno?: Prisma.SortOrder;
+    Matr_Edo?: Prisma.SortOrder;
+    Id_Turno?: Prisma.SortOrder;
+    CONTROL?: Prisma.SortOrder;
+    Id_Nivel?: Prisma.SortOrder;
+    NIVEL?: Prisma.SortOrder;
+    SUBNIVEL?: Prisma.SortOrder;
+    OPCION_EDUCATIVA?: Prisma.SortOrder;
+    TURNO?: Prisma.SortOrder;
+    GRADO?: Prisma.SortOrder;
+    Sexo?: Prisma.SortOrder;
+    GRUPO?: Prisma.SortOrder;
+    CCT_SECTOR?: Prisma.SortOrder;
+    SECTOR?: Prisma.SortOrder;
+    CCT_ZONA?: Prisma.SortOrder;
+    ZONA?: Prisma.SortOrder;
+    KX2LE1C1A1?: Prisma.SortOrder;
+    KX2DE1C1A2?: Prisma.SortOrder;
+    KX2LE1C2A1?: Prisma.SortOrder;
+    KX2SE1C2A2?: Prisma.SortOrder;
+    KX2LE1C3A1?: Prisma.SortOrder;
+    KX2EE1C3A2?: Prisma.SortOrder;
+    KX2SE2C1A1?: Prisma.SortOrder;
+    KX2LE2C2A1?: Prisma.SortOrder;
+    KX2EE2C3A1?: Prisma.SortOrder;
+    KX2LE2C4A1?: Prisma.SortOrder;
+    KX2DE2C4A2?: Prisma.SortOrder;
+    Nivel_Lenguajes?: Prisma.SortOrder;
+    Nivel_Saberes?: Prisma.SortOrder;
+    Nivel_Humano?: Prisma.SortOrder;
+    Nivel_Etica?: Prisma.SortOrder;
+    Tipo?: Prisma.SortOrder;
+    En_escuela_prioritaria?: Prisma.SortOrder;
+    id?: Prisma.SortOrder;
+};
+export type alumnos_prioritarios_preescolar_indigenaSumOrderByAggregateInput = {
+    Ent?: Prisma.SortOrder;
+    GRADO?: Prisma.SortOrder;
+    SECTOR?: Prisma.SortOrder;
+    ZONA?: Prisma.SortOrder;
+    KX2LE1C1A1?: Prisma.SortOrder;
+    KX2DE1C1A2?: Prisma.SortOrder;
+    KX2LE1C2A1?: Prisma.SortOrder;
+    KX2SE1C2A2?: Prisma.SortOrder;
+    KX2LE1C3A1?: Prisma.SortOrder;
+    KX2EE1C3A2?: Prisma.SortOrder;
+    KX2SE2C1A1?: Prisma.SortOrder;
+    KX2LE2C2A1?: Prisma.SortOrder;
+    KX2EE2C3A1?: Prisma.SortOrder;
+    KX2LE2C4A1?: Prisma.SortOrder;
+    KX2DE2C4A2?: Prisma.SortOrder;
+    id?: Prisma.SortOrder;
+};
+export type alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    cv_cct?: boolean;
+    Ent?: boolean;
+    LLAVE?: boolean;
+    Nombre_Alumno?: boolean;
+    Matr_Edo?: boolean;
+    Id_Turno?: boolean;
+    CONTROL?: boolean;
+    Id_Nivel?: boolean;
+    NIVEL?: boolean;
+    SUBNIVEL?: boolean;
+    OPCION_EDUCATIVA?: boolean;
+    TURNO?: boolean;
+    GRADO?: boolean;
+    Sexo?: boolean;
+    GRUPO?: boolean;
+    CCT_SECTOR?: boolean;
+    SECTOR?: boolean;
+    CCT_ZONA?: boolean;
+    ZONA?: boolean;
+    KX2LE1C1A1?: boolean;
+    KX2DE1C1A2?: boolean;
+    KX2LE1C2A1?: boolean;
+    KX2SE1C2A2?: boolean;
+    KX2LE1C3A1?: boolean;
+    KX2EE1C3A2?: boolean;
+    KX2SE2C1A1?: boolean;
+    KX2LE2C2A1?: boolean;
+    KX2EE2C3A1?: boolean;
+    KX2LE2C4A1?: boolean;
+    KX2DE2C4A2?: boolean;
+    Nivel_Lenguajes?: boolean;
+    Nivel_Saberes?: boolean;
+    Nivel_Humano?: boolean;
+    Nivel_Etica?: boolean;
+    Tipo?: boolean;
+    En_escuela_prioritaria?: boolean;
+    id?: boolean;
+}, ExtArgs["result"]["alumnos_prioritarios_preescolar_indigena"]>;
+export type alumnos_prioritarios_preescolar_indigenaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    cv_cct?: boolean;
+    Ent?: boolean;
+    LLAVE?: boolean;
+    Nombre_Alumno?: boolean;
+    Matr_Edo?: boolean;
+    Id_Turno?: boolean;
+    CONTROL?: boolean;
+    Id_Nivel?: boolean;
+    NIVEL?: boolean;
+    SUBNIVEL?: boolean;
+    OPCION_EDUCATIVA?: boolean;
+    TURNO?: boolean;
+    GRADO?: boolean;
+    Sexo?: boolean;
+    GRUPO?: boolean;
+    CCT_SECTOR?: boolean;
+    SECTOR?: boolean;
+    CCT_ZONA?: boolean;
+    ZONA?: boolean;
+    KX2LE1C1A1?: boolean;
+    KX2DE1C1A2?: boolean;
+    KX2LE1C2A1?: boolean;
+    KX2SE1C2A2?: boolean;
+    KX2LE1C3A1?: boolean;
+    KX2EE1C3A2?: boolean;
+    KX2SE2C1A1?: boolean;
+    KX2LE2C2A1?: boolean;
+    KX2EE2C3A1?: boolean;
+    KX2LE2C4A1?: boolean;
+    KX2DE2C4A2?: boolean;
+    Nivel_Lenguajes?: boolean;
+    Nivel_Saberes?: boolean;
+    Nivel_Humano?: boolean;
+    Nivel_Etica?: boolean;
+    Tipo?: boolean;
+    En_escuela_prioritaria?: boolean;
+    id?: boolean;
+}, ExtArgs["result"]["alumnos_prioritarios_preescolar_indigena"]>;
+export type alumnos_prioritarios_preescolar_indigenaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    cv_cct?: boolean;
+    Ent?: boolean;
+    LLAVE?: boolean;
+    Nombre_Alumno?: boolean;
+    Matr_Edo?: boolean;
+    Id_Turno?: boolean;
+    CONTROL?: boolean;
+    Id_Nivel?: boolean;
+    NIVEL?: boolean;
+    SUBNIVEL?: boolean;
+    OPCION_EDUCATIVA?: boolean;
+    TURNO?: boolean;
+    GRADO?: boolean;
+    Sexo?: boolean;
+    GRUPO?: boolean;
+    CCT_SECTOR?: boolean;
+    SECTOR?: boolean;
+    CCT_ZONA?: boolean;
+    ZONA?: boolean;
+    KX2LE1C1A1?: boolean;
+    KX2DE1C1A2?: boolean;
+    KX2LE1C2A1?: boolean;
+    KX2SE1C2A2?: boolean;
+    KX2LE1C3A1?: boolean;
+    KX2EE1C3A2?: boolean;
+    KX2SE2C1A1?: boolean;
+    KX2LE2C2A1?: boolean;
+    KX2EE2C3A1?: boolean;
+    KX2LE2C4A1?: boolean;
+    KX2DE2C4A2?: boolean;
+    Nivel_Lenguajes?: boolean;
+    Nivel_Saberes?: boolean;
+    Nivel_Humano?: boolean;
+    Nivel_Etica?: boolean;
+    Tipo?: boolean;
+    En_escuela_prioritaria?: boolean;
+    id?: boolean;
+}, ExtArgs["result"]["alumnos_prioritarios_preescolar_indigena"]>;
+export type alumnos_prioritarios_preescolar_indigenaSelectScalar = {
+    cv_cct?: boolean;
+    Ent?: boolean;
+    LLAVE?: boolean;
+    Nombre_Alumno?: boolean;
+    Matr_Edo?: boolean;
+    Id_Turno?: boolean;
+    CONTROL?: boolean;
+    Id_Nivel?: boolean;
+    NIVEL?: boolean;
+    SUBNIVEL?: boolean;
+    OPCION_EDUCATIVA?: boolean;
+    TURNO?: boolean;
+    GRADO?: boolean;
+    Sexo?: boolean;
+    GRUPO?: boolean;
+    CCT_SECTOR?: boolean;
+    SECTOR?: boolean;
+    CCT_ZONA?: boolean;
+    ZONA?: boolean;
+    KX2LE1C1A1?: boolean;
+    KX2DE1C1A2?: boolean;
+    KX2LE1C2A1?: boolean;
+    KX2SE1C2A2?: boolean;
+    KX2LE1C3A1?: boolean;
+    KX2EE1C3A2?: boolean;
+    KX2SE2C1A1?: boolean;
+    KX2LE2C2A1?: boolean;
+    KX2EE2C3A1?: boolean;
+    KX2LE2C4A1?: boolean;
+    KX2DE2C4A2?: boolean;
+    Nivel_Lenguajes?: boolean;
+    Nivel_Saberes?: boolean;
+    Nivel_Humano?: boolean;
+    Nivel_Etica?: boolean;
+    Tipo?: boolean;
+    En_escuela_prioritaria?: boolean;
+    id?: boolean;
+};
+export type alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"cv_cct" | "Ent" | "LLAVE" | "Nombre_Alumno" | "Matr_Edo" | "Id_Turno" | "CONTROL" | "Id_Nivel" | "NIVEL" | "SUBNIVEL" | "OPCION_EDUCATIVA" | "TURNO" | "GRADO" | "Sexo" | "GRUPO" | "CCT_SECTOR" | "SECTOR" | "CCT_ZONA" | "ZONA" | "KX2LE1C1A1" | "KX2DE1C1A2" | "KX2LE1C2A1" | "KX2SE1C2A2" | "KX2LE1C3A1" | "KX2EE1C3A2" | "KX2SE2C1A1" | "KX2LE2C2A1" | "KX2EE2C3A1" | "KX2LE2C4A1" | "KX2DE2C4A2" | "Nivel_Lenguajes" | "Nivel_Saberes" | "Nivel_Humano" | "Nivel_Etica" | "Tipo" | "En_escuela_prioritaria" | "id", ExtArgs["result"]["alumnos_prioritarios_preescolar_indigena"]>;
+export type $alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "alumnos_prioritarios_preescolar_indigena";
+    objects: {};
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        cv_cct: string;
+        Ent: runtime.Decimal;
+        LLAVE: string;
+        Nombre_Alumno: string;
+        Matr_Edo: boolean;
+        Id_Turno: boolean;
+        CONTROL: string;
+        Id_Nivel: boolean;
+        NIVEL: string;
+        SUBNIVEL: string;
+        OPCION_EDUCATIVA: string;
+        TURNO: string;
+        GRADO: runtime.Decimal;
+        Sexo: string;
+        GRUPO: string;
+        CCT_SECTOR: string;
+        SECTOR: runtime.Decimal;
+        CCT_ZONA: string;
+        ZONA: runtime.Decimal;
+        KX2LE1C1A1: runtime.Decimal;
+        KX2DE1C1A2: runtime.Decimal;
+        KX2LE1C2A1: runtime.Decimal;
+        KX2SE1C2A2: runtime.Decimal;
+        KX2LE1C3A1: runtime.Decimal;
+        KX2EE1C3A2: runtime.Decimal;
+        KX2SE2C1A1: runtime.Decimal;
+        KX2LE2C2A1: runtime.Decimal;
+        KX2EE2C3A1: runtime.Decimal;
+        KX2LE2C4A1: runtime.Decimal;
+        KX2DE2C4A2: runtime.Decimal;
+        Nivel_Lenguajes: string;
+        Nivel_Saberes: string;
+        Nivel_Humano: string;
+        Nivel_Etica: string;
+        Tipo: string;
+        En_escuela_prioritaria: string;
+        id: number;
+    }, ExtArgs["result"]["alumnos_prioritarios_preescolar_indigena"]>;
+    composites: {};
+};
+export type alumnos_prioritarios_preescolar_indigenaGetPayload<S extends boolean | null | undefined | alumnos_prioritarios_preescolar_indigenaDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload, S>;
+export type alumnos_prioritarios_preescolar_indigenaCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<alumnos_prioritarios_preescolar_indigenaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+    select?: Alumnos_prioritarios_preescolar_indigenaCountAggregateInputType | true;
+};
+export interface alumnos_prioritarios_preescolar_indigenaDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['alumnos_prioritarios_preescolar_indigena'];
+        meta: {
+            name: 'alumnos_prioritarios_preescolar_indigena';
+        };
+    };
+    /**
+     * Find zero or one Alumnos_prioritarios_preescolar_indigena that matches the filter.
+     * @param {alumnos_prioritarios_preescolar_indigenaFindUniqueArgs} args - Arguments to find a Alumnos_prioritarios_preescolar_indigena
+     * @example
+     * // Get one Alumnos_prioritarios_preescolar_indigena
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends alumnos_prioritarios_preescolar_indigenaFindUniqueArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaFindUniqueArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one Alumnos_prioritarios_preescolar_indigena that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {alumnos_prioritarios_preescolar_indigenaFindUniqueOrThrowArgs} args - Arguments to find a Alumnos_prioritarios_preescolar_indigena
+     * @example
+     * // Get one Alumnos_prioritarios_preescolar_indigena
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends alumnos_prioritarios_preescolar_indigenaFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Alumnos_prioritarios_preescolar_indigena that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {alumnos_prioritarios_preescolar_indigenaFindFirstArgs} args - Arguments to find a Alumnos_prioritarios_preescolar_indigena
+     * @example
+     * // Get one Alumnos_prioritarios_preescolar_indigena
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends alumnos_prioritarios_preescolar_indigenaFindFirstArgs>(args?: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaFindFirstArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Alumnos_prioritarios_preescolar_indigena that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {alumnos_prioritarios_preescolar_indigenaFindFirstOrThrowArgs} args - Arguments to find a Alumnos_prioritarios_preescolar_indigena
+     * @example
+     * // Get one Alumnos_prioritarios_preescolar_indigena
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends alumnos_prioritarios_preescolar_indigenaFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Alumnos_prioritarios_preescolar_indigenas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {alumnos_prioritarios_preescolar_indigenaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Alumnos_prioritarios_preescolar_indigenas
+     * const alumnos_prioritarios_preescolar_indigenas = await prisma.alumnos_prioritarios_preescolar_indigena.findMany()
+     *
+     * // Get first 10 Alumnos_prioritarios_preescolar_indigenas
+     * const alumnos_prioritarios_preescolar_indigenas = await prisma.alumnos_prioritarios_preescolar_indigena.findMany({ take: 10 })
+     *
+     * // Only select the `cv_cct`
+     * const alumnos_prioritarios_preescolar_indigenaWithCv_cctOnly = await prisma.alumnos_prioritarios_preescolar_indigena.findMany({ select: { cv_cct: true } })
+     *
+     */
+    findMany<T extends alumnos_prioritarios_preescolar_indigenaFindManyArgs>(args?: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a Alumnos_prioritarios_preescolar_indigena.
+     * @param {alumnos_prioritarios_preescolar_indigenaCreateArgs} args - Arguments to create a Alumnos_prioritarios_preescolar_indigena.
+     * @example
+     * // Create one Alumnos_prioritarios_preescolar_indigena
+     * const Alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.create({
+     *   data: {
+     *     // ... data to create a Alumnos_prioritarios_preescolar_indigena
+     *   }
+     * })
+     *
+     */
+    create<T extends alumnos_prioritarios_preescolar_indigenaCreateArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaCreateArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Alumnos_prioritarios_preescolar_indigenas.
+     * @param {alumnos_prioritarios_preescolar_indigenaCreateManyArgs} args - Arguments to create many Alumnos_prioritarios_preescolar_indigenas.
+     * @example
+     * // Create many Alumnos_prioritarios_preescolar_indigenas
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends alumnos_prioritarios_preescolar_indigenaCreateManyArgs>(args?: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Alumnos_prioritarios_preescolar_indigenas and returns the data saved in the database.
+     * @param {alumnos_prioritarios_preescolar_indigenaCreateManyAndReturnArgs} args - Arguments to create many Alumnos_prioritarios_preescolar_indigenas.
+     * @example
+     * // Create many Alumnos_prioritarios_preescolar_indigenas
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Alumnos_prioritarios_preescolar_indigenas and only return the `cv_cct`
+     * const alumnos_prioritarios_preescolar_indigenaWithCv_cctOnly = await prisma.alumnos_prioritarios_preescolar_indigena.createManyAndReturn({
+     *   select: { cv_cct: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends alumnos_prioritarios_preescolar_indigenaCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a Alumnos_prioritarios_preescolar_indigena.
+     * @param {alumnos_prioritarios_preescolar_indigenaDeleteArgs} args - Arguments to delete one Alumnos_prioritarios_preescolar_indigena.
+     * @example
+     * // Delete one Alumnos_prioritarios_preescolar_indigena
+     * const Alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.delete({
+     *   where: {
+     *     // ... filter to delete one Alumnos_prioritarios_preescolar_indigena
+     *   }
+     * })
+     *
+     */
+    delete<T extends alumnos_prioritarios_preescolar_indigenaDeleteArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaDeleteArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one Alumnos_prioritarios_preescolar_indigena.
+     * @param {alumnos_prioritarios_preescolar_indigenaUpdateArgs} args - Arguments to update one Alumnos_prioritarios_preescolar_indigena.
+     * @example
+     * // Update one Alumnos_prioritarios_preescolar_indigena
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends alumnos_prioritarios_preescolar_indigenaUpdateArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaUpdateArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Alumnos_prioritarios_preescolar_indigenas.
+     * @param {alumnos_prioritarios_preescolar_indigenaDeleteManyArgs} args - Arguments to filter Alumnos_prioritarios_preescolar_indigenas to delete.
+     * @example
+     * // Delete a few Alumnos_prioritarios_preescolar_indigenas
+     * const { count } = await prisma.alumnos_prioritarios_preescolar_indigena.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends alumnos_prioritarios_preescolar_indigenaDeleteManyArgs>(args?: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Alumnos_prioritarios_preescolar_indigenas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {alumnos_prioritarios_preescolar_indigenaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Alumnos_prioritarios_preescolar_indigenas
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends alumnos_prioritarios_preescolar_indigenaUpdateManyArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Alumnos_prioritarios_preescolar_indigenas and returns the data updated in the database.
+     * @param {alumnos_prioritarios_preescolar_indigenaUpdateManyAndReturnArgs} args - Arguments to update many Alumnos_prioritarios_preescolar_indigenas.
+     * @example
+     * // Update many Alumnos_prioritarios_preescolar_indigenas
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Alumnos_prioritarios_preescolar_indigenas and only return the `cv_cct`
+     * const alumnos_prioritarios_preescolar_indigenaWithCv_cctOnly = await prisma.alumnos_prioritarios_preescolar_indigena.updateManyAndReturn({
+     *   select: { cv_cct: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends alumnos_prioritarios_preescolar_indigenaUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one Alumnos_prioritarios_preescolar_indigena.
+     * @param {alumnos_prioritarios_preescolar_indigenaUpsertArgs} args - Arguments to update or create a Alumnos_prioritarios_preescolar_indigena.
+     * @example
+     * // Update or create a Alumnos_prioritarios_preescolar_indigena
+     * const alumnos_prioritarios_preescolar_indigena = await prisma.alumnos_prioritarios_preescolar_indigena.upsert({
+     *   create: {
+     *     // ... data to create a Alumnos_prioritarios_preescolar_indigena
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Alumnos_prioritarios_preescolar_indigena we want to update
+     *   }
+     * })
+     */
+    upsert<T extends alumnos_prioritarios_preescolar_indigenaUpsertArgs>(args: Prisma.SelectSubset<T, alumnos_prioritarios_preescolar_indigenaUpsertArgs<ExtArgs>>): Prisma.Prisma__alumnos_prioritarios_preescolar_indigenaClient<runtime.Types.Result.GetResult<Prisma.$alumnos_prioritarios_preescolar_indigenaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Alumnos_prioritarios_preescolar_indigenas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {alumnos_prioritarios_preescolar_indigenaCountArgs} args - Arguments to filter Alumnos_prioritarios_preescolar_indigenas to count.
+     * @example
+     * // Count the number of Alumnos_prioritarios_preescolar_indigenas
+     * const count = await prisma.alumnos_prioritarios_preescolar_indigena.count({
+     *   where: {
+     *     // ... the filter for the Alumnos_prioritarios_preescolar_indigenas we want to count
+     *   }
+     * })
+    **/
+    count<T extends alumnos_prioritarios_preescolar_indigenaCountArgs>(args?: Prisma.Subset<T, alumnos_prioritarios_preescolar_indigenaCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], Alumnos_prioritarios_preescolar_indigenaCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a Alumnos_prioritarios_preescolar_indigena.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Alumnos_prioritarios_preescolar_indigenaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Alumnos_prioritarios_preescolar_indigenaAggregateArgs>(args: Prisma.Subset<T, Alumnos_prioritarios_preescolar_indigenaAggregateArgs>): Prisma.PrismaPromise<GetAlumnos_prioritarios_preescolar_indigenaAggregateType<T>>;
+    /**
+     * Group by Alumnos_prioritarios_preescolar_indigena.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {alumnos_prioritarios_preescolar_indigenaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends alumnos_prioritarios_preescolar_indigenaGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: alumnos_prioritarios_preescolar_indigenaGroupByArgs['orderBy'];
+    } : {
+        orderBy?: alumnos_prioritarios_preescolar_indigenaGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, alumnos_prioritarios_preescolar_indigenaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAlumnos_prioritarios_preescolar_indigenaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the alumnos_prioritarios_preescolar_indigena model
+     */
+    readonly fields: alumnos_prioritarios_preescolar_indigenaFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for alumnos_prioritarios_preescolar_indigena.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__alumnos_prioritarios_preescolar_indigenaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the alumnos_prioritarios_preescolar_indigena model
+ */
+export interface alumnos_prioritarios_preescolar_indigenaFieldRefs {
+    readonly cv_cct: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Ent: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly LLAVE: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Nombre_Alumno: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Matr_Edo: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Boolean'>;
+    readonly Id_Turno: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Boolean'>;
+    readonly CONTROL: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Id_Nivel: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Boolean'>;
+    readonly NIVEL: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly SUBNIVEL: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly OPCION_EDUCATIVA: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly TURNO: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly GRADO: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly Sexo: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly GRUPO: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly CCT_SECTOR: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly SECTOR: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly CCT_ZONA: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly ZONA: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2LE1C1A1: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2DE1C1A2: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2LE1C2A1: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2SE1C2A2: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2LE1C3A1: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2EE1C3A2: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2SE2C1A1: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2LE2C2A1: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2EE2C3A1: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2LE2C4A1: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly KX2DE2C4A2: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Decimal'>;
+    readonly Nivel_Lenguajes: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Nivel_Saberes: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Nivel_Humano: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Nivel_Etica: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly Tipo: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly En_escuela_prioritaria: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'String'>;
+    readonly id: Prisma.FieldRef<"alumnos_prioritarios_preescolar_indigena", 'Int'>;
+}
+/**
+ * alumnos_prioritarios_preescolar_indigena findUnique
+ */
+export type alumnos_prioritarios_preescolar_indigenaFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * Filter, which alumnos_prioritarios_preescolar_indigena to fetch.
+     */
+    where: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena findUniqueOrThrow
+ */
+export type alumnos_prioritarios_preescolar_indigenaFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * Filter, which alumnos_prioritarios_preescolar_indigena to fetch.
+     */
+    where: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena findFirst
+ */
+export type alumnos_prioritarios_preescolar_indigenaFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * Filter, which alumnos_prioritarios_preescolar_indigena to fetch.
+     */
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of alumnos_prioritarios_preescolar_indigenas to fetch.
+     */
+    orderBy?: Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput | Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for alumnos_prioritarios_preescolar_indigenas.
+     */
+    cursor?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` alumnos_prioritarios_preescolar_indigenas from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` alumnos_prioritarios_preescolar_indigenas.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of alumnos_prioritarios_preescolar_indigenas.
+     */
+    distinct?: Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum | Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena findFirstOrThrow
+ */
+export type alumnos_prioritarios_preescolar_indigenaFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * Filter, which alumnos_prioritarios_preescolar_indigena to fetch.
+     */
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of alumnos_prioritarios_preescolar_indigenas to fetch.
+     */
+    orderBy?: Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput | Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for alumnos_prioritarios_preescolar_indigenas.
+     */
+    cursor?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` alumnos_prioritarios_preescolar_indigenas from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` alumnos_prioritarios_preescolar_indigenas.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of alumnos_prioritarios_preescolar_indigenas.
+     */
+    distinct?: Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum | Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena findMany
+ */
+export type alumnos_prioritarios_preescolar_indigenaFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * Filter, which alumnos_prioritarios_preescolar_indigenas to fetch.
+     */
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of alumnos_prioritarios_preescolar_indigenas to fetch.
+     */
+    orderBy?: Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput | Prisma.alumnos_prioritarios_preescolar_indigenaOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing alumnos_prioritarios_preescolar_indigenas.
+     */
+    cursor?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` alumnos_prioritarios_preescolar_indigenas from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` alumnos_prioritarios_preescolar_indigenas.
+     */
+    skip?: number;
+    distinct?: Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum | Prisma.Alumnos_prioritarios_preescolar_indigenaScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena create
+ */
+export type alumnos_prioritarios_preescolar_indigenaCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * The data needed to create a alumnos_prioritarios_preescolar_indigena.
+     */
+    data: Prisma.XOR<Prisma.alumnos_prioritarios_preescolar_indigenaCreateInput, Prisma.alumnos_prioritarios_preescolar_indigenaUncheckedCreateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena createMany
+ */
+export type alumnos_prioritarios_preescolar_indigenaCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many alumnos_prioritarios_preescolar_indigenas.
+     */
+    data: Prisma.alumnos_prioritarios_preescolar_indigenaCreateManyInput | Prisma.alumnos_prioritarios_preescolar_indigenaCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena createManyAndReturn
+ */
+export type alumnos_prioritarios_preescolar_indigenaCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * The data used to create many alumnos_prioritarios_preescolar_indigenas.
+     */
+    data: Prisma.alumnos_prioritarios_preescolar_indigenaCreateManyInput | Prisma.alumnos_prioritarios_preescolar_indigenaCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena update
+ */
+export type alumnos_prioritarios_preescolar_indigenaUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * The data needed to update a alumnos_prioritarios_preescolar_indigena.
+     */
+    data: Prisma.XOR<Prisma.alumnos_prioritarios_preescolar_indigenaUpdateInput, Prisma.alumnos_prioritarios_preescolar_indigenaUncheckedUpdateInput>;
+    /**
+     * Choose, which alumnos_prioritarios_preescolar_indigena to update.
+     */
+    where: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena updateMany
+ */
+export type alumnos_prioritarios_preescolar_indigenaUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update alumnos_prioritarios_preescolar_indigenas.
+     */
+    data: Prisma.XOR<Prisma.alumnos_prioritarios_preescolar_indigenaUpdateManyMutationInput, Prisma.alumnos_prioritarios_preescolar_indigenaUncheckedUpdateManyInput>;
+    /**
+     * Filter which alumnos_prioritarios_preescolar_indigenas to update
+     */
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    /**
+     * Limit how many alumnos_prioritarios_preescolar_indigenas to update.
+     */
+    limit?: number;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena updateManyAndReturn
+ */
+export type alumnos_prioritarios_preescolar_indigenaUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * The data used to update alumnos_prioritarios_preescolar_indigenas.
+     */
+    data: Prisma.XOR<Prisma.alumnos_prioritarios_preescolar_indigenaUpdateManyMutationInput, Prisma.alumnos_prioritarios_preescolar_indigenaUncheckedUpdateManyInput>;
+    /**
+     * Filter which alumnos_prioritarios_preescolar_indigenas to update
+     */
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    /**
+     * Limit how many alumnos_prioritarios_preescolar_indigenas to update.
+     */
+    limit?: number;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena upsert
+ */
+export type alumnos_prioritarios_preescolar_indigenaUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * The filter to search for the alumnos_prioritarios_preescolar_indigena to update in case it exists.
+     */
+    where: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    /**
+     * In case the alumnos_prioritarios_preescolar_indigena found by the `where` argument doesn't exist, create a new alumnos_prioritarios_preescolar_indigena with this data.
+     */
+    create: Prisma.XOR<Prisma.alumnos_prioritarios_preescolar_indigenaCreateInput, Prisma.alumnos_prioritarios_preescolar_indigenaUncheckedCreateInput>;
+    /**
+     * In case the alumnos_prioritarios_preescolar_indigena was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.alumnos_prioritarios_preescolar_indigenaUpdateInput, Prisma.alumnos_prioritarios_preescolar_indigenaUncheckedUpdateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena delete
+ */
+export type alumnos_prioritarios_preescolar_indigenaDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+    /**
+     * Filter which alumnos_prioritarios_preescolar_indigena to delete.
+     */
+    where: Prisma.alumnos_prioritarios_preescolar_indigenaWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena deleteMany
+ */
+export type alumnos_prioritarios_preescolar_indigenaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which alumnos_prioritarios_preescolar_indigenas to delete
+     */
+    where?: Prisma.alumnos_prioritarios_preescolar_indigenaWhereInput;
+    /**
+     * Limit how many alumnos_prioritarios_preescolar_indigenas to delete.
+     */
+    limit?: number;
+};
+/**
+ * alumnos_prioritarios_preescolar_indigena without action
+ */
+export type alumnos_prioritarios_preescolar_indigenaDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the alumnos_prioritarios_preescolar_indigena
+     */
+    select?: Prisma.alumnos_prioritarios_preescolar_indigenaSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the alumnos_prioritarios_preescolar_indigena
+     */
+    omit?: Prisma.alumnos_prioritarios_preescolar_indigenaOmit<ExtArgs> | null;
+};
+export {};
+//# sourceMappingURL=alumnos_prioritarios_preescolar_indigena.d.ts.map

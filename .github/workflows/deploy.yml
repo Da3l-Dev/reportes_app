@@ -29,23 +29,26 @@ jobs:
 
       - name: Subir dist a rama build
         run: |
-          # configurar identidad de git
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
-          # cambiar/crear rama build
           git checkout -B build
 
-          # eliminar archivos versionados (sin borrar .git)
+          # guardar package.json antes de limpiar
+          cp package.json /tmp/package.json
+          cp package-lock.json /tmp/package-lock.json 2>/dev/null || true
+
           git rm -rf . > /dev/null 2>&1 || true
 
-          # mover dist al root
+          # restaurar archivos necesarios
+          cp /tmp/package.json .
+          cp /tmp/package-lock.json . 2>/dev/null || true
+
+          # mover dist
           mv dist/* .
           rm -rf dist
 
-          # agregar y commit
           git add .
           git diff --cached --quiet || git commit -m "Deploy build"
 
-          # push a rama build
           git push origin build --force

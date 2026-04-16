@@ -1,0 +1,24 @@
+export type * from './models/item_cct';
+export type * from './models/item_opc_educativa';
+export type * from './models/mapa_base';
+export type * from './models/ni_ctt';
+export type * from './models/ni_grado_control';
+export type * from './models/ni_grado_turno';
+export type * from './models/ni_opcion_educativa';
+export type * from './models/ni_sector';
+export type * from './models/ni_sostenimiento';
+export type * from './models/ni_zona';
+export type * from './models/analisis_zona';
+export type * from './models/analisis_cct_campo';
+export type * from './models/analisis_sector';
+export type * from './models/supervisores';
+export type * from './models/totales_opedu';
+export type * from './models/alumnos_prioritarios_primaria_indigena';
+export type * from './models/alumnos_prioritarios_preescolar_general';
+export type * from './models/alumnos_prioritarios_preescolar_indigena';
+export type * from './models/alumnos_prioritarios_primaria_general';
+export type * from './models/alumnos_prioritarios_secundaria_general';
+export type * from './models/alumnos_prioritarios_secundaria_tecnica';
+export type * from './models/alumnos_prioritarios_telesecundaria';
+export type * from './commonInputTypes';
+//# sourceMappingURL=models.d.ts.map
