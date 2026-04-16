@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import path from "path";
 import {
   renderEscuela,
   renderOpcionEduReport,
@@ -6,11 +7,14 @@ import {
   renderReportZona,
 } from "./renderReport";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-// ✅ CONFIG GLOBAL (NO ROMPE LOCAL)
+// ===============================
+// CONFIG GLOBAL PUPPETEER
+// ===============================
 const puppeteerConfig: any = {
   headless: process.env.PUPPETEER_HEADLESS !== "false",
   args: [
@@ -22,13 +26,21 @@ const puppeteerConfig: any = {
   ],
 };
 
-// 👉 solo en servidor usa executablePath
 if (process.env.PUPPETEER_EXECUTABLE_PATH) {
   puppeteerConfig.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
 }
 
-// ✅ CSS dinámico (evita problema con dist)
-const CSS_PATH = process.env.CSS_PATH || "reports/css/layout.css";
+// ===============================
+// PATHS ROBUSTOS
+// ===============================
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
+const CSS_PATH = process.env.CSS_PATH
+  ? process.env.CSS_PATH
+  : path.resolve(process.cwd(), "reports/css/layout.css");
+
+// helper opcional
+const assetPath = (p: string) => path.resolve(process.cwd(), p);
 
 // ===============================
 // ZONA ESCOLAR
@@ -41,9 +53,7 @@ export async function generatePdfZonaEscolar(
 
   for (const escuela of dataMapaZona) {
     try {
-      const res = await fetch(
-        `http://localhost:${PORT}/zona/escuela/${escuela.llave}`,
-      );
+      const res = await fetch(`${BASE_URL}/zona/escuela/${escuela.llave}`);
 
       if (!res.ok) continue;
 
@@ -67,7 +77,9 @@ export async function generatePdfZonaEscolar(
     timeout: 300000,
   });
 
-  await page.addStyleTag({ path: CSS_PATH });
+  await page.addStyleTag({
+    path: CSS_PATH,
+  });
 
   const pdf = await page.pdf({
     printBackground: true,
@@ -91,9 +103,7 @@ export async function generatePdfSector(
 
   for (const escuela of dataEscuelas) {
     try {
-      const res = await fetch(
-        `http://localhost:${PORT}/zona/escuela/${escuela.llave}`,
-      );
+      const res = await fetch(`${BASE_URL}/zona/escuela/${escuela.llave}`);
 
       if (!res.ok) continue;
 
@@ -117,7 +127,9 @@ export async function generatePdfSector(
     timeout: 300000,
   });
 
-  await page.addStyleTag({ path: CSS_PATH });
+  await page.addStyleTag({
+    path: CSS_PATH,
+  });
 
   const pdf = await page.pdf({
     printBackground: true,
@@ -151,10 +163,9 @@ export async function generatedPdfOpcEdu(
 
     const batchPromises = batch.map(async (escuela) => {
       try {
-        const res = await fetch(
-          `http://localhost:${PORT}/escuela/${escuela.llave}`,
-          { signal: AbortSignal.timeout(10000) },
-        );
+        const res = await fetch(`${BASE_URL}/escuela/${escuela.llave}`, {
+          signal: AbortSignal.timeout(10000),
+        });
 
         const json = await res.json();
 
@@ -192,7 +203,9 @@ export async function generatedPdfOpcEdu(
     timeout: 0,
   });
 
-  await page.addStyleTag({ path: CSS_PATH });
+  await page.addStyleTag({
+    path: CSS_PATH,
+  });
 
   const pdf = await page.pdf({
     printBackground: true,
@@ -215,9 +228,7 @@ export async function generatedPdfEscuela(
 ) {
   const dataZonaNiEscuela = await Promise.all(
     dataGeneraEscuela.map(async (element) => {
-      const response = await fetch(
-        `http://localhost:${PORT}/zona/${element.cct_zona}`,
-      );
+      const response = await fetch(`${BASE_URL}/zona/${element.cct_zona}`);
       const data = await response.json();
       return data.data;
     }),
@@ -241,7 +252,9 @@ export async function generatedPdfEscuela(
     timeout: 0,
   });
 
-  await page.addStyleTag({ path: CSS_PATH });
+  await page.addStyleTag({
+    path: CSS_PATH,
+  });
 
   const pdf = await page.pdf({
     printBackground: true,
