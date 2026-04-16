@@ -57,7 +57,7 @@ export async function generatePdfZonaEscolar(
     timeout: 300000,
   });
 
-  await page.addStyleTag({ path: "src/reports/css/layout.css" });
+  await page.addStyleTag({ path: "reports/css/layout.css" });
 
   const pdf = await page.pdf({
     printBackground: true,
@@ -120,7 +120,7 @@ export async function generatePdfSector(
     timeout: 300000,
   });
 
-  await page.addStyleTag({ path: "src/reports/css/layout.css" });
+  await page.addStyleTag({ path: "reports/css/layout.css" });
 
   const pdf = await page.pdf({
     printBackground: true,
@@ -288,7 +288,7 @@ export async function generatedPdfOpcEdu(
     timeout: 0,
   });
 
-  await page.addStyleTag({ path: "src/reports/css/layout.css" });
+  await page.addStyleTag({ path: "reports/css/layout.css" });
 
   console.log("Generando PDF...");
   const pdf = await page.pdf({
@@ -354,7 +354,7 @@ export async function generatedPdfEscuela(
     timeout: 0,
   });
 
-  await page.addStyleTag({ path: "src/reports/css/layout.css" });
+  await page.addStyleTag({ path: "reports/css/layout.css" });
 
   const pdf = await page.pdf({
     printBackground: true,
