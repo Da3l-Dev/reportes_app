@@ -1,1 +1,0 @@
-{"version":3,"file":"itemsController.d.ts","sourceRoot":"","sources":["../../src/controllers/itemsController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAC;AAG5C,cAAM,cAAc;IACZ,cAAc,CAAC,GAAG,EAAE,OAAO,EAAE,GAAG,EAAE,QAAQ;CA+BjD;;AAED,wBAAoC"}

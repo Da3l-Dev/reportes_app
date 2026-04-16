@@ -32,23 +32,25 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
-          git checkout -B build
-
-          # guardar package.json antes de limpiar
+          # guardar dist y package.json
+          cp -r dist /tmp/dist
           cp package.json /tmp/package.json
           cp package-lock.json /tmp/package-lock.json 2>/dev/null || true
 
+          # cambiar a rama build
+          git checkout -B build
+
+          # limpiar repo
           git rm -rf . > /dev/null 2>&1 || true
 
           # restaurar archivos necesarios
+          cp -r /tmp/dist/* .
           cp /tmp/package.json .
           cp /tmp/package-lock.json . 2>/dev/null || true
 
-          # mover dist
-          mv dist/* .
-          rm -rf dist
-
+          # agregar y commit
           git add .
           git diff --cached --quiet || git commit -m "Deploy build"
 
+          # push
           git push origin build --force

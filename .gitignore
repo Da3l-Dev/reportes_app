@@ -26,3 +26,4 @@ TestResults.xml
 /.env
 /src/generated/prisma
 */dist
+/dist
