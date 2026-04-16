@@ -16,6 +16,9 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
+      - name: Generar Prisma Client
+        run: npx prisma generate
+
       - name: Build
         run: npm run build
 
