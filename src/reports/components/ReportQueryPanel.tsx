@@ -140,7 +140,7 @@ export default function ReportQueryPanel() {
                       "Secundaria Telesecundaria": "Secundaria/Telesecundaria"
                     };
 
-                    url = "http://localhost:5000/opEdu/pdf/" + mapa[opcion];
+                    url = "http://52.23.173.26:5000/opEdu/pdf/" + mapa[opcion];
 
                   } else {
 
@@ -152,15 +152,15 @@ export default function ReportQueryPanel() {
                     }
 
                     if (tipoValue === "zona") {
-                      url = "http://localhost:5000/pdf/zona/" + cct;
+                      url = "http://52.23.173.26:5000/pdf/zona/" + cct;
                     }
 
                     if (tipoValue === "sector") {
-                      url = "http://localhost:5000/pdf/sector/" + cct;
+                      url = "http://52.23.173.26:5000/pdf/sector/" + cct;
                     }
 
                     if (tipoValue === "escuela") {
-                      url = "http://localhost:5000/pdf/escuela/" + cct;
+                      url = "http://52.23.173.26:5000/pdf/escuela/" + cct;
                     }
 
                   }
