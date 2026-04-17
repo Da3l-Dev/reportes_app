@@ -1,5 +1,4 @@
 import puppeteer from "puppeteer";
-import path from "path";
 import {
   renderEscuela,
   renderOpcionEduReport,
@@ -7,70 +6,15 @@ import {
   renderReportZona,
 } from "./renderReport";
 import dotenv from "dotenv";
-
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-// 🔥 ruta absoluta (evita errores en EC2)
-const cssPath = path.resolve(process.cwd(), "reports/css/layout.css");
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// 🔥 helper para evitar timeout
-async function generatePDFBuffer(page: any) {
-  const stream = await page.createPDFStream({
-    printBackground: true,
-    format: "A4",
-    landscape: true,
-    margin: { top: "0", right: "0", bottom: "0", left: "0" },
-  });
-
-  const chunks = [];
-  for await (const chunk of stream) {
-    chunks.push(chunk);
-  }
-
-  return Buffer.concat(chunks);
-}
-
-// 🔥 setup común
-async function setupPage(page: any, html: string) {
-  await page.setDefaultTimeout(0);
-  await page.setDefaultNavigationTimeout(0);
-
-  await page.setContent(html, {
-    waitUntil: "domcontentloaded",
-  });
-
-  // asegura render completo
-  await page.evaluate(() => {
-    return new Promise((resolve) => {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(resolve);
-      });
-    });
-  });
-
-  try {
-    await page.addStyleTag({ path: cssPath });
-  } catch {
-    console.log("⚠️ CSS no encontrado");
-  }
-}
-
-// 🔥 browser común
-async function launchBrowser() {
-  return puppeteer.launch({
-    protocolTimeout: 0, // 🔥 SOLUCIÓN PRINCIPAL
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-gpu",
-      "--js-flags=--max-old-space-size=4096",
-    ],
-  });
-}
-
+/* ===========================
+   ZONA
+=========================== */
 export async function generatePdfZonaEscolar(
   dataZona: any[],
   dataMapaZona: any[],
@@ -80,6 +24,7 @@ export async function generatePdfZonaEscolar(
   for (const escuela of dataMapaZona) {
     try {
       console.log(escuela.llave);
+
       const res = await fetch(
         `http://localhost:${PORT}/zona/escuela/${escuela.llave}`,
       );
@@ -87,6 +32,7 @@ export async function generatePdfZonaEscolar(
       if (!res.ok) continue;
 
       const json = await res.json();
+
       if (Array.isArray(json.data)) {
         dataZonaPorEscuela.push(...json.data);
       }
@@ -95,17 +41,42 @@ export async function generatePdfZonaEscolar(
 
   const html = renderReportZona(dataZona, dataMapaZona, dataZonaPorEscuela);
 
-  const browser = await launchBrowser();
+  const browser = await puppeteer.launch({
+    headless: true,
+    protocolTimeout: 600000,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+    ],
+  });
+
   const page = await browser.newPage();
 
-  await setupPage(page, html);
+  await page.setContent(html, {
+    waitUntil: "domcontentloaded",
+  });
 
-  const pdf = await generatePDFBuffer(page);
+  await delay(1500);
+
+  await page.addStyleTag({ path: "reports/css/layout.css" });
+
+  await delay(500);
+
+  const pdf = await page.pdf({
+    printBackground: true,
+    format: "A4",
+    landscape: true,
+  });
 
   await browser.close();
   return pdf;
 }
 
+/* ===========================
+   SECTOR
+=========================== */
 export async function generatePdfSector(
   dataSector: any[],
   dataEscuelas: any[],
@@ -121,6 +92,7 @@ export async function generatePdfSector(
       if (!res.ok) continue;
 
       const json = await res.json();
+
       if (Array.isArray(json.data)) {
         dataZonaPorEscuela.push(...json.data);
       }
@@ -129,17 +101,42 @@ export async function generatePdfSector(
 
   const html = renderReportSector(dataSector, dataEscuelas, dataZonaPorEscuela);
 
-  const browser = await launchBrowser();
+  const browser = await puppeteer.launch({
+    headless: true,
+    protocolTimeout: 600000,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+    ],
+  });
+
   const page = await browser.newPage();
 
-  await setupPage(page, html);
+  await page.setContent(html, {
+    waitUntil: "domcontentloaded",
+  });
 
-  const pdf = await generatePDFBuffer(page);
+  await delay(1500);
+
+  await page.addStyleTag({ path: "reports/css/layout.css" });
+
+  await delay(500);
+
+  const pdf = await page.pdf({
+    printBackground: true,
+    format: "A4",
+    landscape: true,
+  });
 
   await browser.close();
   return pdf;
 }
 
+/* ===========================
+   OPCION EDUCATIVA
+=========================== */
 export async function generatedPdfOpcEdu(
   dataOpcEdu: any[],
   dataEscuelas: any[],
@@ -151,26 +148,26 @@ export async function generatedPdfOpcEdu(
     escuelasMap.set(escuela.llave, escuela);
   });
 
-  const CONCURRENCY_LIMIT = 20;
-  const todosLosRegistros = [];
+  const CONCURRENCY_LIMIT = 5; // 🔥 bajado para evitar saturación
+  const todosLosRegistros: any[] = [];
 
   for (let i = 0; i < dataEscuelas.length; i += CONCURRENCY_LIMIT) {
     const batch = dataEscuelas.slice(i, i + CONCURRENCY_LIMIT);
 
-    const results = await Promise.all(
+    const batchResults = await Promise.all(
       batch.map(async (escuela) => {
         try {
           const res = await fetch(
             `http://localhost:${PORT}/escuela/${escuela.llave}`,
-            { signal: AbortSignal.timeout(10000) },
+            { signal: AbortSignal.timeout(8000) },
           );
 
           const json = await res.json();
 
           if (Array.isArray(json.data)) {
-            return json.data.map((r: any) => ({
-              ...r,
-              ...escuelasMap.get(escuela.llave),
+            return json.data.map((registro: any) => ({
+              ...registro,
+              ...escuela,
             }));
           }
 
@@ -181,7 +178,7 @@ export async function generatedPdfOpcEdu(
       }),
     );
 
-    todosLosRegistros.push(...results.flat());
+    todosLosRegistros.push(...batchResults.flat());
   }
 
   const html = await renderOpcionEduReport(
@@ -191,25 +188,52 @@ export async function generatedPdfOpcEdu(
     dataTotalOpEdu,
   );
 
-  const browser = await launchBrowser();
+  const browser = await puppeteer.launch({
+    headless: true,
+    protocolTimeout: 600000,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+    ],
+  });
+
   const page = await browser.newPage();
 
-  await setupPage(page, html);
+  await page.setContent(html, {
+    waitUntil: "domcontentloaded",
+  });
 
-  const pdf = await generatePDFBuffer(page);
+  await delay(2000);
+
+  await page.addStyleTag({ path: "reports/css/layout.css" });
+
+  await delay(500);
+
+  const pdf = await page.pdf({
+    printBackground: true,
+    format: "A4",
+    landscape: true,
+  });
 
   await browser.close();
   return pdf;
 }
 
+/* ===========================
+   ESCUELA
+=========================== */
 export async function generatedPdfEscuela(
   dataNiEscuela: any[],
   dataGeneraEscuela: any[],
   dataAlumnosPrioritarios: any[],
 ) {
   const dataZonaNiEscuela = await Promise.all(
-    dataGeneraEscuela.map(async (e) => {
-      const res = await fetch(`http://localhost:${PORT}/zona/${e.cct_zona}`);
+    dataGeneraEscuela.map(async (element) => {
+      const res = await fetch(
+        `http://localhost:${PORT}/zona/${element.cct_zona}`,
+      );
       const json = await res.json();
       return json.data;
     }),
@@ -222,12 +246,34 @@ export async function generatedPdfEscuela(
     dataAlumnosPrioritarios,
   );
 
-  const browser = await launchBrowser();
+  const browser = await puppeteer.launch({
+    headless: true,
+    protocolTimeout: 600000,
+    args: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+    ],
+  });
+
   const page = await browser.newPage();
 
-  await setupPage(page, html);
+  await page.setContent(html, {
+    waitUntil: "domcontentloaded",
+  });
 
-  const pdf = await generatePDFBuffer(page);
+  await delay(1500);
+
+  await page.addStyleTag({ path: "reports/css/layout.css" });
+
+  await delay(500);
+
+  const pdf = await page.pdf({
+    printBackground: true,
+    format: "A4",
+    landscape: true,
+  });
 
   await browser.close();
   return pdf;
