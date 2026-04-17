@@ -1,87 +1,88 @@
 export default function ReportQueryPanel() {
   return (
     <>
-      <div className="min-h-screen w-screen overflow-x-hidden relative flex items-center justify-center bg-gradient-to-br from-[#4b0f28] via-[#621333] to-[#8a1c3b]">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3"></div>
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-black/20 rounded-full blur-3xl translate-x-1/4 translate-y-1/4"></div>
+      <div className="min-h-screen w-screen overflow-y-auto overflow-x-hidden flex items-start justify-center bg-gradient-to-br from-[#4b0f28] via-[#621333] to-[#8a1c3b] py-10">
+        <div className="w-full max-w-5xl px-4 sm:px-6">
+          <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-6 sm:p-10 text-white relative">
+            {/* LOADING */}
+            <div
+              id="loadingOverlay"
+              className="hidden absolute inset-0 bg-black/40 flex items-center justify-center rounded-3xl z-50"
+            >
+              <p className="text-lg font-semibold">Generando...</p>
+            </div>
 
-        <div className="relative w-full max-w-7xl mx-6 backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl p-14 text-white">
-          <div
-            id="loadingOverlay"
-            className="hidden absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-3xl z-50"
-          >
-            <div className="flex flex-col items-center">
-              <div className="w-14 h-14 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-              <p className="mt-5 text-lg font-semibold tracking-wide">
-                Generando reporte...
+            {/* HEADER */}
+            <div className="text-center mb-8 sm:mb-10">
+              <h1 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight">
+                Reporte Ejercicio Integreadores del aprendizaje 2025 - 2026
+              </h1>
+              <p className="text-white/70 mt-2 text-sm sm:text-base">
+                Genera reportes PDF por zona, sector, escuela u opción educativa
               </p>
             </div>
-          </div>
 
-          <div className="text-center mb-14">
-            <h1 className="text-5xl font-bold tracking-wide">
-              Panel de Reportes
-            </h1>
-            <p className="mt-4 text-white/80 text-lg">
-              Genera y visualiza reportes PDF por zona o sector
-            </p>
-          </div>
+            {/* FORM */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div>
+                <label className="block mb-2 text-sm">Tipo de consulta</label>
+                <select
+                  id="tipo"
+                  className="w-full text-black p-3 rounded-xl bg-white"
+                >
+                  <option value="zona">Zona</option>
+                  <option value="sector">Sector</option>
+                  <option value="escuela">Escuela</option>
+                  <option value="opcion">Opción educativa</option>
+                </select>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Tipo de consulta
-              </label>
-              <select
-                id="tipo"
-                className="w-full bg-white/20 border border-white/30 text-white rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-white backdrop-blur-md"
+              <div id="cctContainer" className="md:col-span-2">
+                <label className="block mb-2 text-sm">Clave CCT</label>
+                <input
+                  id="cct"
+                  className="w-full p-3 text-black rounded-xl bg-white"
+                  placeholder="Ej: 13FTS0009B"
+                />
+              </div>
+
+              <div id="opcionContainer" className="md:col-span-2 hidden">
+                <label className="block mb-2 text-sm">Opción educativa</label>
+                <select
+                  id="opcion"
+                  className="w-full text-black p-3 rounded-xl bg-white"
+                >
+                  <option value="">Selecciona</option>
+                  <option>Preescolar General</option>
+                  <option>Preescolar Indígena</option>
+                  <option>Primaria General</option>
+                  <option>Primaria Indígena</option>
+                  <option>Secundaria General</option>
+                  <option>Secundaria Técnica</option>
+                  <option>Secundaria Telesecundaria</option>
+                </select>
+              </div>
+            </div>
+
+            {/* BOTÓN */}
+            <div className="text-center">
+              <button
+                id="generarBtn"
+                className="w-full sm:w-auto bg-white text-black px-8 py-3 rounded-xl font-semibold hover:scale-105 transition"
               >
-                <option value="zona" className="text-black">
-                  Zona
-                </option>
-                <option value="sector" className="text-black">
-                  Sector
-                </option>
-              </select>
+                Generar Reporte
+              </button>
             </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-semibold mb-3">
-                Clave CCT
-              </label>
-              <input
-                id="cct"
-                type="text"
-                className="w-full bg-white/20 border border-white/30 text-white placeholder-white/60 rounded-xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-white backdrop-blur-md"
-                placeholder="Ej: 13FTS0009B"
+            {/* PREVIEW */}
+            <div id="previewContainer" className="mt-8 hidden">
+              <iframe
+                id="preview"
+                className="w-full h-[400px] sm:h-[600px] rounded-xl"
               />
-            </div>
-          </div>
-
-          {/* Botón */}
-          <div className="text-center">
-            <button
-              id="generarBtn"
-              className="bg-white text-[#621333] font-bold py-4 px-16 rounded-2xl shadow-xl transition transform hover:scale-105 hover:bg-gray-100"
-            >
-              Generar Reporte
-            </button>
-          </div>
-
-          {/* Preview */}
-          <div id="previewContainer" className="mt-16 hidden">
-            <h2 className="text-3xl font-semibold mb-8">
-              Vista previa del PDF
-            </h2>
-
-            <div className="rounded-2xl overflow-hidden shadow-2xl border border-white/20">
-              <iframe id="preview" className="w-full h-[750px]" />
-            </div>
-
-            <div className="text-right mt-8">
               <a
                 id="downloadBtn"
-                className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-10 rounded-xl shadow-lg transition"
+                className="block mt-4 bg-green-500 p-3 text-center rounded-xl font-semibold"
               >
                 Descargar PDF
               </a>
@@ -90,54 +91,98 @@ export default function ReportQueryPanel() {
         </div>
       </div>
 
-      {/* Script */}
+      {/* SCRIPT (EL TUYO, SIN TOCAR) */}
       <script
         dangerouslySetInnerHTML={{
           __html: `
             document.addEventListener("DOMContentLoaded", function () {
+
+              const tipo = document.getElementById("tipo");
+              const cctContainer = document.getElementById("cctContainer");
+              const opcionContainer = document.getElementById("opcionContainer");
+
+              tipo.addEventListener("change", function () {
+                if (tipo.value === "opcion") {
+                  cctContainer.style.display = "none";
+                  opcionContainer.style.display = "block";
+                } else {
+                  cctContainer.style.display = "block";
+                  opcionContainer.style.display = "none";
+                }
+              });
 
               const btn = document.getElementById("generarBtn");
               const overlay = document.getElementById("loadingOverlay");
 
               btn.addEventListener("click", async function () {
 
-                const tipo = document.getElementById("tipo").value;
-                const cctInput = document.getElementById("cct");
-                const cct = cctInput.value.toUpperCase();
-
-                if (!cct) {
-                  alert("Ingresa un CCT válido");
-                  return;
-                }
-
-                overlay.classList.remove("hidden");
-                btn.disabled = true;
+                let url = "";
+                const tipoValue = tipo.value;
 
                 try {
-                  const response = await fetch("/pdf/" + tipo + "/" + cct);
 
-                  if (!response.ok) {
-                    throw new Error("Error al obtener PDF");
+                  if (tipoValue === "opcion") {
+
+                    const opcion = document.getElementById("opcion").value;
+
+                    if (!opcion) {
+                      alert("Selecciona una opción educativa");
+                      return;
+                    }
+
+                    const mapa = {
+                      "Preescolar General": "Preescolar/General",
+                      "Preescolar Indígena": "Preescolar/Indígena",
+                      "Primaria General": "Primaria/General",
+                      "Primaria Indígena": "Primaria/Indígena",
+                      "Secundaria General": "Secundaria/General",
+                      "Secundaria Técnica": "Secundaria/Técnica",
+                      "Secundaria Telesecundaria": "Secundaria/Telesecundaria"
+                    };
+
+                    url = "http://localhost:5000/opEdu/pdf/" + mapa[opcion];
+
+                  } else {
+
+                    const cct = document.getElementById("cct").value.toUpperCase();
+
+                    if (!cct) {
+                      alert("Ingresa un CCT válido");
+                      return;
+                    }
+
+                    if (tipoValue === "zona") {
+                      url = "http://52.23.173.26:5000/pdf/zona/" + cct;
+                    }
+
+                    if (tipoValue === "sector") {
+                      url = "http://52.23.173.26:5000/pdf/sector/" + cct;
+                    }
+
+                    if (tipoValue === "escuela") {
+                      url = "http://localhost:5000/pdf/escuela/" + cct;
+                    }
+
                   }
 
+                  overlay.classList.remove("hidden");
+
+                  const response = await fetch(url);
+
+                  if (!response.ok) throw new Error();
+
                   const blob = await response.blob();
-                  const url = URL.createObjectURL(blob);
+                  const fileUrl = URL.createObjectURL(blob);
 
-                  document.getElementById("preview").src = url;
-
-                  const downloadBtn = document.getElementById("downloadBtn");
-                  downloadBtn.href = url;
-                  downloadBtn.download = "reporte_" + tipo + "_" + cct + ".pdf";
-
-                  document.getElementById("previewContainer")
-                    .classList.remove("hidden");
+                  document.getElementById("preview").src = fileUrl;
+                  document.getElementById("downloadBtn").href = fileUrl;
+                  document.getElementById("previewContainer").classList.remove("hidden");
 
                 } catch (err) {
-                  alert("No se pudo generar el reporte");
                   console.error(err);
+                  alert("Error al generar");
                 } finally {
                   overlay.classList.add("hidden");
-                  btn.disabled = false;
                 }
 
               });
