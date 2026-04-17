@@ -91,7 +91,7 @@ export default function ReportQueryPanel() {
         </div>
       </div>
 
-      {/* SCRIPT (EL TUYO, SIN TOCAR) */}
+      {/* SCRIPT */}
       <script
         dangerouslySetInnerHTML={{
           __html: `
@@ -113,6 +113,15 @@ export default function ReportQueryPanel() {
 
               const btn = document.getElementById("generarBtn");
               const overlay = document.getElementById("loadingOverlay");
+
+              // 🔥 DETECTAR ENTORNO
+              const isLocalhost =
+                window.location.hostname === "localhost" ||
+                window.location.hostname === "127.0.0.1";
+
+              const BASE_URL = isLocalhost
+                ? "http://localhost:5000"
+                : "http://52.23.173.26:5000";
 
               btn.addEventListener("click", async function () {
 
@@ -140,7 +149,7 @@ export default function ReportQueryPanel() {
                       "Secundaria Telesecundaria": "Secundaria/Telesecundaria"
                     };
 
-                    url = "http://52.23.173.26:5000/opEdu/pdf/" + mapa[opcion];
+                    url = BASE_URL + "/opEdu/pdf/" + mapa[opcion];
 
                   } else {
 
@@ -152,15 +161,15 @@ export default function ReportQueryPanel() {
                     }
 
                     if (tipoValue === "zona") {
-                      url = "http://52.23.173.26:5000/pdf/zona/" + cct;
+                      url = BASE_URL + "/pdf/zona/" + cct;
                     }
 
                     if (tipoValue === "sector") {
-                      url = "http://52.23.173.26:5000/pdf/sector/" + cct;
+                      url = BASE_URL + "/pdf/sector/" + cct;
                     }
 
                     if (tipoValue === "escuela") {
-                      url = "http://52.23.173.26:5000/pdf/escuela/" + cct;
+                      url = BASE_URL + "/pdf/escuela/" + cct;
                     }
 
                   }
