@@ -12,26 +12,53 @@ dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /* ===========================
-   CONFIGURACIÓN PUPPETEER
+   🔥 CONFIG PUPPETEER ESTABLE
 =========================== */
 async function createBrowser() {
   return await puppeteer.launch({
     headless: true,
-    protocolTimeout: 600000,
+    protocolTimeout: 0,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
       "--disable-gpu",
-      "--disable-features=site-per-process",
-      "--single-process",
+      "--no-zygote",
+      "--disable-extensions",
+      "--disable-background-networking",
+      "--disable-sync",
+      "--disable-translate",
+      "--disable-software-rasterizer",
     ],
   });
 }
 
+/* ===========================
+   🔥 CARGA HTML SEGURA
+=========================== */
+async function loadPage(page: any, html: string) {
+  await page.setContent(html, {
+    waitUntil: "domcontentloaded",
+    timeout: 0,
+  });
+
+  // ❌ IMPORTANTE: NO usar networkidle0 (rompe en EC2)
+
+  await delay(1000);
+
+  // ✅ CSS inline (evita ENOENT)
+  const css = fs.readFileSync("reports/css/layout.css", "utf8");
+  await page.addStyleTag({ content: css });
+
+  await delay(500);
+}
+
+/* ===========================
+   🔥 GENERAR PDF SEGURO
+=========================== */
 async function generatePDF(page: any) {
   try {
     return await page.pdf({
@@ -41,37 +68,20 @@ async function generatePDF(page: any) {
       preferCSSPageSize: true,
     });
   } catch (err) {
-    console.error("❌ Error generando PDF:", err);
+    console.error("❌ Error PDF:", err);
 
-    // screenshot para debug
+    // debug visual
     await page.screenshot({
       path: "error.png",
       fullPage: true,
     });
 
-    throw new Error("Error generando PDF");
+    throw err;
   }
 }
 
-async function loadPage(page: any, html: string) {
-  page.on("console", (msg: any) => console.log("PAGE LOG:", msg.text()));
-  page.on("pageerror", (err: any) => console.log("PAGE ERROR:", err));
-
-  await page.setContent(html, {
-    waitUntil: "domcontentloaded",
-  });
-
-  await delay(1500);
-
-  // ✅ cargar CSS correctamente (FIX CRÍTICO)
-  const css = fs.readFileSync("reports/css/layout.css", "utf8");
-  await page.addStyleTag({ content: css });
-
-  await delay(500);
-}
-
 /* ===========================
-   ZONA
+   🔥 ZONA
 =========================== */
 export async function generatePdfZonaEscolar(
   dataZona: any[],
@@ -79,15 +89,11 @@ export async function generatePdfZonaEscolar(
 ) {
   const dataZonaPorEscuela: any[] = [];
 
-  for (const escuela of dataMapaZona) {
+  for (const escuela of dataMapaZona.slice(0, 50)) {
     try {
-      console.log(escuela.llave);
-
       const res = await fetch(
         `http://localhost:${PORT}/zona/escuela/${escuela.llave}`,
       );
-
-      if (!res.ok) continue;
 
       const json = await res.json();
 
@@ -97,17 +103,17 @@ export async function generatePdfZonaEscolar(
     } catch {}
   }
 
-  // 🔥 LIMITAR DATA (evita crash)
-  const MAX = 2000;
-  const dataLimitada = dataZonaPorEscuela.slice(0, MAX);
-
-  const html = renderReportZona(dataZona, dataMapaZona, dataLimitada);
+  // 🔥 LIMITAR DATA (CRÍTICO)
+  const html = renderReportZona(
+    dataZona,
+    dataMapaZona.slice(0, 30),
+    dataZonaPorEscuela.slice(0, 1500),
+  );
 
   const browser = await createBrowser();
   const page = await browser.newPage();
 
   await loadPage(page, html);
-
   const pdf = await generatePDF(page);
 
   await browser.close();
@@ -115,7 +121,7 @@ export async function generatePdfZonaEscolar(
 }
 
 /* ===========================
-   SECTOR
+   🔥 SECTOR
 =========================== */
 export async function generatePdfSector(
   dataSector: any[],
@@ -123,13 +129,11 @@ export async function generatePdfSector(
 ) {
   const dataZonaPorEscuela: any[] = [];
 
-  for (const escuela of dataEscuelas) {
+  for (const escuela of dataEscuelas.slice(0, 50)) {
     try {
       const res = await fetch(
         `http://localhost:${PORT}/zona/escuela/${escuela.llave}`,
       );
-
-      if (!res.ok) continue;
 
       const json = await res.json();
 
@@ -139,16 +143,16 @@ export async function generatePdfSector(
     } catch {}
   }
 
-  const MAX = 2000;
-  const dataLimitada = dataZonaPorEscuela.slice(0, MAX);
-
-  const html = renderReportSector(dataSector, dataEscuelas, dataLimitada);
+  const html = renderReportSector(
+    dataSector,
+    dataEscuelas.slice(0, 30),
+    dataZonaPorEscuela.slice(0, 1500),
+  );
 
   const browser = await createBrowser();
   const page = await browser.newPage();
 
   await loadPage(page, html);
-
   const pdf = await generatePDF(page);
 
   await browser.close();
@@ -156,31 +160,25 @@ export async function generatePdfSector(
 }
 
 /* ===========================
-   OPCION EDUCATIVA
+   🔥 OPCION EDUCATIVA (OPTIMIZADO)
 =========================== */
 export async function generatedPdfOpcEdu(
   dataOpcEdu: any[],
   dataEscuelas: any[],
   dataTotalOpEdu: any[],
 ) {
-  const escuelasMap = new Map();
+  const CONCURRENCY = 3; // 🔥 antes 20 → mata EC2
 
-  dataEscuelas.forEach((escuela) => {
-    escuelasMap.set(escuela.llave, escuela);
-  });
+  const registros: any[] = [];
 
-  const CONCURRENCY_LIMIT = 5; // 🔥 FIX rendimiento
-  const todosLosRegistros: any[] = [];
-
-  for (let i = 0; i < dataEscuelas.length; i += CONCURRENCY_LIMIT) {
-    const batch = dataEscuelas.slice(i, i + CONCURRENCY_LIMIT);
+  for (let i = 0; i < dataEscuelas.length; i += CONCURRENCY) {
+    const batch = dataEscuelas.slice(i, i + CONCURRENCY);
 
     const results = await Promise.all(
       batch.map(async (escuela) => {
         try {
           const res = await fetch(
             `http://localhost:${PORT}/escuela/${escuela.llave}`,
-            { signal: AbortSignal.timeout(8000) },
           );
 
           const json = await res.json();
@@ -199,16 +197,13 @@ export async function generatedPdfOpcEdu(
       }),
     );
 
-    todosLosRegistros.push(...results.flat());
+    registros.push(...results.flat());
   }
-
-  // 🔥 LIMITAR
-  const dataLimitada = todosLosRegistros.slice(0, 3000);
 
   const html = await renderOpcionEduReport(
     dataOpcEdu,
-    dataEscuelas,
-    dataLimitada,
+    dataEscuelas.slice(0, 40),
+    registros.slice(0, 2000),
     dataTotalOpEdu,
   );
 
@@ -216,7 +211,6 @@ export async function generatedPdfOpcEdu(
   const page = await browser.newPage();
 
   await loadPage(page, html);
-
   const pdf = await generatePDF(page);
 
   await browser.close();
@@ -224,35 +218,36 @@ export async function generatedPdfOpcEdu(
 }
 
 /* ===========================
-   ESCUELA
+   🔥 ESCUELA (ESTABLE)
 =========================== */
 export async function generatedPdfEscuela(
   dataNiEscuela: any[],
   dataGeneraEscuela: any[],
   dataAlumnosPrioritarios: any[],
 ) {
-  const dataZonaNiEscuela = await Promise.all(
-    dataGeneraEscuela.map(async (element) => {
-      const res = await fetch(
-        `http://localhost:${PORT}/zona/${element.cct_zona}`,
-      );
-      const json = await res.json();
-      return json.data;
+  const zonas = await Promise.all(
+    dataGeneraEscuela.slice(0, 10).map(async (e) => {
+      try {
+        const res = await fetch(`http://localhost:${PORT}/zona/${e.cct_zona}`);
+        const json = await res.json();
+        return json.data;
+      } catch {
+        return [];
+      }
     }),
   );
 
   const html = await renderEscuela(
-    dataNiEscuela,
+    dataNiEscuela.slice(0, 1000),
     dataGeneraEscuela,
-    dataZonaNiEscuela,
-    dataAlumnosPrioritarios,
+    zonas,
+    dataAlumnosPrioritarios.slice(0, 500),
   );
 
   const browser = await createBrowser();
   const page = await browser.newPage();
 
   await loadPage(page, html);
-
   const pdf = await generatePDF(page);
 
   await browser.close();
