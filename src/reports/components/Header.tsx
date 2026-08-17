@@ -4,7 +4,6 @@ import React from "react";
 
 function getImageBase64(relativePath: string) {
   const absolutePath = path.resolve(process.cwd(), relativePath);
-  console.log(absolutePath);
   const buffer = fs.readFileSync(absolutePath);
   return buffer.toString("base64");
 }
@@ -20,6 +19,7 @@ function formatNumber(value: number | undefined | null) {
 
 export default function Header({
   data,
+  titleReport,
   viewText = true,
   isZona = true,
   isOpEdu = false,
@@ -27,6 +27,7 @@ export default function Header({
   children, // 👈 Agregamos children
 }: {
   data: any;
+  titleReport?: string;
   viewText?: boolean;
   title?: string;
   isZona?: boolean;
@@ -35,16 +36,45 @@ export default function Header({
 }) {
   return (
     <div className="header_report">
-      <div className="content_logos">
+      <div
+        className="content_logos"
+        style={{
+          display: "flex",
+          alignItems: "center", // 👈 clave para alinear vertical
+          gap: "12px",
+          padding: 20,
+        }}
+      >
         <img
           className="image_logo"
           src={`data:image/png;base64,${logoSephBase64}`}
           alt="Logo SEPH"
-          style={{ height: "65px", width: "auto" }}
+          style={{ height: "60px", width: "auto" }}
         />
-        <h1 className="title_pdf">
-          EJERCICIOS INTEGRADORES DEL APRENDIZAJE 25-26
-        </h1>
+
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <h1 className="title_pdf" style={{ margin: 0 }}>
+            {titleReport || "EJERCICIOS INTEGRADORES DEL APRENDIZAJE 25-26"}
+          </h1>
+
+          <span className="title_pdf" style={{ fontSize: "10px", margin: 0 }}>
+            Subsecretaría de Planeación y Evaluación
+          </span>
+
+          <span className="title_pdf" style={{ fontSize: "10px", margin: 0 }}>
+            Dirección General de Información, Registro y Estadística
+          </span>
+
+          <span className="title_pdf" style={{ fontSize: "10px", margin: 0 }}>
+            Dirección de Análisis de Información del Sector Educativo
+          </span>
+        </div>
       </div>
 
       <h3>{title || "Reporte"}</h3>

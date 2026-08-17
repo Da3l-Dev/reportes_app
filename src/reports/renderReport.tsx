@@ -7,6 +7,10 @@ import { TablePorEscuela } from "./components/TablePorEscuela";
 import ReportQueryPanel from "./components/ReportQueryPanel";
 import { TablaRequiereAtencion } from "./components/TablaRequiereAtencion";
 import TablaPrioridad from "./components/TablaPrioridad";
+import DashboardExploracion from "./components/DashboardExploracion";
+import SisatSmartCharts from "./components/SisatSmartCharts";
+import SisatComparativoCharts from "./components/SisatSmartCharts";
+import SisatComparativoTabla from "./components/TableSisatComparativo";
 /* =========================
    TIPOS
 ========================= */
@@ -81,7 +85,7 @@ const pluralizar = (texto: string) => {
   console.log(`TEXTO ------> ${texto}`);
   if (!texto) return "";
 
-  let t = texto;
+  let t = texto.toUpperCase();
 
   // Quitar plural existente
   if (t.endsWith("ES")) {
@@ -90,8 +94,10 @@ const pluralizar = (texto: string) => {
     t = t.slice(0, -1);
   }
 
-  // Agregar plural correcto
-  if (t.endsWith("L")) {
+  // Reglas de pluralización
+  const terminaEnConsonante = /[BCDFGHJKLMNÑPQRSTVWXYZ]$/;
+
+  if (terminaEnConsonante.test(t)) {
     return t + "ES"; // PREESCOLAR → PREESCOLARES
   }
 
@@ -343,21 +349,15 @@ export function renderReportZona(
           data={totalesHeader}
         />
         {renderGraficas(dataZona)}
+      </div>
 
-        <p className="notes">
+      <div className="page table_page">
+        <p className="notes" style={{ marginTop: "10mm" }}>
           <strong>Nota:</strong> Las presentes gráficas ilustran el universo
           total de estudiantes participantes de la zona {dataZona[0].cct_zona}{" "}
           así como la distribución porcentual de los mismos según sus niveles de
           integración.
         </p>
-      </div>
-
-      <div className="page table_page">
-        <Header
-          title="Reporte de Resultados"
-          data={totalesHeader}
-          viewText={false}
-        />
         <p className="notes">
           <strong>Notas:</strong> Los resultados que se presentan a continuación
           están organizados por escuela y presentan, para cada grado y campo
@@ -391,21 +391,15 @@ export function renderReportSector(
           isZona={false}
         />
         {renderGraficas(dataSector)}
-        <p className="notes">
+      </div>
+
+      <div className="page page-break">
+        <p className="notes" style={{ marginTop: "10mm" }}>
           <strong>Nota:</strong> Las presentes gráficas ilustran el universo
           total de estudiantes participantes del sector{" "}
           <strong>{dataSector[0].cct_sector}</strong> así como la distribución
           porcentual de los mismos según sus niveles de integración.
         </p>
-      </div>
-
-      <div className="page page-break">
-        <Header
-          title={`REPORTE DE RESULTADOS SECTOR ${dataSector[0].cct_sector}`}
-          data={totalesHeader}
-          viewText={false}
-          isZona={false}
-        />
         <p className="notes">
           <strong>Notas:</strong> Los resultados que se presentan a continuación
           están organizados por escuela y presentan, para cada grado y campo
@@ -455,25 +449,30 @@ export async function renderOpcionEduReport(
   dataZonaPorEscuela: any[],
   totalesOpEdu: any,
 ) {
-  const nivelPlural = pluralizar(dataEscuelas[0].nivel);
-  const subnivelPlural = pluralizar(dataEscuelas[0].subnivel);
-  // Calcular total de escuelas existentes
+  const opcionEducativa =
+    dataEscuelas[0]?.opcion_educativa || "opcion educativa";
+
+  // 🔥 aplicar pluralización como ya haces en otros reportes
+  const opcionPlural = pluralizar(opcionEducativa);
+
+  // Calcular escuelas existentes
   const totalEscuelasExistentes = dataEscuelas.length;
 
-  // Calcular escuelas participantes (escuelas que tienen registros)
+  // Escuelas participantes (únicas)
   const escuelasParticipantesSet = new Set(
-    dataZonaPorEscuela.map((item) => item.cct_registro || item.cct_escuela),
+    dataZonaPorEscuela.map((item) => item.cct || item.cct_escuela),
   );
+
   const totalEscuelasParticipantes = escuelasParticipantesSet.size;
-  // Formatear números con comas
-  const formatearNumero = (num: number) => num.toLocaleString("es-MX");
+
+  const formatearNumero = (num: number) => (num || 0).toLocaleString("es-MX");
 
   return renderToStaticMarkup(
     <ReportLayout>
-      {/* ===== PAGINA 1: GRÁFICAS ===== */}
+      {/* ===== PAGINA 1 ===== */}
       <div className="page page-break">
         <Header
-          title={`REPORTE DE RESULTADOS ${nivelPlural} ${subnivelPlural}`}
+          title={`REPORTE DE RESULTADOS ${opcionPlural}`}
           data={[]}
           isOpEdu={true}
         >
@@ -487,13 +486,10 @@ export async function renderOpcionEduReport(
             }}
           >
             <p>
-              Matricula Participante:{" "}
+              Matrícula Participante:{" "}
               {formatearNumero(totalesOpEdu?.total_alumnos)}
             </p>
-            <p>
-              Escuelas totales:{" "}
-              {formatearNumero(totalesOpEdu?.total_escuela_absoluto)}
-            </p>
+
             <p>
               Escuelas participantes:{" "}
               {formatearNumero(totalEscuelasParticipantes)}
@@ -502,29 +498,24 @@ export async function renderOpcionEduReport(
         </Header>
 
         {renderGraficas(dataOpcion)}
+
         <p className="notes">
           <strong>Nota:</strong> Las presentes gráficas ilustran el universo
-          total de estudiantes participantes al sistema de{" "}
-          {dataEscuelas[0].nivel} {dataEscuelas[0].subnivel}, así como la
-          distribución porcentual de los mismos según sus niveles de
-          integración.
+          total de estudiantes participantes en la opción educativa{" "}
+          <strong>{opcionPlural}</strong>, así como la distribución porcentual
+          de los mismos según sus niveles de integración.
         </p>
       </div>
 
-      {/* ===== PAGINA 2: TABLA DE ESCUELAS ===== */}
+      {/* ===== PAGINA 2 ===== */}
       <div className="page page-break">
-        <Header
-          title="Reporte por opción educativa"
-          data={[]}
-          viewText={false}
-          isOpEdu={true}
-        />
-        <p className="notes">
-          <strong>Notas:</strong> Los resultados que se presentan a continuación
+        <p className="notes" style={{ marginTop: 10 }}>
+          <strong>Nota:</strong> Los resultados que se presentan a continuación
           están organizados por escuela y presentan, para cada grado y campo
           formativo, el nivel de integración predominante, independientemente de
           que corresponda a niveles altos o bajos.
         </p>
+
         <div style={{ marginTop: "10mm", padding: "0 10mm" }}>
           <TablePorEscuela
             dataMapaZona={dataEscuelas}
@@ -560,7 +551,7 @@ export async function renderEscuela(
       <Header
         data={[]}
         isOpEdu={true}
-        title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+        title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].opcion_educativa}`}
       >
         <h4>
           {dataGeneralEscuela[0].nombre} {dataGeneralEscuela[0].llave}
@@ -575,7 +566,7 @@ export async function renderEscuela(
           <p>🕛 TURNO: {dataGeneralEscuela[0].turno}</p>
           <p>🏠 MUNICIPIO: {dataGeneralEscuela[0].municipio}</p>
           <p>📍 LOCALIDAD: {dataGeneralEscuela[0].localidad}</p>
-          <p>MATRICULA PARTICIPANTE: {dataGeneralEscuela[0].matricula}</p>
+          <p>MATRICULA PARTICIPANTE: {dataGeneralEscuela[0]?.matricula ?? 0}</p>
         </div>
       </Header>
       {renderGraficas(dataNiEscuela)}
@@ -590,11 +581,11 @@ export async function renderEscuela(
 
   // 🔥 NUEVA HOJA (SOLO AGREGADA, SIN TOCAR NADA)
   const paginaPrioridad = (
-    <div className="page page-break">
+    <div className="page page-break" style={{ paddingTop: "10mm" }}>
       <Header
         data={[]}
         isOpEdu={true}
-        title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+        title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].opcion_educativa}`}
       >
         <h4>
           {dataGeneralEscuela[0].nombre} {dataGeneralEscuela[0].llave}
@@ -644,14 +635,15 @@ export async function renderEscuela(
             display: "flex",
             flexDirection: "column",
             height: "100%",
+            paddingTop: "10mm",
+            marginBottom: "15mm",
           }}
         >
           <Header
             data={[]}
             isOpEdu={true}
-            title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+            title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].opcion_educativa}`}
           >
-            <h4>{dataGeneralEscuela[0].nombre}</h4>
             <div
               style={{
                 display: "flex",
@@ -706,9 +698,6 @@ export async function renderEscuela(
 
             <div>
               <TablaRequiereAtencion data={dataNiEscuela} umbral={30} />
-              <p>
-                <strong>Nota:</strong>{" "}
-              </p>
             </div>
           </div>
         </div>
@@ -736,15 +725,14 @@ export async function renderEscuela(
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          marginTop: "100px",
+          marginTop: "10mm",
         }}
       >
         <Header
           data={[]}
           isOpEdu={true}
-          title={` REPORTE ${dataGeneralEscuela[0].nivel} ${dataGeneralEscuela[0].subnivel}`}
+          title={` REPORTE DE RESULTADOS ${dataGeneralEscuela[0].opcion_educativa}`}
         >
-          <h4>{dataGeneralEscuela[0].nombre}</h4>
           <div
             style={{
               display: "flex",
@@ -803,7 +791,7 @@ export async function renderEscuela(
                   </p>
                 )}
 
-                <p className="notes">
+                <p className="notes" style={{ marginTop: "0mm" }}>
                   <strong>Nota:</strong> Estos resultados permiten analizar los
                   niveles de integración a nivel zona para que exista un
                   contraste con la escuela.
@@ -897,10 +885,165 @@ function filterDataByRange(
   });
 }
 
+export default function renderSisatOpEdu(
+  primeraExploracion: any[],
+  segundaExploracion: any[],
+  dataEscuelas: any[],
+) {
+  const opcionEducativa =
+    primeraExploracion?.[0]?.opcion_educativa || "OPCIÓN EDUCATIVA";
+
+  return renderToStaticMarkup(
+    <ReportLayout>
+      {/* ================================================= */}
+      {/* PRIMERA PÁGINA */}
+      {/* ================================================= */}
+
+      <Header
+        title={`REPORTE RESULTADOS SISAT ${opcionEducativa}`}
+        data={[]}
+        isOpEdu={true}
+        titleReport="SISTEMA DE ALERTA TEMPRANA 2025-2026"
+      />
+
+      <div className="page">
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "5mm",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* ============================================= */}
+          {/* LEYENDA */}
+          {/* ============================================= */}
+
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              gap: "15px",
+              flexWrap: "wrap",
+            }}
+          >
+            {/* NE */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "12px",
+                fontWeight: "bold",
+              }}
+            >
+              <div
+                style={{
+                  width: "14px",
+                  height: "14px",
+                  backgroundColor: "#369445",
+                  borderRadius: "3px",
+                }}
+              />
+
+              <span>NE: Niveles Esperados</span>
+            </div>
+
+            {/* ED */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "12px",
+                fontWeight: "bold",
+              }}
+            >
+              <div
+                style={{
+                  width: "14px",
+                  height: "14px",
+                  backgroundColor: "#FACA58",
+                  borderRadius: "3px",
+                }}
+              />
+
+              <span>ED: En Desarrollo</span>
+            </div>
+
+            {/* RA */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "12px",
+                fontWeight: "bold",
+              }}
+            >
+              <div
+                style={{
+                  width: "14px",
+                  height: "14px",
+                  backgroundColor: "#A71D27",
+                  borderRadius: "3px",
+                }}
+              />
+
+              <span>RA: Requiere Apoyo</span>
+            </div>
+          </div>
+
+          {/* ============================================= */}
+          {/* GRÁFICAS */}
+          {/* ============================================= */}
+
+          <SisatComparativoCharts
+            primera={primeraExploracion || []}
+            segunda={segundaExploracion || []}
+          />
+        </div>
+      </div>
+
+      {/* ================================================= */}
+      {/* SEGUNDA PÁGINA */}
+      {/* ================================================= */}
+
+      <div
+        className="page page-break"
+        style={{ paddingTop: "0px", marginTop: "0px" }}
+      >
+        <Header
+          data={[]}
+          title={`REPORTE RESULTADOS SISAT ${opcionEducativa}`}
+          isOpEdu={true}
+          titleReport="SISTEMA DE ALERTA TEMPRANA 25-26"
+        />
+
+        <SisatComparativoTabla
+          primera={primeraExploracion || []}
+          segunda={segundaExploracion || []}
+          dataEscuelas={dataEscuelas || []}
+        />
+      </div>
+    </ReportLayout>,
+  );
+}
 export async function renderMainView() {
   return renderToStaticMarkup(
     <ReportLayout>
       <ReportQueryPanel />
+    </ReportLayout>,
+  );
+}
+
+export async function renderDashboardExploracion() {
+  return renderToStaticMarkup(
+    <ReportLayout>
+      <DashboardExploracion />
     </ReportLayout>,
   );
 }

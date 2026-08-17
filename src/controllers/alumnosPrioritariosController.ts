@@ -220,6 +220,13 @@ class alumnosPrioritariosController {
           message: `No existen secundarias con la llave: ${llave_escuela}`,
         });
       }
+
+      return res.status(200).json({
+        success: true,
+        message: "Datos obtenidos correctamente",
+        data: dataSecundariaTecnica,
+        count: dataSecundariaTecnica.length,
+      });
     } catch (error: any) {
       return res.status(500).json({
         success: false,
@@ -254,6 +261,12 @@ class alumnosPrioritariosController {
           message: `No existen alumnos con la llave: ${llave_escuela}`,
         });
       }
+      return res.status(200).json({
+        success: true,
+        message: "Datos obtenidos correctamente",
+        data: dataTelesecundaria,
+        count: dataTelesecundaria.length,
+      });
     } catch (error: any) {
       return res.status(500).json({
         success: false,

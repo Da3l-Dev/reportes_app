@@ -4,8 +4,14 @@ import { count } from "node:console";
 class Escuelas {
   async getEscuelasOpcionEducativa(req: Request, res: Response) {
     try {
-      const nivel = req.params.nivel;
-      const subnivel = req.params.subnivel;
+      // ✅ Forzar a string correctamente
+      const nivel = Array.isArray(req.params.nivel)
+        ? req.params.nivel[0]
+        : req.params.nivel;
+
+      const subnivel = Array.isArray(req.params.subnivel)
+        ? req.params.subnivel[0]
+        : req.params.subnivel;
 
       if (!nivel || !subnivel) {
         return res.status(400).json({
@@ -13,6 +19,15 @@ class Escuelas {
           message:
             "Es necesario elegir la opcion educativa y el nivel educativo",
         });
+      }
+
+      // 🔥 Construcción de la opción educativa
+      let opcionEducativa = "";
+
+      if (subnivel.toUpperCase() === "TELESECUNDARIA") {
+        opcionEducativa = "TELESECUNDARIA";
+      } else {
+        opcionEducativa = `${nivel} ${subnivel}`.toUpperCase();
       }
 
       const dataEscuelasOpcionEducativa = await prisma.$queryRaw<
@@ -24,8 +39,6 @@ class Escuelas {
           opcion_educativa: string;
           cct_zona: string;
           cct_sector: string;
-          nivel: string;
-          subnivel: string;
           zona: number;
           sector: number;
           turno: string;
@@ -43,8 +56,6 @@ class Escuelas {
         mb.opcion_educativa,
         mb.cct_zona,
         mb.cct_sector,
-        mb.nivel,
-        mb.subnivel,
         mb.zona,
         mb.sector,
         mb.turno,
@@ -69,9 +80,8 @@ class Escuelas {
       ) ss
         ON mb.cct_sector = ss.jefatura
 
-      WHERE mb.subnivel = ${subnivel.toString().toUpperCase()}
-        AND mb.nivel = ${nivel.toString().toUpperCase()}
-      
+      WHERE UPPER(mb.opcion_educativa) = ${opcionEducativa}
+
       GROUP BY 
         mb.llave,
         mb.id,
@@ -80,12 +90,10 @@ class Escuelas {
         mb.opcion_educativa,
         mb.cct_zona,
         mb.cct_sector,
-        mb.nivel,
-        mb.subnivel,
         mb.zona,
         mb.sector,
         mb.turno,
-        mb.localidad, -- 👈 agregado aquí
+        mb.localidad,
         mb.municipio,
         sz.nombre_sup_zona,
         ss.nombre_sup_sector
@@ -104,7 +112,7 @@ class Escuelas {
       return res.status(200).json({
         success: true,
         data: dataEscuelasOpcionEducativa,
-        message: `Escuelas ${nivel} ${subnivel} obtenidas correctamente`,
+        message: `Escuelas ${opcionEducativa} obtenidas correctamente`,
         count: dataEscuelasOpcionEducativa.length,
       });
     } catch (error: any) {
@@ -112,6 +120,7 @@ class Escuelas {
         "Error al obtener las escuelas por opción educativa:",
         error,
       );
+
       return res.status(500).json({
         success: false,
         message: "Error al obtener escuelas",
@@ -176,7 +185,7 @@ class Escuelas {
           message: "Es necesario dar el cct de la escuela",
         });
 
-      const dataEscuelas = await prisma.analisis_cct_campo.findMany({
+      const dataEscuelas = await prisma.ni_cct.findMany({
         where: {
           llave: llave_escuela.toString(),
         },

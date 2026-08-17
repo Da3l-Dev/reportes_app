@@ -406,6 +406,8 @@ export function TablePorEscuela({
       return zonaA - zonaB;
     });
 
+    console.log(agrupado);
+
     return (
       <table
         style={{
@@ -453,15 +455,9 @@ export function TablePorEscuela({
                       Zona: <strong>{zona}</strong>
                     </div>
                     <div>
-                      Nivel:{" "}
+                      Opcion Educativa:{" "}
                       <strong>
-                        {agrupado[zona]?.[0]?.nivel ?? "Sin nivel"}
-                      </strong>
-                    </div>
-                    <div>
-                      Subnivel:{" "}
-                      <strong>
-                        {agrupado[zona]?.[0]?.subnivel ?? "Sin opción"}
+                        {agrupado[zona]?.[0]?.opcion_educativa ?? "Sin opción"}
                       </strong>
                     </div>
                     <div>

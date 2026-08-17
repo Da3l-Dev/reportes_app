@@ -12,12 +12,13 @@ export default function ReportQueryPanel() {
               <p className="text-lg font-semibold">Generando...</p>
             </div>
 
-            {/* HEADER */}
+            {/* HEADER CON LOGO */}
             <div className="text-center mb-8 sm:mb-10">
               <h1 className="text-xl sm:text-3xl md:text-4xl font-bold leading-tight">
                 Reporte Ejercicio Integreadores del aprendizaje 2025 - 2026
               </h1>
-              <p className="text-white/70 mt-2 text-sm sm:text-base">
+
+              <p className="text-white/70 mt-3 text-sm sm:text-base">
                 Genera reportes PDF por zona, sector, escuela u opción educativa
               </p>
             </div>
@@ -114,14 +115,13 @@ export default function ReportQueryPanel() {
               const btn = document.getElementById("generarBtn");
               const overlay = document.getElementById("loadingOverlay");
 
-              // 🔥 DETECTAR ENTORNO
               const isLocalhost =
                 window.location.hostname === "localhost" ||
                 window.location.hostname === "127.0.0.1";
 
               const BASE_URL = isLocalhost
                 ? "http://localhost:5000"
-                : "http://52.23.173.26:5000";
+                : "http://192.168.0.38:5000";
 
               btn.addEventListener("click", async function () {
 

@@ -7,6 +7,8 @@ import {
   reportZonaGenerate,
   serveMainView,
   viewOpcEduHtml,
+  generatedSisatOpEdu,
+  dashboardSisatOpEdu,
 } from "../controllers/pdfController";
 import sectorController from "../controllers/sectorController";
 import escuelasController from "../controllers/escuelasController";
@@ -15,6 +17,8 @@ import alumnosPrioritariosController from "../controllers/alumnosPrioritariosCon
 const router = Router();
 // Rutas para datos de la zona
 router.get("/", serveMainView);
+router.get("/sisat", dashboardSisatOpEdu);
+
 router.get("/zona/:ctt_zona", ZonaController.getZonas);
 router.get("/pdf/zona/:cct_zona", reportZonaGenerate);
 router.get("/zona/data/:ctt_zona", ZonaController.getDataZonas);
@@ -89,4 +93,22 @@ router.get(
   "/alumnos-prioritarios/telesecundaria/:llave_escuela",
   alumnosPrioritariosController.getDataTelesecundaria,
 );
+
+// =================================================================
+// Rutas para exploración SISAT
+import ExploracionSisatController from "../controllers/explo_sisat_controller";
+
+const exploracionSisatController = new ExploracionSisatController();
+
+router.get(
+  "/exploracion-sisat/primera/:nivel/:subnivel",
+  exploracionSisatController.getPrimeraExploracion,
+);
+
+router.get(
+  "/exploracion-sisat/segunda/:nivel/:subnivel",
+  exploracionSisatController.getSegundaExploracion,
+);
+
+router.get("/pdf/opEdu/sisat/:nivel/:subnivel", generatedSisatOpEdu);
 export default router;

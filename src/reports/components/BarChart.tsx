@@ -37,7 +37,7 @@ export function BarChart({ labels, segments }: BarChartProps) {
   // TAMAÑO
   // =========================
   const width = container.clientWidth * 1.5;
-  const height = Math.min(width, 600);
+  const height = Math.min(width, 560);
 
   // =========================
   // CANVAS HD
