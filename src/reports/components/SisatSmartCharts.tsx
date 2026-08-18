@@ -83,20 +83,20 @@ function buildSisatPorMateria(data: any[], materia: string) {
 }
 
 /* =========================
-   🔥 COMPONENTE FINAL BIEN CENTRADO
+   🔥 COMPONENTE FINAL CON 3 EXPLORACIONES
 ========================= */
 
 type Props = {
   primera: any[];
   segunda: any[];
+  tercera: any[];
 };
 
-export default function SisatComparativoCharts({ primera, segunda }: Props) {
+export default function SisatComparativoCharts({ primera, segunda, tercera }: Props) {
   return (
     <div
       style={{
         width: "100%",
-        height: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -106,8 +106,10 @@ export default function SisatComparativoCharts({ primera, segunda }: Props) {
       {MATERIAS.map((materia) => {
         const dataPrimera = buildSisatPorMateria(primera, materia);
         const dataSegunda = buildSisatPorMateria(segunda, materia);
+        const dataTercera = buildSisatPorMateria(tercera, materia);
 
-        if (!dataPrimera.grados.length && !dataSegunda.grados.length)
+        // Si no hay datos en ninguna exploración, no mostrar
+        if (!dataPrimera.grados.length && !dataSegunda.grados.length && !dataTercera.grados.length)
           return null;
 
         return (
@@ -115,13 +117,12 @@ export default function SisatComparativoCharts({ primera, segunda }: Props) {
             key={materia}
             style={{
               width: "100%",
-              maxWidth: "190mm",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            {/* ===== TITULO ===== */}
+            {/* TITULO */}
             <h4
               style={{
                 textAlign: "center",
@@ -132,7 +133,7 @@ export default function SisatComparativoCharts({ primera, segunda }: Props) {
               {materia}
             </h4>
 
-            {/* ===== CONTENEDOR CENTRADO ===== */}
+            {/* CONTENEDOR CENTRADO */}
             <div
               style={{
                 width: "100%",
@@ -143,37 +144,48 @@ export default function SisatComparativoCharts({ primera, segunda }: Props) {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "auto auto",
-                  gap: "10mm",
+                  gridTemplateColumns: "auto auto auto",
+                  gap: "8mm",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
                 {/* PRIMERA */}
                 <div style={{ textAlign: "center" }}>
-                  <p style={{ fontSize: "10px", marginBottom: "2mm" }}>
+                  <p style={{ fontSize: "9px", marginBottom: "2mm", fontWeight: "bold" }}>
                     Primera Exploración
                   </p>
-
                   <BarChartSmall
                     labels={dataPrimera.grados}
                     segments={[...dataPrimera.segments]}
-                    width={500}
+                    width={320}
                     height={180}
                   />
                 </div>
 
                 {/* SEGUNDA */}
                 <div style={{ textAlign: "center" }}>
-                  <p style={{ fontSize: "10px", marginBottom: "2mm" }}>
+                  <p style={{ fontSize: "9px", marginBottom: "2mm", fontWeight: "bold" }}>
                     Segunda Exploración
                   </p>
-
                   <BarChartSmall
                     labels={dataSegunda.grados}
                     segments={[...dataSegunda.segments]}
-                    width={500}
-                    height={180}
+                    width={320}
+                    height={160}
+                  />
+                </div>
+
+                {/* TERCERA */}
+                <div style={{ textAlign: "center" }}>
+                  <p style={{ fontSize: "9px", marginBottom: "2mm", fontWeight: "bold" }}>
+                    Tercera Exploración
+                  </p>
+                  <BarChartSmall
+                    labels={dataTercera.grados}
+                    segments={[...dataTercera.segments]}
+                    width={320}
+                    height={160}
                   />
                 </div>
               </div>

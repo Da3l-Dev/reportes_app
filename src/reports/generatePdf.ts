@@ -5,6 +5,8 @@ import renderSisatOpEdu, {
   renderOpcionEduReport,
   renderReportSector,
   renderReportZona,
+  renderGraficaGlobalSisat,
+  renderTablaSisatOpEdu
 } from "./renderReport";
 import dotenv from "dotenv";
 
@@ -45,6 +47,7 @@ async function fetchWithRetry(
 =========================== */
 async function createBrowser() {
   return await puppeteer.launch({
+    executablePath: "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
     headless: true,
     args: [
       "--no-sandbox",
@@ -264,6 +267,7 @@ export async function generatedPdfEscuela(
 export async function generatedPdfSisatOpEdu(
   dataPrimeraExploracion: any[],
   dataSegundaExploracion: any[],
+  dataTerceraExploracion: any[],
   dataEscuelas: any[],
 ) {
   let browser: Browser | null = null;
@@ -276,173 +280,195 @@ export async function generatedPdfSisatOpEdu(
     // PDF FINAL
     const mergedPdf = await PDFDocument.create();
 
-    // TAMAÑO DEL CHUNK
-    const CHUNK_SIZE = 50;
+    // ============================================================
+    // 1️⃣ GRÁFICA GLOBAL (UNA SOLA VEZ)
+    // ============================================================
 
+    console.log("📊 Generando gráfica global con todos los datos...");
+
+    const htmlGrafica = await renderGraficaGlobalSisat(
+      dataPrimeraExploracion,
+      dataSegundaExploracion,
+      dataTerceraExploracion,
+    );
+
+    const pageGrafica = await browser.newPage();
+    await pageGrafica.setViewport({ width: 1600, height: 900 });
+    await pageGrafica.setDefaultTimeout(0);
+    await pageGrafica.setContent(htmlGrafica, {
+      waitUntil: "domcontentloaded",
+    });
+    await pageGrafica.addStyleTag({
+      path: "reports/css/layout.css",
+    });
+
+    const pdfGraficaBuffer = await pageGrafica.pdf({
+      printBackground: true,
+      format: "A4",
+      landscape: true,
+      preferCSSPageSize: false,
+    });
+
+    await pageGrafica.close();
+
+    // 👇 LOG 1: Tamaño del buffer
+    console.log(`📊 Tamaño del buffer de gráfica: ${pdfGraficaBuffer.length} bytes`);
+
+    // 👇 LOG 2: Cargar el PDF y ver cuántas páginas tiene
+    const pdfGraficaDoc = await PDFDocument.load(pdfGraficaBuffer);
+    const totalPaginasGrafica = pdfGraficaDoc.getPageCount();
+    console.log(`📄 La gráfica generó ${totalPaginasGrafica} página(s)`);
+
+    // 👇 LOG 3: Ver las dimensiones de la primera página
+    if (totalPaginasGrafica > 0) {
+      const primeraPagina = pdfGraficaDoc.getPage(0);
+      const { width, height } = primeraPagina.getSize();
+      console.log(`📐 Página 1: ${width} x ${height}`);
+    }
+
+    // 👇 SOLO AGREGAR SI TIENE PÁGINAS - PERO SOLO LA PRIMERA
+    if (totalPaginasGrafica > 0) {
+      // 👇 IMPORTANTE: Solo copiar la primera página [0]
+      const paginaGrafica = await mergedPdf.copyPages(
+        pdfGraficaDoc,
+        [0] // 👈 SOLO LA PRIMERA PÁGINA
+      );
+      paginaGrafica.forEach((p) => mergedPdf.addPage(p));
+      
+      if (totalPaginasGrafica === 1) {
+        console.log(`✅ 1 página de gráfica agregada`);
+      } else {
+        console.log(`✅ 1 página de gráfica agregada (descartadas ${totalPaginasGrafica - 1} páginas en blanco)`);
+      }
+    } else {
+      console.log("⚠️ La gráfica no generó páginas, omitiendo...");
+    }
+
+    console.log("✅ Gráfica global procesada");
+
+    // ============================================================
+    // 2️⃣ TABLA POR CHUNKS (CADA 50 ESCUELAS)
+    // ============================================================
+
+    const CHUNK_SIZE = 50;
     const totalChunks = Math.ceil(dataEscuelas.length / CHUNK_SIZE);
 
-    /* =========================================
-       DEBUG
-    ========================================= */
-
-    console.log("========== EJEMPLOS ==========");
-
-    console.log("🏫 Escuela:");
-    console.log(dataEscuelas[0]);
-
-    console.log("📘 Primera:");
-    console.log(dataPrimeraExploracion[0]);
-
-    console.log("📗 Segunda:");
-    console.log(dataSegundaExploracion[0]);
-
-    console.log("================================");
-
-    /* =========================================
-       INDEXAR DATOS POR CCT
-    ========================================= */
-
+    // INDEXAR DATOS POR CCT
     const primeraMap = new Map<string, any[]>();
     const segundaMap = new Map<string, any[]>();
+    const terceraMap = new Map<string, any[]>();
 
-    console.log("📘 Primera exploración:", dataPrimeraExploracion.length);
-    console.log("📗 Segunda exploración:", dataSegundaExploracion.length);
-
-    // INDEXAR PRIMERA
+    // Indexar primera
     for (const item of dataPrimeraExploracion) {
-      const key = String(item.cct || "")
-        .trim()
-        .toUpperCase();
-
+      const key = String(item.cct || "").trim().toUpperCase();
       if (!key) continue;
-
-      if (!primeraMap.has(key)) {
-        primeraMap.set(key, []);
-      }
-
+      if (!primeraMap.has(key)) primeraMap.set(key, []);
       primeraMap.get(key)?.push(item);
     }
 
-    // INDEXAR SEGUNDA
+    // Indexar segunda
     for (const item of dataSegundaExploracion) {
-      const key = String(item.cct || "")
-        .trim()
-        .toUpperCase();
-
+      const key = String(item.cct || "").trim().toUpperCase();
       if (!key) continue;
-
-      if (!segundaMap.has(key)) {
-        segundaMap.set(key, []);
-      }
-
+      if (!segundaMap.has(key)) segundaMap.set(key, []);
       segundaMap.get(key)?.push(item);
     }
 
-    console.log("🗂️ Keys primera:", primeraMap.size);
-    console.log("🗂️ Keys segunda:", segundaMap.size);
+    // Indexar tercera
+    for (const item of dataTerceraExploracion) {
+      const key = String(item.cct || "").trim().toUpperCase();
+      if (!key) continue;
+      if (!terceraMap.has(key)) terceraMap.set(key, []);
+      terceraMap.get(key)?.push(item);
+    }
 
-    /* =========================================
-       PROCESAR CHUNKS
-    ========================================= */
+    console.log(`🗂️ Keys: Primera=${primeraMap.size}, Segunda=${segundaMap.size}, Tercera=${terceraMap.size}`);
 
+    // Procesar chunks
     for (let i = 0; i < dataEscuelas.length; i += CHUNK_SIZE) {
       const chunkStart = Date.now();
+      const chunkIndex = Math.floor(i / CHUNK_SIZE) + 1;
 
       const escuelasChunk = dataEscuelas.slice(i, i + CHUNK_SIZE);
 
-      console.log(`📦 Chunk ${i / CHUNK_SIZE + 1}/${totalChunks}`);
+      if (escuelasChunk.length === 0) {
+        console.log(`⚠️ Chunk ${chunkIndex} vacío, saltando...`);
+        continue;
+      }
+
+      console.log(`📦 Chunk ${chunkIndex}/${totalChunks}`);
 
       const primeraChunk: any[] = [];
       const segundaChunk: any[] = [];
+      const terceraChunk: any[] = [];
 
       for (const escuela of escuelasChunk) {
-        const key = String(escuela.llave || "")
-          .trim()
-          .toUpperCase();
-
-        console.log("🔍 BUSCANDO:", key);
+        const key = String(escuela.llave || "").trim().toUpperCase();
 
         const primeraData = primeraMap.get(key) || [];
         const segundaData = segundaMap.get(key) || [];
-
-        console.log("📘 Encontrados primera:", primeraData.length);
-        console.log("📗 Encontrados segunda:", segundaData.length);
+        const terceraData = terceraMap.get(key) || [];
 
         primeraChunk.push(...primeraData);
         segundaChunk.push(...segundaData);
+        terceraChunk.push(...terceraData);
       }
 
-      console.log(`
-📘 Primera chunk: ${primeraChunk.length}
-📗 Segunda chunk: ${segundaChunk.length}
-🏫 Escuelas chunk: ${escuelasChunk.length}
-      `);
+      console.log(`📊 Chunk ${chunkIndex}: Primera=${primeraChunk.length}, Segunda=${segundaChunk.length}, Tercera=${terceraChunk.length}`);
 
-      /* =========================================
-         HTML
-      ========================================= */
-
-      const html = await renderSisatOpEdu(
+      // Generar HTML de la tabla para este chunk
+      const htmlTabla = await renderTablaSisatOpEdu(
         primeraChunk,
         segundaChunk,
+        terceraChunk,
         escuelasChunk,
+        chunkIndex,
+        totalChunks,
       );
 
-      /* =========================================
-         NUEVA PAGE
-      ========================================= */
-
-      const page = await browser.newPage();
-
-      await page.setViewport({
-        width: 1600,
-        height: 900,
-      });
-
-      await page.setDefaultTimeout(0);
-
-      await page.setContent(html, {
+      const pageTabla = await browser.newPage();
+      await pageTabla.setViewport({ width: 1600, height: 900 });
+      await pageTabla.setDefaultTimeout(0);
+      await pageTabla.setContent(htmlTabla, {
         waitUntil: "domcontentloaded",
       });
-
-      await page.addStyleTag({
+      await pageTabla.addStyleTag({
         path: "reports/css/layout.css",
       });
 
-      /* =========================================
-         PDF DEL CHUNK
-      ========================================= */
-
-      const pdfBuffer = await page.pdf({
+      const pdfTablaBuffer = await pageTabla.pdf({
         printBackground: true,
         format: "A4",
         landscape: true,
         preferCSSPageSize: true,
       });
 
-      await page.close();
+      await pageTabla.close();
 
-      /* =========================================
-         UNIR PDF
-      ========================================= */
+      if (pdfTablaBuffer.length === 0) {
+        console.log(`⚠️ Chunk ${chunkIndex} generó PDF vacío, saltando...`);
+        continue;
+      }
 
-      const pdfDoc = await PDFDocument.load(pdfBuffer);
+      // Agregar páginas de la tabla al PDF final
+      const pdfTablaDoc = await PDFDocument.load(pdfTablaBuffer);
+      console.log(`📄 Chunk ${chunkIndex} tiene ${pdfTablaDoc.getPageCount()} páginas`);
 
-      const pages = await mergedPdf.copyPages(pdfDoc, pdfDoc.getPageIndices());
+      // SOLO AGREGAR SI TIENE PÁGINAS
+      if (pdfTablaDoc.getPageCount() > 0) {
+        const paginasTabla = await mergedPdf.copyPages(
+          pdfTablaDoc,
+          pdfTablaDoc.getPageIndices(),
+        );
+        paginasTabla.forEach((p) => mergedPdf.addPage(p));
+      }
 
-      pages.forEach((p) => {
-        mergedPdf.addPage(p);
-      });
-
-      console.log(`
-✅ Chunk ${i / CHUNK_SIZE + 1} terminado
-⏱️ ${Date.now() - chunkStart}ms
-      `);
+      console.log(`✅ Chunk ${chunkIndex} terminado en ${Date.now() - chunkStart}ms`);
     }
 
-    /* =========================================
-       PDF FINAL
-    ========================================= */
+    // ============================================================
+    // 3️⃣ PDF FINAL
+    // ============================================================
 
     console.log("📄 Uniendo PDF final");
 

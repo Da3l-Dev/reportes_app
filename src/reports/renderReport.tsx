@@ -886,12 +886,25 @@ function filterDataByRange(
 }
 
 export default function renderSisatOpEdu(
-  primeraExploracion: any[],
-  segundaExploracion: any[],
-  dataEscuelas: any[],
+  primeraExploracion: any[] = [],  // 👈 Valor por defecto array vacío
+  segundaExploracion: any[] = [],  // 👈 Valor por defecto array vacío
+  terceraExploracion: any[] = [],  // 👈 NUEVO PARÁMETRO con valor por defecto
+  dataEscuelas: any[] = [],        // 👈 Valor por defecto array vacío
 ) {
+  // Obtener la opción educativa de la primera exploración si existe
   const opcionEducativa =
-    primeraExploracion?.[0]?.opcion_educativa || "OPCIÓN EDUCATIVA";
+    primeraExploracion?.[0]?.opcion_educativa ||
+    segundaExploracion?.[0]?.opcion_educativa ||
+    terceraExploracion?.[0]?.opcion_educativa ||
+    "OPCIÓN EDUCATIVA";
+
+  // Logs para debug (opcional)
+  console.log("📊 Render SISAT OpEdu:", {
+    primera: primeraExploracion.length,
+    segunda: segundaExploracion.length,
+    tercera: terceraExploracion.length,
+    escuelas: dataEscuelas.length,
+  });
 
   return renderToStaticMarkup(
     <ReportLayout>
@@ -912,14 +925,10 @@ export default function renderSisatOpEdu(
             display: "flex",
             flexDirection: "column",
             gap: "5mm",
-            width: "100%",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          {/* ============================================= */}
-          {/* LEYENDA */}
-          {/* ============================================= */}
 
           <div
             style={{
@@ -998,12 +1007,13 @@ export default function renderSisatOpEdu(
           </div>
 
           {/* ============================================= */}
-          {/* GRÁFICAS */}
+          {/* GRÁFICAS - Ahora con las 3 exploraciones */}
           {/* ============================================= */}
 
           <SisatComparativoCharts
             primera={primeraExploracion || []}
             segunda={segundaExploracion || []}
+            tercera={terceraExploracion || []} 
           />
         </div>
       </div>
@@ -1013,7 +1023,7 @@ export default function renderSisatOpEdu(
       {/* ================================================= */}
 
       <div
-        className="page page-break"
+        className="page"
         style={{ paddingTop: "0px", marginTop: "0px" }}
       >
         <Header
@@ -1026,6 +1036,7 @@ export default function renderSisatOpEdu(
         <SisatComparativoTabla
           primera={primeraExploracion || []}
           segunda={segundaExploracion || []}
+          tercera={terceraExploracion || []}  // 👈 NUEVO
           dataEscuelas={dataEscuelas || []}
         />
       </div>
@@ -1044,6 +1055,134 @@ export async function renderDashboardExploracion() {
   return renderToStaticMarkup(
     <ReportLayout>
       <DashboardExploracion />
+    </ReportLayout>,
+  );
+}
+
+export function renderGraficaGlobalSisat(
+  primeraExploracion: any[] = [],
+  segundaExploracion: any[] = [],
+  terceraExploracion: any[] = [],
+) {
+  const opcionEducativa =
+    primeraExploracion?.[0]?.opcion_educativa ||
+    segundaExploracion?.[0]?.opcion_educativa ||
+    terceraExploracion?.[0]?.opcion_educativa ||
+    "OPCIÓN EDUCATIVA";
+
+  return renderToStaticMarkup(
+    <ReportLayout>
+      {/* 👇 HEADER EN MODO COMPACTO */}
+      <Header
+        title={`REPORTE RESULTADOS SISAT ${opcionEducativa}`}
+        data={[]}
+        isOpEdu={true}
+        titleReport="SISTEMA DE ALERTA TEMPRANA 2025-2026"
+      />
+
+      <div className="page" >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {/* LEYENDA */}
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              gap: "15px",
+              flexWrap: "wrap",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "10px", fontWeight: "bold" }}>
+              <div style={{ width: "10px", height: "10px", backgroundColor: "#369445", borderRadius: "3px" }} />
+              <span>NE: Niveles Esperados</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "10px", fontWeight: "bold" }}>
+              <div style={{ width: "10px", height: "10px", backgroundColor: "#FACA58", borderRadius: "3px" }} />
+              <span>ED: En Desarrollo</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "10px", fontWeight: "bold" }}>
+              <div style={{ width: "10px", height: "10px", backgroundColor: "#A71D27", borderRadius: "3px" }} />
+              <span>RA: Requiere Apoyo</span>
+            </div>
+          </div>
+
+          {/* GRÁFICA */}
+          <div >
+            <SisatComparativoCharts
+              primera={primeraExploracion}
+              segunda={segundaExploracion}
+              tercera={terceraExploracion}
+            />
+          </div>
+        </div>
+      </div>
+    </ReportLayout>,
+  );
+}
+/* =========================
+   SISAT - TABLA POR CHUNK (SOLO TABLA)
+========================= */
+
+export function renderTablaSisatOpEdu(
+  primeraExploracion: any[] = [],
+  segundaExploracion: any[] = [],
+  terceraExploracion: any[] = [],
+  dataEscuelas: any[] = [],
+  chunkIndex: number = 1,
+  totalChunks: number = 1,
+) {
+  const opcionEducativa =
+    primeraExploracion?.[0]?.opcion_educativa ||
+    segundaExploracion?.[0]?.opcion_educativa ||
+    terceraExploracion?.[0]?.opcion_educativa ||
+    "OPCIÓN EDUCATIVA";
+
+  const esUltimoChunk = chunkIndex === totalChunks;
+
+  return renderToStaticMarkup(
+    <ReportLayout>
+      {/* 👇 HEADER COMPACTO */}
+      <Header
+        data={[]}
+        title={`REPORTE RESULTADOS SISAT ${opcionEducativa}`}
+        isOpEdu={true}
+        titleReport="SISTEMA DE ALERTA TEMPRANA 25-26"
+      />
+
+      {/* 👇 CONDICIONAL: SOLO EL ÚLTIMO CHUNK NO TIENE page-break */}
+      <div 
+        className={esUltimoChunk ? "page" : "page page-break"}
+        style={{ 
+          paddingTop: "0px", 
+          marginTop: "0px",
+          paddingBottom: "0px",
+          marginBottom: "0px",
+          height: "100%",
+        }}
+      >
+        <div style={{ 
+          textAlign: "center", 
+          fontSize: "9px", 
+          marginBottom: "2px", 
+          color: "#666" 
+        }}>
+          Tabla - Chunk {chunkIndex} de {totalChunks}
+        </div>
+
+        <SisatComparativoTabla
+          primera={primeraExploracion}
+          segunda={segundaExploracion}
+          tercera={terceraExploracion}
+          dataEscuelas={dataEscuelas}
+        />
+      </div>
     </ReportLayout>,
   );
 }

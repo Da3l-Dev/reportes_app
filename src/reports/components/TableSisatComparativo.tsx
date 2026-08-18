@@ -160,16 +160,19 @@ function agruparPorSectorYZona(escuelas: Escuela[]) {
 type Props = {
   primera: Registro[];
   segunda: Registro[];
+  tercera: Registro[];  // 👈 NUEVA PROPIEDAD
   dataEscuelas: Escuela[];
 };
 
 export default function SisatTablaPro({
   primera,
   segunda,
+  tercera,  // 👈 NUEVO
   dataEscuelas,
 }: Props) {
   const dataPrimera = agrupar(primera);
   const dataSegunda = agrupar(segunda);
+  const dataTercera = agrupar(tercera);  // 👈 NUEVO
   const sectores = agruparPorSectorYZona(dataEscuelas);
 
   return (
@@ -181,7 +184,7 @@ export default function SisatTablaPro({
           <th style={th}>Grado</th>
 
           {MATERIAS.map((m) => (
-            <th key={m} colSpan={2} style={th}>
+            <th key={m} colSpan={3} style={th}>  {/* 👈 AHORA 3 COLUMNAS */}
               {m}
             </th>
           ))}
@@ -196,6 +199,9 @@ export default function SisatTablaPro({
             <th key={`${m}-2`} style={thSmall}>
               Exp 2
             </th>,
+            <th key={`${m}-3`} style={thSmall}>  {/* 👈 NUEVO */}
+              Exp 3
+            </th>,
           ])}
         </tr>
       </thead>
@@ -205,7 +211,7 @@ export default function SisatTablaPro({
           <React.Fragment key={sector.id}>
             {/* SECTOR */}
             <tr>
-              <td colSpan={9} style={{ ...tdHeader, background: COLOR_SECTOR }}>
+              <td colSpan={3 + MATERIAS.length * 3} style={{ ...tdHeader, background: COLOR_SECTOR }}>  {/* 👈 MODIFICADO */}
                 {sector.nombre} — {sector.nombre_sup || ""}
               </td>
             </tr>
@@ -213,7 +219,9 @@ export default function SisatTablaPro({
             {sector.zonas.map((zona: any) => {
               const escuelasConDatos = zona.escuelas.filter(
                 (escuela: Escuela) =>
-                  dataPrimera.some((r) => matchRegistro(r, escuela)),
+                  dataPrimera.some((r) => matchRegistro(r, escuela)) ||
+                  dataSegunda.some((r) => matchRegistro(r, escuela)) ||
+                  dataTercera.some((r) => matchRegistro(r, escuela)),  // 👈 MODIFICADO
               );
 
               if (escuelasConDatos.length === 0) return null;
@@ -223,7 +231,7 @@ export default function SisatTablaPro({
                   {/* ZONA */}
                   <tr>
                     <td
-                      colSpan={9}
+                      colSpan={3 + MATERIAS.length * 3}  // 👈 MODIFICADO
                       style={{ ...tdHeader, background: COLOR_ZONA }}
                     >
                       {zona.nombre} — {zona.nombre_sup || ""}
@@ -278,6 +286,13 @@ export default function SisatTablaPro({
                               d.materia === m,
                           );
 
+                          const p3 = dataTercera.find(  // 👈 NUEVO
+                            (d) =>
+                              matchRegistro(d, escuela) &&
+                              d.grado === grado &&
+                              d.materia === m,
+                          );
+
                           return (
                             <React.Fragment key={`${m}-${grado}`}>
                               <td
@@ -296,6 +311,15 @@ export default function SisatTablaPro({
                                 }}
                               >
                                 {p2 ? `${p2.valor.toFixed(1)}%` : "N/D"}
+                              </td>
+
+                              <td  // 👈 NUEVO
+                                style={{
+                                  ...td,
+                                  background: p3 ? COLOR_MAP[p3.nivel] : "#eee",
+                                }}
+                              >
+                                {p3 ? `${p3.valor.toFixed(1)}%` : "N/D"}
                               </td>
                             </React.Fragment>
                           );

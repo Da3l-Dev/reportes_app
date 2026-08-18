@@ -42,7 +42,8 @@ export default function Header({
           display: "flex",
           alignItems: "center", // 👈 clave para alinear vertical
           gap: "12px",
-          padding: 20,
+          paddingLeft: "10px",
+          paddingRight: "10px"
         }}
       >
         <img
@@ -77,7 +78,7 @@ export default function Header({
         </div>
       </div>
 
-      <h3>{title || "Reporte"}</h3>
+      <h3 style={{margin: 0, padding:"1px"}}>{title || "Reporte"}</h3>
 
       {/* Título de opción educativa */}
       {isOpEdu ? (

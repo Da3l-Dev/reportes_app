@@ -368,8 +368,8 @@ export async function generatedSisatOpEdu(req: Request, res: Response) {
       }
     };
 
-    // Hacer las 3 peticiones en paralelo
-    const [resPrimera, resSegunda, resdataEscuelas] = await Promise.all([
+    // Hacer las 4 peticiones en paralelo
+    const [resPrimera, resSegunda, resTercera, resdataEscuelas] = await Promise.all([
       fetchWithTimeout(
         `http://localhost:${PORT}/exploracion-sisat/primera/${nivel}/${subnivel}`,
       ),
@@ -377,34 +377,47 @@ export async function generatedSisatOpEdu(req: Request, res: Response) {
         `http://localhost:${PORT}/exploracion-sisat/segunda/${nivel}/${subnivel}`,
       ),
       fetchWithTimeout(
+        `http://localhost:${PORT}/exploracion-sisat/tercera/${nivel}/${subnivel}`,
+      ),
+      fetchWithTimeout(
         `http://localhost:${PORT}/opEdu/escuelas/${nivel}/${subnivel}`,
       ),
     ]);
 
-    // Validar respuestas
-    if (!resPrimera.ok || !resSegunda.ok || !resdataEscuelas.ok) {
+    // Validar TODAS las respuestas (incluyendo resTercera)
+    if (!resPrimera.ok || !resSegunda.ok || !resTercera.ok || !resdataEscuelas.ok) {
+      console.error("❌ Respuestas fallidas:", {
+        primera: resPrimera.status,
+        segunda: resSegunda.status,
+        tercera: resTercera.status,
+        escuelas: resdataEscuelas.status,
+      });
       throw new Error("No se pudieron obtener los datos necesarios");
     }
 
     // Parsear JSON en paralelo
-    const [jsonPrimera, jsonSegunda, jsonDataEscuelas] = await Promise.all([
+    const [jsonPrimera, jsonSegunda, jsonTercera, jsonDataEscuelas] = await Promise.all([
       resPrimera.json(),
       resSegunda.json(),
+      resTercera.json(),
       resdataEscuelas.json(),
     ]);
 
     const dataPrimera = Array.isArray(jsonPrimera.data) ? jsonPrimera.data : [];
     const dataSegunda = Array.isArray(jsonSegunda.data) ? jsonSegunda.data : [];
+    const dataTercera = Array.isArray(jsonTercera.data) ? jsonTercera.data : [];
     const dataEscuelas = Array.isArray(jsonDataEscuelas.data)
       ? jsonDataEscuelas.data
       : [];
 
     console.log(`📊 Procesando: ${dataEscuelas.length} escuelas`);
+    console.log(`📊 Datos: Primera=${dataPrimera.length}, Segunda=${dataSegunda.length}, Tercera=${dataTercera.length}`);
 
     // Generar PDF con timeout general
     const pdfPromise = generatedPdfSisatOpEdu(
       dataPrimera,
       dataSegunda,
+      dataTercera,  // 👈 Ahora pasamos dataTercera
       dataEscuelas,
     );
     const timeoutPromise = new Promise((_, reject) =>

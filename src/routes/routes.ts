@@ -109,6 +109,7 @@ router.get(
   "/exploracion-sisat/segunda/:nivel/:subnivel",
   exploracionSisatController.getSegundaExploracion,
 );
+router.get("/exploracion-sisat/tercera/:nivel/:subnivel", exploracionSisatController.getTerceraExploracion)
 
 router.get("/pdf/opEdu/sisat/:nivel/:subnivel", generatedSisatOpEdu);
 export default router;

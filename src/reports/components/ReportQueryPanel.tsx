@@ -121,7 +121,7 @@ export default function ReportQueryPanel() {
 
               const BASE_URL = isLocalhost
                 ? "http://localhost:5000"
-                : "http://192.168.0.38:5000";
+                : "http://10.1.30.24:5000";
 
               btn.addEventListener("click", async function () {
 

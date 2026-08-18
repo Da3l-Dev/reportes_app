@@ -549,6 +549,9 @@ model alumnos_prioritarios_secundaria_general {
   /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
   /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
   /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
+  /// This field was commented out because of an invalid name. Please provide a valid one that matches [a-zA-Z][a-zA-Z0-9_]*
   id               Int      @id @default(autoincrement())
 }
 
@@ -731,6 +734,7 @@ model segunda_exploracion_sisat {
 model ni_cct {
   id                Int      @id @default(autoincrement())
   cct               String?
+  nombre            String?
   llave             String?
   cct_sector        String?
   cct_zona          String?
@@ -742,5 +746,24 @@ model ni_cct {
   nivel_integracion String?
   numero_alumnos    Int?
   total_cct_grado   Int?
-  porcentaje        Decimal? @db.Decimal(5, 2)
+  porcentaje        Decimal? @db.Decimal
+}
+
+model tercera_exploracion_sisat {
+  cct              String  @db.VarChar(20)
+  nombre           String  @db.VarChar(100)
+  opcion_educativa String  @db.VarChar(50)
+  prioritaria      String  @db.VarChar(5)
+  ambito           String  @db.VarChar(20)
+  grado            Int
+  materia          String  @db.VarChar(50)
+  participantes    Int
+  total_ra         Int
+  porcentaje_ra    Decimal @db.Decimal(5, 2)
+  total_ed         Int
+  porcentaje_ed    Decimal @db.Decimal(5, 2)
+  total_ne         Int
+  porcentaje_ne    Decimal @db.Decimal(5, 2)
+  id               Int     @id @default(autoincrement())
+
 }
