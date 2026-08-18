@@ -1,0 +1,1056 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model totales_opedu
+ *
+ */
+export type totales_opeduModel = runtime.Types.Result.DefaultSelection<Prisma.$totales_opeduPayload>;
+export type AggregateTotales_opedu = {
+    _count: Totales_opeduCountAggregateOutputType | null;
+    _avg: Totales_opeduAvgAggregateOutputType | null;
+    _sum: Totales_opeduSumAggregateOutputType | null;
+    _min: Totales_opeduMinAggregateOutputType | null;
+    _max: Totales_opeduMaxAggregateOutputType | null;
+};
+export type Totales_opeduAvgAggregateOutputType = {
+    id: number | null;
+    total_escuelas_participantes: number | null;
+    total_alumnos: number | null;
+    total_escuela_absoluto: number | null;
+};
+export type Totales_opeduSumAggregateOutputType = {
+    id: number | null;
+    total_escuelas_participantes: number | null;
+    total_alumnos: number | null;
+    total_escuela_absoluto: number | null;
+};
+export type Totales_opeduMinAggregateOutputType = {
+    id: number | null;
+    opcion_educativa: string | null;
+    total_escuelas_participantes: number | null;
+    total_alumnos: number | null;
+    total_escuela_absoluto: number | null;
+};
+export type Totales_opeduMaxAggregateOutputType = {
+    id: number | null;
+    opcion_educativa: string | null;
+    total_escuelas_participantes: number | null;
+    total_alumnos: number | null;
+    total_escuela_absoluto: number | null;
+};
+export type Totales_opeduCountAggregateOutputType = {
+    id: number;
+    opcion_educativa: number;
+    total_escuelas_participantes: number;
+    total_alumnos: number;
+    total_escuela_absoluto: number;
+    _all: number;
+};
+export type Totales_opeduAvgAggregateInputType = {
+    id?: true;
+    total_escuelas_participantes?: true;
+    total_alumnos?: true;
+    total_escuela_absoluto?: true;
+};
+export type Totales_opeduSumAggregateInputType = {
+    id?: true;
+    total_escuelas_participantes?: true;
+    total_alumnos?: true;
+    total_escuela_absoluto?: true;
+};
+export type Totales_opeduMinAggregateInputType = {
+    id?: true;
+    opcion_educativa?: true;
+    total_escuelas_participantes?: true;
+    total_alumnos?: true;
+    total_escuela_absoluto?: true;
+};
+export type Totales_opeduMaxAggregateInputType = {
+    id?: true;
+    opcion_educativa?: true;
+    total_escuelas_participantes?: true;
+    total_alumnos?: true;
+    total_escuela_absoluto?: true;
+};
+export type Totales_opeduCountAggregateInputType = {
+    id?: true;
+    opcion_educativa?: true;
+    total_escuelas_participantes?: true;
+    total_alumnos?: true;
+    total_escuela_absoluto?: true;
+    _all?: true;
+};
+export type Totales_opeduAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which totales_opedu to aggregate.
+     */
+    where?: Prisma.totales_opeduWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of totales_opedus to fetch.
+     */
+    orderBy?: Prisma.totales_opeduOrderByWithRelationInput | Prisma.totales_opeduOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.totales_opeduWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` totales_opedus from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` totales_opedus.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned totales_opedus
+    **/
+    _count?: true | Totales_opeduCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: Totales_opeduAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: Totales_opeduSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: Totales_opeduMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: Totales_opeduMaxAggregateInputType;
+};
+export type GetTotales_opeduAggregateType<T extends Totales_opeduAggregateArgs> = {
+    [P in keyof T & keyof AggregateTotales_opedu]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateTotales_opedu[P]> : Prisma.GetScalarType<T[P], AggregateTotales_opedu[P]>;
+};
+export type totales_opeduGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.totales_opeduWhereInput;
+    orderBy?: Prisma.totales_opeduOrderByWithAggregationInput | Prisma.totales_opeduOrderByWithAggregationInput[];
+    by: Prisma.Totales_opeduScalarFieldEnum[] | Prisma.Totales_opeduScalarFieldEnum;
+    having?: Prisma.totales_opeduScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: Totales_opeduCountAggregateInputType | true;
+    _avg?: Totales_opeduAvgAggregateInputType;
+    _sum?: Totales_opeduSumAggregateInputType;
+    _min?: Totales_opeduMinAggregateInputType;
+    _max?: Totales_opeduMaxAggregateInputType;
+};
+export type Totales_opeduGroupByOutputType = {
+    id: number;
+    opcion_educativa: string | null;
+    total_escuelas_participantes: number | null;
+    total_alumnos: number | null;
+    total_escuela_absoluto: number | null;
+    _count: Totales_opeduCountAggregateOutputType | null;
+    _avg: Totales_opeduAvgAggregateOutputType | null;
+    _sum: Totales_opeduSumAggregateOutputType | null;
+    _min: Totales_opeduMinAggregateOutputType | null;
+    _max: Totales_opeduMaxAggregateOutputType | null;
+};
+type GetTotales_opeduGroupByPayload<T extends totales_opeduGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<Totales_opeduGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof Totales_opeduGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], Totales_opeduGroupByOutputType[P]> : Prisma.GetScalarType<T[P], Totales_opeduGroupByOutputType[P]>;
+}>>;
+export type totales_opeduWhereInput = {
+    AND?: Prisma.totales_opeduWhereInput | Prisma.totales_opeduWhereInput[];
+    OR?: Prisma.totales_opeduWhereInput[];
+    NOT?: Prisma.totales_opeduWhereInput | Prisma.totales_opeduWhereInput[];
+    id?: Prisma.IntFilter<"totales_opedu"> | number;
+    opcion_educativa?: Prisma.StringNullableFilter<"totales_opedu"> | string | null;
+    total_escuelas_participantes?: Prisma.IntNullableFilter<"totales_opedu"> | number | null;
+    total_alumnos?: Prisma.IntNullableFilter<"totales_opedu"> | number | null;
+    total_escuela_absoluto?: Prisma.IntNullableFilter<"totales_opedu"> | number | null;
+};
+export type totales_opeduOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_escuelas_participantes?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_alumnos?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_escuela_absoluto?: Prisma.SortOrderInput | Prisma.SortOrder;
+};
+export type totales_opeduWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.totales_opeduWhereInput | Prisma.totales_opeduWhereInput[];
+    OR?: Prisma.totales_opeduWhereInput[];
+    NOT?: Prisma.totales_opeduWhereInput | Prisma.totales_opeduWhereInput[];
+    opcion_educativa?: Prisma.StringNullableFilter<"totales_opedu"> | string | null;
+    total_escuelas_participantes?: Prisma.IntNullableFilter<"totales_opedu"> | number | null;
+    total_alumnos?: Prisma.IntNullableFilter<"totales_opedu"> | number | null;
+    total_escuela_absoluto?: Prisma.IntNullableFilter<"totales_opedu"> | number | null;
+}, "id">;
+export type totales_opeduOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_escuelas_participantes?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_alumnos?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_escuela_absoluto?: Prisma.SortOrderInput | Prisma.SortOrder;
+    _count?: Prisma.totales_opeduCountOrderByAggregateInput;
+    _avg?: Prisma.totales_opeduAvgOrderByAggregateInput;
+    _max?: Prisma.totales_opeduMaxOrderByAggregateInput;
+    _min?: Prisma.totales_opeduMinOrderByAggregateInput;
+    _sum?: Prisma.totales_opeduSumOrderByAggregateInput;
+};
+export type totales_opeduScalarWhereWithAggregatesInput = {
+    AND?: Prisma.totales_opeduScalarWhereWithAggregatesInput | Prisma.totales_opeduScalarWhereWithAggregatesInput[];
+    OR?: Prisma.totales_opeduScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.totales_opeduScalarWhereWithAggregatesInput | Prisma.totales_opeduScalarWhereWithAggregatesInput[];
+    id?: Prisma.IntWithAggregatesFilter<"totales_opedu"> | number;
+    opcion_educativa?: Prisma.StringNullableWithAggregatesFilter<"totales_opedu"> | string | null;
+    total_escuelas_participantes?: Prisma.IntNullableWithAggregatesFilter<"totales_opedu"> | number | null;
+    total_alumnos?: Prisma.IntNullableWithAggregatesFilter<"totales_opedu"> | number | null;
+    total_escuela_absoluto?: Prisma.IntNullableWithAggregatesFilter<"totales_opedu"> | number | null;
+};
+export type totales_opeduCreateInput = {
+    opcion_educativa?: string | null;
+    total_escuelas_participantes?: number | null;
+    total_alumnos?: number | null;
+    total_escuela_absoluto?: number | null;
+};
+export type totales_opeduUncheckedCreateInput = {
+    id?: number;
+    opcion_educativa?: string | null;
+    total_escuelas_participantes?: number | null;
+    total_alumnos?: number | null;
+    total_escuela_absoluto?: number | null;
+};
+export type totales_opeduUpdateInput = {
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    total_escuelas_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_escuela_absoluto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type totales_opeduUncheckedUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    total_escuelas_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_escuela_absoluto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type totales_opeduCreateManyInput = {
+    id?: number;
+    opcion_educativa?: string | null;
+    total_escuelas_participantes?: number | null;
+    total_alumnos?: number | null;
+    total_escuela_absoluto?: number | null;
+};
+export type totales_opeduUpdateManyMutationInput = {
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    total_escuelas_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_escuela_absoluto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type totales_opeduUncheckedUpdateManyInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    total_escuelas_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_escuela_absoluto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+};
+export type totales_opeduCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrder;
+    total_escuelas_participantes?: Prisma.SortOrder;
+    total_alumnos?: Prisma.SortOrder;
+    total_escuela_absoluto?: Prisma.SortOrder;
+};
+export type totales_opeduAvgOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    total_escuelas_participantes?: Prisma.SortOrder;
+    total_alumnos?: Prisma.SortOrder;
+    total_escuela_absoluto?: Prisma.SortOrder;
+};
+export type totales_opeduMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrder;
+    total_escuelas_participantes?: Prisma.SortOrder;
+    total_alumnos?: Prisma.SortOrder;
+    total_escuela_absoluto?: Prisma.SortOrder;
+};
+export type totales_opeduMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrder;
+    total_escuelas_participantes?: Prisma.SortOrder;
+    total_alumnos?: Prisma.SortOrder;
+    total_escuela_absoluto?: Prisma.SortOrder;
+};
+export type totales_opeduSumOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    total_escuelas_participantes?: Prisma.SortOrder;
+    total_alumnos?: Prisma.SortOrder;
+    total_escuela_absoluto?: Prisma.SortOrder;
+};
+export type totales_opeduSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    opcion_educativa?: boolean;
+    total_escuelas_participantes?: boolean;
+    total_alumnos?: boolean;
+    total_escuela_absoluto?: boolean;
+}, ExtArgs["result"]["totales_opedu"]>;
+export type totales_opeduSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    opcion_educativa?: boolean;
+    total_escuelas_participantes?: boolean;
+    total_alumnos?: boolean;
+    total_escuela_absoluto?: boolean;
+}, ExtArgs["result"]["totales_opedu"]>;
+export type totales_opeduSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    opcion_educativa?: boolean;
+    total_escuelas_participantes?: boolean;
+    total_alumnos?: boolean;
+    total_escuela_absoluto?: boolean;
+}, ExtArgs["result"]["totales_opedu"]>;
+export type totales_opeduSelectScalar = {
+    id?: boolean;
+    opcion_educativa?: boolean;
+    total_escuelas_participantes?: boolean;
+    total_alumnos?: boolean;
+    total_escuela_absoluto?: boolean;
+};
+export type totales_opeduOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "opcion_educativa" | "total_escuelas_participantes" | "total_alumnos" | "total_escuela_absoluto", ExtArgs["result"]["totales_opedu"]>;
+export type $totales_opeduPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "totales_opedu";
+    objects: {};
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: number;
+        opcion_educativa: string | null;
+        total_escuelas_participantes: number | null;
+        total_alumnos: number | null;
+        total_escuela_absoluto: number | null;
+    }, ExtArgs["result"]["totales_opedu"]>;
+    composites: {};
+};
+export type totales_opeduGetPayload<S extends boolean | null | undefined | totales_opeduDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload, S>;
+export type totales_opeduCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<totales_opeduFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+    select?: Totales_opeduCountAggregateInputType | true;
+};
+export interface totales_opeduDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['totales_opedu'];
+        meta: {
+            name: 'totales_opedu';
+        };
+    };
+    /**
+     * Find zero or one Totales_opedu that matches the filter.
+     * @param {totales_opeduFindUniqueArgs} args - Arguments to find a Totales_opedu
+     * @example
+     * // Get one Totales_opedu
+     * const totales_opedu = await prisma.totales_opedu.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends totales_opeduFindUniqueArgs>(args: Prisma.SelectSubset<T, totales_opeduFindUniqueArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one Totales_opedu that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {totales_opeduFindUniqueOrThrowArgs} args - Arguments to find a Totales_opedu
+     * @example
+     * // Get one Totales_opedu
+     * const totales_opedu = await prisma.totales_opedu.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends totales_opeduFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, totales_opeduFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Totales_opedu that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {totales_opeduFindFirstArgs} args - Arguments to find a Totales_opedu
+     * @example
+     * // Get one Totales_opedu
+     * const totales_opedu = await prisma.totales_opedu.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends totales_opeduFindFirstArgs>(args?: Prisma.SelectSubset<T, totales_opeduFindFirstArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Totales_opedu that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {totales_opeduFindFirstOrThrowArgs} args - Arguments to find a Totales_opedu
+     * @example
+     * // Get one Totales_opedu
+     * const totales_opedu = await prisma.totales_opedu.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends totales_opeduFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, totales_opeduFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Totales_opedus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {totales_opeduFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Totales_opedus
+     * const totales_opedus = await prisma.totales_opedu.findMany()
+     *
+     * // Get first 10 Totales_opedus
+     * const totales_opedus = await prisma.totales_opedu.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const totales_opeduWithIdOnly = await prisma.totales_opedu.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends totales_opeduFindManyArgs>(args?: Prisma.SelectSubset<T, totales_opeduFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a Totales_opedu.
+     * @param {totales_opeduCreateArgs} args - Arguments to create a Totales_opedu.
+     * @example
+     * // Create one Totales_opedu
+     * const Totales_opedu = await prisma.totales_opedu.create({
+     *   data: {
+     *     // ... data to create a Totales_opedu
+     *   }
+     * })
+     *
+     */
+    create<T extends totales_opeduCreateArgs>(args: Prisma.SelectSubset<T, totales_opeduCreateArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Totales_opedus.
+     * @param {totales_opeduCreateManyArgs} args - Arguments to create many Totales_opedus.
+     * @example
+     * // Create many Totales_opedus
+     * const totales_opedu = await prisma.totales_opedu.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends totales_opeduCreateManyArgs>(args?: Prisma.SelectSubset<T, totales_opeduCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Totales_opedus and returns the data saved in the database.
+     * @param {totales_opeduCreateManyAndReturnArgs} args - Arguments to create many Totales_opedus.
+     * @example
+     * // Create many Totales_opedus
+     * const totales_opedu = await prisma.totales_opedu.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Totales_opedus and only return the `id`
+     * const totales_opeduWithIdOnly = await prisma.totales_opedu.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends totales_opeduCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, totales_opeduCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a Totales_opedu.
+     * @param {totales_opeduDeleteArgs} args - Arguments to delete one Totales_opedu.
+     * @example
+     * // Delete one Totales_opedu
+     * const Totales_opedu = await prisma.totales_opedu.delete({
+     *   where: {
+     *     // ... filter to delete one Totales_opedu
+     *   }
+     * })
+     *
+     */
+    delete<T extends totales_opeduDeleteArgs>(args: Prisma.SelectSubset<T, totales_opeduDeleteArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one Totales_opedu.
+     * @param {totales_opeduUpdateArgs} args - Arguments to update one Totales_opedu.
+     * @example
+     * // Update one Totales_opedu
+     * const totales_opedu = await prisma.totales_opedu.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends totales_opeduUpdateArgs>(args: Prisma.SelectSubset<T, totales_opeduUpdateArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Totales_opedus.
+     * @param {totales_opeduDeleteManyArgs} args - Arguments to filter Totales_opedus to delete.
+     * @example
+     * // Delete a few Totales_opedus
+     * const { count } = await prisma.totales_opedu.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends totales_opeduDeleteManyArgs>(args?: Prisma.SelectSubset<T, totales_opeduDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Totales_opedus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {totales_opeduUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Totales_opedus
+     * const totales_opedu = await prisma.totales_opedu.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends totales_opeduUpdateManyArgs>(args: Prisma.SelectSubset<T, totales_opeduUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Totales_opedus and returns the data updated in the database.
+     * @param {totales_opeduUpdateManyAndReturnArgs} args - Arguments to update many Totales_opedus.
+     * @example
+     * // Update many Totales_opedus
+     * const totales_opedu = await prisma.totales_opedu.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Totales_opedus and only return the `id`
+     * const totales_opeduWithIdOnly = await prisma.totales_opedu.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends totales_opeduUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, totales_opeduUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one Totales_opedu.
+     * @param {totales_opeduUpsertArgs} args - Arguments to update or create a Totales_opedu.
+     * @example
+     * // Update or create a Totales_opedu
+     * const totales_opedu = await prisma.totales_opedu.upsert({
+     *   create: {
+     *     // ... data to create a Totales_opedu
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Totales_opedu we want to update
+     *   }
+     * })
+     */
+    upsert<T extends totales_opeduUpsertArgs>(args: Prisma.SelectSubset<T, totales_opeduUpsertArgs<ExtArgs>>): Prisma.Prisma__totales_opeduClient<runtime.Types.Result.GetResult<Prisma.$totales_opeduPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Totales_opedus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {totales_opeduCountArgs} args - Arguments to filter Totales_opedus to count.
+     * @example
+     * // Count the number of Totales_opedus
+     * const count = await prisma.totales_opedu.count({
+     *   where: {
+     *     // ... the filter for the Totales_opedus we want to count
+     *   }
+     * })
+    **/
+    count<T extends totales_opeduCountArgs>(args?: Prisma.Subset<T, totales_opeduCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], Totales_opeduCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a Totales_opedu.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Totales_opeduAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Totales_opeduAggregateArgs>(args: Prisma.Subset<T, Totales_opeduAggregateArgs>): Prisma.PrismaPromise<GetTotales_opeduAggregateType<T>>;
+    /**
+     * Group by Totales_opedu.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {totales_opeduGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends totales_opeduGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: totales_opeduGroupByArgs['orderBy'];
+    } : {
+        orderBy?: totales_opeduGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, totales_opeduGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTotales_opeduGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the totales_opedu model
+     */
+    readonly fields: totales_opeduFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for totales_opedu.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__totales_opeduClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the totales_opedu model
+ */
+export interface totales_opeduFieldRefs {
+    readonly id: Prisma.FieldRef<"totales_opedu", 'Int'>;
+    readonly opcion_educativa: Prisma.FieldRef<"totales_opedu", 'String'>;
+    readonly total_escuelas_participantes: Prisma.FieldRef<"totales_opedu", 'Int'>;
+    readonly total_alumnos: Prisma.FieldRef<"totales_opedu", 'Int'>;
+    readonly total_escuela_absoluto: Prisma.FieldRef<"totales_opedu", 'Int'>;
+}
+/**
+ * totales_opedu findUnique
+ */
+export type totales_opeduFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * Filter, which totales_opedu to fetch.
+     */
+    where: Prisma.totales_opeduWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu findUniqueOrThrow
+ */
+export type totales_opeduFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * Filter, which totales_opedu to fetch.
+     */
+    where: Prisma.totales_opeduWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu findFirst
+ */
+export type totales_opeduFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * Filter, which totales_opedu to fetch.
+     */
+    where?: Prisma.totales_opeduWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of totales_opedus to fetch.
+     */
+    orderBy?: Prisma.totales_opeduOrderByWithRelationInput | Prisma.totales_opeduOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for totales_opedus.
+     */
+    cursor?: Prisma.totales_opeduWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` totales_opedus from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` totales_opedus.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of totales_opedus.
+     */
+    distinct?: Prisma.Totales_opeduScalarFieldEnum | Prisma.Totales_opeduScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu findFirstOrThrow
+ */
+export type totales_opeduFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * Filter, which totales_opedu to fetch.
+     */
+    where?: Prisma.totales_opeduWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of totales_opedus to fetch.
+     */
+    orderBy?: Prisma.totales_opeduOrderByWithRelationInput | Prisma.totales_opeduOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for totales_opedus.
+     */
+    cursor?: Prisma.totales_opeduWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` totales_opedus from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` totales_opedus.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of totales_opedus.
+     */
+    distinct?: Prisma.Totales_opeduScalarFieldEnum | Prisma.Totales_opeduScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu findMany
+ */
+export type totales_opeduFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * Filter, which totales_opedus to fetch.
+     */
+    where?: Prisma.totales_opeduWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of totales_opedus to fetch.
+     */
+    orderBy?: Prisma.totales_opeduOrderByWithRelationInput | Prisma.totales_opeduOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing totales_opedus.
+     */
+    cursor?: Prisma.totales_opeduWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` totales_opedus from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` totales_opedus.
+     */
+    skip?: number;
+    distinct?: Prisma.Totales_opeduScalarFieldEnum | Prisma.Totales_opeduScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu create
+ */
+export type totales_opeduCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * The data needed to create a totales_opedu.
+     */
+    data?: Prisma.XOR<Prisma.totales_opeduCreateInput, Prisma.totales_opeduUncheckedCreateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu createMany
+ */
+export type totales_opeduCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many totales_opedus.
+     */
+    data: Prisma.totales_opeduCreateManyInput | Prisma.totales_opeduCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * totales_opedu createManyAndReturn
+ */
+export type totales_opeduCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * The data used to create many totales_opedus.
+     */
+    data: Prisma.totales_opeduCreateManyInput | Prisma.totales_opeduCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * totales_opedu update
+ */
+export type totales_opeduUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * The data needed to update a totales_opedu.
+     */
+    data: Prisma.XOR<Prisma.totales_opeduUpdateInput, Prisma.totales_opeduUncheckedUpdateInput>;
+    /**
+     * Choose, which totales_opedu to update.
+     */
+    where: Prisma.totales_opeduWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu updateMany
+ */
+export type totales_opeduUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update totales_opedus.
+     */
+    data: Prisma.XOR<Prisma.totales_opeduUpdateManyMutationInput, Prisma.totales_opeduUncheckedUpdateManyInput>;
+    /**
+     * Filter which totales_opedus to update
+     */
+    where?: Prisma.totales_opeduWhereInput;
+    /**
+     * Limit how many totales_opedus to update.
+     */
+    limit?: number;
+};
+/**
+ * totales_opedu updateManyAndReturn
+ */
+export type totales_opeduUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * The data used to update totales_opedus.
+     */
+    data: Prisma.XOR<Prisma.totales_opeduUpdateManyMutationInput, Prisma.totales_opeduUncheckedUpdateManyInput>;
+    /**
+     * Filter which totales_opedus to update
+     */
+    where?: Prisma.totales_opeduWhereInput;
+    /**
+     * Limit how many totales_opedus to update.
+     */
+    limit?: number;
+};
+/**
+ * totales_opedu upsert
+ */
+export type totales_opeduUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * The filter to search for the totales_opedu to update in case it exists.
+     */
+    where: Prisma.totales_opeduWhereUniqueInput;
+    /**
+     * In case the totales_opedu found by the `where` argument doesn't exist, create a new totales_opedu with this data.
+     */
+    create: Prisma.XOR<Prisma.totales_opeduCreateInput, Prisma.totales_opeduUncheckedCreateInput>;
+    /**
+     * In case the totales_opedu was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.totales_opeduUpdateInput, Prisma.totales_opeduUncheckedUpdateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu delete
+ */
+export type totales_opeduDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+    /**
+     * Filter which totales_opedu to delete.
+     */
+    where: Prisma.totales_opeduWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * totales_opedu deleteMany
+ */
+export type totales_opeduDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which totales_opedus to delete
+     */
+    where?: Prisma.totales_opeduWhereInput;
+    /**
+     * Limit how many totales_opedus to delete.
+     */
+    limit?: number;
+};
+/**
+ * totales_opedu without action
+ */
+export type totales_opeduDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the totales_opedu
+     */
+    select?: Prisma.totales_opeduSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the totales_opedu
+     */
+    omit?: Prisma.totales_opeduOmit<ExtArgs> | null;
+};
+export {};
+//# sourceMappingURL=totales_opedu.d.ts.map

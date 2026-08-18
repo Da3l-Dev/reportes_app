@@ -1,0 +1,1162 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model ni_grado_turno
+ *
+ */
+export type ni_grado_turnoModel = runtime.Types.Result.DefaultSelection<Prisma.$ni_grado_turnoPayload>;
+export type AggregateNi_grado_turno = {
+    _count: Ni_grado_turnoCountAggregateOutputType | null;
+    _avg: Ni_grado_turnoAvgAggregateOutputType | null;
+    _sum: Ni_grado_turnoSumAggregateOutputType | null;
+    _min: Ni_grado_turnoMinAggregateOutputType | null;
+    _max: Ni_grado_turnoMaxAggregateOutputType | null;
+};
+export type Ni_grado_turnoAvgAggregateOutputType = {
+    id: number | null;
+    estudiantes_participantes: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_grado_turnoSumAggregateOutputType = {
+    id: number | null;
+    estudiantes_participantes: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_grado_turnoMinAggregateOutputType = {
+    id: number | null;
+    nivel: string | null;
+    grado: string | null;
+    tipo: string | null;
+    turno: string | null;
+    nivel_integracion: string | null;
+    campo_formativo: string | null;
+    estudiantes_participantes: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_grado_turnoMaxAggregateOutputType = {
+    id: number | null;
+    nivel: string | null;
+    grado: string | null;
+    tipo: string | null;
+    turno: string | null;
+    nivel_integracion: string | null;
+    campo_formativo: string | null;
+    estudiantes_participantes: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_grado_turnoCountAggregateOutputType = {
+    id: number;
+    nivel: number;
+    grado: number;
+    tipo: number;
+    turno: number;
+    nivel_integracion: number;
+    campo_formativo: number;
+    estudiantes_participantes: number;
+    porcentaje: number;
+    _all: number;
+};
+export type Ni_grado_turnoAvgAggregateInputType = {
+    id?: true;
+    estudiantes_participantes?: true;
+    porcentaje?: true;
+};
+export type Ni_grado_turnoSumAggregateInputType = {
+    id?: true;
+    estudiantes_participantes?: true;
+    porcentaje?: true;
+};
+export type Ni_grado_turnoMinAggregateInputType = {
+    id?: true;
+    nivel?: true;
+    grado?: true;
+    tipo?: true;
+    turno?: true;
+    nivel_integracion?: true;
+    campo_formativo?: true;
+    estudiantes_participantes?: true;
+    porcentaje?: true;
+};
+export type Ni_grado_turnoMaxAggregateInputType = {
+    id?: true;
+    nivel?: true;
+    grado?: true;
+    tipo?: true;
+    turno?: true;
+    nivel_integracion?: true;
+    campo_formativo?: true;
+    estudiantes_participantes?: true;
+    porcentaje?: true;
+};
+export type Ni_grado_turnoCountAggregateInputType = {
+    id?: true;
+    nivel?: true;
+    grado?: true;
+    tipo?: true;
+    turno?: true;
+    nivel_integracion?: true;
+    campo_formativo?: true;
+    estudiantes_participantes?: true;
+    porcentaje?: true;
+    _all?: true;
+};
+export type Ni_grado_turnoAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which ni_grado_turno to aggregate.
+     */
+    where?: Prisma.ni_grado_turnoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_grado_turnos to fetch.
+     */
+    orderBy?: Prisma.ni_grado_turnoOrderByWithRelationInput | Prisma.ni_grado_turnoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.ni_grado_turnoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_grado_turnos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_grado_turnos.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned ni_grado_turnos
+    **/
+    _count?: true | Ni_grado_turnoCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: Ni_grado_turnoAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: Ni_grado_turnoSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: Ni_grado_turnoMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: Ni_grado_turnoMaxAggregateInputType;
+};
+export type GetNi_grado_turnoAggregateType<T extends Ni_grado_turnoAggregateArgs> = {
+    [P in keyof T & keyof AggregateNi_grado_turno]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateNi_grado_turno[P]> : Prisma.GetScalarType<T[P], AggregateNi_grado_turno[P]>;
+};
+export type ni_grado_turnoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ni_grado_turnoWhereInput;
+    orderBy?: Prisma.ni_grado_turnoOrderByWithAggregationInput | Prisma.ni_grado_turnoOrderByWithAggregationInput[];
+    by: Prisma.Ni_grado_turnoScalarFieldEnum[] | Prisma.Ni_grado_turnoScalarFieldEnum;
+    having?: Prisma.ni_grado_turnoScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: Ni_grado_turnoCountAggregateInputType | true;
+    _avg?: Ni_grado_turnoAvgAggregateInputType;
+    _sum?: Ni_grado_turnoSumAggregateInputType;
+    _min?: Ni_grado_turnoMinAggregateInputType;
+    _max?: Ni_grado_turnoMaxAggregateInputType;
+};
+export type Ni_grado_turnoGroupByOutputType = {
+    id: number;
+    nivel: string | null;
+    grado: string | null;
+    tipo: string | null;
+    turno: string | null;
+    nivel_integracion: string | null;
+    campo_formativo: string | null;
+    estudiantes_participantes: number | null;
+    porcentaje: runtime.Decimal | null;
+    _count: Ni_grado_turnoCountAggregateOutputType | null;
+    _avg: Ni_grado_turnoAvgAggregateOutputType | null;
+    _sum: Ni_grado_turnoSumAggregateOutputType | null;
+    _min: Ni_grado_turnoMinAggregateOutputType | null;
+    _max: Ni_grado_turnoMaxAggregateOutputType | null;
+};
+type GetNi_grado_turnoGroupByPayload<T extends ni_grado_turnoGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<Ni_grado_turnoGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof Ni_grado_turnoGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], Ni_grado_turnoGroupByOutputType[P]> : Prisma.GetScalarType<T[P], Ni_grado_turnoGroupByOutputType[P]>;
+}>>;
+export type ni_grado_turnoWhereInput = {
+    AND?: Prisma.ni_grado_turnoWhereInput | Prisma.ni_grado_turnoWhereInput[];
+    OR?: Prisma.ni_grado_turnoWhereInput[];
+    NOT?: Prisma.ni_grado_turnoWhereInput | Prisma.ni_grado_turnoWhereInput[];
+    id?: Prisma.IntFilter<"ni_grado_turno"> | number;
+    nivel?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    grado?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    tipo?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    turno?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    nivel_integracion?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    campo_formativo?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    estudiantes_participantes?: Prisma.IntNullableFilter<"ni_grado_turno"> | number | null;
+    porcentaje?: Prisma.DecimalNullableFilter<"ni_grado_turno"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    nivel?: Prisma.SortOrderInput | Prisma.SortOrder;
+    grado?: Prisma.SortOrderInput | Prisma.SortOrder;
+    tipo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    turno?: Prisma.SortOrderInput | Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrderInput | Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    estudiantes_participantes?: Prisma.SortOrderInput | Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrderInput | Prisma.SortOrder;
+};
+export type ni_grado_turnoWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.ni_grado_turnoWhereInput | Prisma.ni_grado_turnoWhereInput[];
+    OR?: Prisma.ni_grado_turnoWhereInput[];
+    NOT?: Prisma.ni_grado_turnoWhereInput | Prisma.ni_grado_turnoWhereInput[];
+    nivel?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    grado?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    tipo?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    turno?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    nivel_integracion?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    campo_formativo?: Prisma.StringNullableFilter<"ni_grado_turno"> | string | null;
+    estudiantes_participantes?: Prisma.IntNullableFilter<"ni_grado_turno"> | number | null;
+    porcentaje?: Prisma.DecimalNullableFilter<"ni_grado_turno"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+}, "id">;
+export type ni_grado_turnoOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    nivel?: Prisma.SortOrderInput | Prisma.SortOrder;
+    grado?: Prisma.SortOrderInput | Prisma.SortOrder;
+    tipo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    turno?: Prisma.SortOrderInput | Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrderInput | Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    estudiantes_participantes?: Prisma.SortOrderInput | Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrderInput | Prisma.SortOrder;
+    _count?: Prisma.ni_grado_turnoCountOrderByAggregateInput;
+    _avg?: Prisma.ni_grado_turnoAvgOrderByAggregateInput;
+    _max?: Prisma.ni_grado_turnoMaxOrderByAggregateInput;
+    _min?: Prisma.ni_grado_turnoMinOrderByAggregateInput;
+    _sum?: Prisma.ni_grado_turnoSumOrderByAggregateInput;
+};
+export type ni_grado_turnoScalarWhereWithAggregatesInput = {
+    AND?: Prisma.ni_grado_turnoScalarWhereWithAggregatesInput | Prisma.ni_grado_turnoScalarWhereWithAggregatesInput[];
+    OR?: Prisma.ni_grado_turnoScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.ni_grado_turnoScalarWhereWithAggregatesInput | Prisma.ni_grado_turnoScalarWhereWithAggregatesInput[];
+    id?: Prisma.IntWithAggregatesFilter<"ni_grado_turno"> | number;
+    nivel?: Prisma.StringNullableWithAggregatesFilter<"ni_grado_turno"> | string | null;
+    grado?: Prisma.StringNullableWithAggregatesFilter<"ni_grado_turno"> | string | null;
+    tipo?: Prisma.StringNullableWithAggregatesFilter<"ni_grado_turno"> | string | null;
+    turno?: Prisma.StringNullableWithAggregatesFilter<"ni_grado_turno"> | string | null;
+    nivel_integracion?: Prisma.StringNullableWithAggregatesFilter<"ni_grado_turno"> | string | null;
+    campo_formativo?: Prisma.StringNullableWithAggregatesFilter<"ni_grado_turno"> | string | null;
+    estudiantes_participantes?: Prisma.IntNullableWithAggregatesFilter<"ni_grado_turno"> | number | null;
+    porcentaje?: Prisma.DecimalNullableWithAggregatesFilter<"ni_grado_turno"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoCreateInput = {
+    nivel?: string | null;
+    grado?: string | null;
+    tipo?: string | null;
+    turno?: string | null;
+    nivel_integracion?: string | null;
+    campo_formativo?: string | null;
+    estudiantes_participantes?: number | null;
+    porcentaje?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoUncheckedCreateInput = {
+    id?: number;
+    nivel?: string | null;
+    grado?: string | null;
+    tipo?: string | null;
+    turno?: string | null;
+    nivel_integracion?: string | null;
+    campo_formativo?: string | null;
+    estudiantes_participantes?: number | null;
+    porcentaje?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoUpdateInput = {
+    nivel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    estudiantes_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoUncheckedUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    nivel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    estudiantes_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoCreateManyInput = {
+    id?: number;
+    nivel?: string | null;
+    grado?: string | null;
+    tipo?: string | null;
+    turno?: string | null;
+    nivel_integracion?: string | null;
+    campo_formativo?: string | null;
+    estudiantes_participantes?: number | null;
+    porcentaje?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoUpdateManyMutationInput = {
+    nivel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    estudiantes_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoUncheckedUpdateManyInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    nivel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    estudiantes_participantes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_grado_turnoCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    nivel?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    tipo?: Prisma.SortOrder;
+    turno?: Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrder;
+    estudiantes_participantes?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_grado_turnoAvgOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    estudiantes_participantes?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_grado_turnoMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    nivel?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    tipo?: Prisma.SortOrder;
+    turno?: Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrder;
+    estudiantes_participantes?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_grado_turnoMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    nivel?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    tipo?: Prisma.SortOrder;
+    turno?: Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrder;
+    estudiantes_participantes?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_grado_turnoSumOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    estudiantes_participantes?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_grado_turnoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    nivel?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    turno?: boolean;
+    nivel_integracion?: boolean;
+    campo_formativo?: boolean;
+    estudiantes_participantes?: boolean;
+    porcentaje?: boolean;
+}, ExtArgs["result"]["ni_grado_turno"]>;
+export type ni_grado_turnoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    nivel?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    turno?: boolean;
+    nivel_integracion?: boolean;
+    campo_formativo?: boolean;
+    estudiantes_participantes?: boolean;
+    porcentaje?: boolean;
+}, ExtArgs["result"]["ni_grado_turno"]>;
+export type ni_grado_turnoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    nivel?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    turno?: boolean;
+    nivel_integracion?: boolean;
+    campo_formativo?: boolean;
+    estudiantes_participantes?: boolean;
+    porcentaje?: boolean;
+}, ExtArgs["result"]["ni_grado_turno"]>;
+export type ni_grado_turnoSelectScalar = {
+    id?: boolean;
+    nivel?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    turno?: boolean;
+    nivel_integracion?: boolean;
+    campo_formativo?: boolean;
+    estudiantes_participantes?: boolean;
+    porcentaje?: boolean;
+};
+export type ni_grado_turnoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nivel" | "grado" | "tipo" | "turno" | "nivel_integracion" | "campo_formativo" | "estudiantes_participantes" | "porcentaje", ExtArgs["result"]["ni_grado_turno"]>;
+export type $ni_grado_turnoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "ni_grado_turno";
+    objects: {};
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: number;
+        nivel: string | null;
+        grado: string | null;
+        tipo: string | null;
+        turno: string | null;
+        nivel_integracion: string | null;
+        campo_formativo: string | null;
+        estudiantes_participantes: number | null;
+        porcentaje: runtime.Decimal | null;
+    }, ExtArgs["result"]["ni_grado_turno"]>;
+    composites: {};
+};
+export type ni_grado_turnoGetPayload<S extends boolean | null | undefined | ni_grado_turnoDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload, S>;
+export type ni_grado_turnoCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<ni_grado_turnoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+    select?: Ni_grado_turnoCountAggregateInputType | true;
+};
+export interface ni_grado_turnoDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['ni_grado_turno'];
+        meta: {
+            name: 'ni_grado_turno';
+        };
+    };
+    /**
+     * Find zero or one Ni_grado_turno that matches the filter.
+     * @param {ni_grado_turnoFindUniqueArgs} args - Arguments to find a Ni_grado_turno
+     * @example
+     * // Get one Ni_grado_turno
+     * const ni_grado_turno = await prisma.ni_grado_turno.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ni_grado_turnoFindUniqueArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoFindUniqueArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one Ni_grado_turno that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ni_grado_turnoFindUniqueOrThrowArgs} args - Arguments to find a Ni_grado_turno
+     * @example
+     * // Get one Ni_grado_turno
+     * const ni_grado_turno = await prisma.ni_grado_turno.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ni_grado_turnoFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Ni_grado_turno that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_grado_turnoFindFirstArgs} args - Arguments to find a Ni_grado_turno
+     * @example
+     * // Get one Ni_grado_turno
+     * const ni_grado_turno = await prisma.ni_grado_turno.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ni_grado_turnoFindFirstArgs>(args?: Prisma.SelectSubset<T, ni_grado_turnoFindFirstArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Ni_grado_turno that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_grado_turnoFindFirstOrThrowArgs} args - Arguments to find a Ni_grado_turno
+     * @example
+     * // Get one Ni_grado_turno
+     * const ni_grado_turno = await prisma.ni_grado_turno.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ni_grado_turnoFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, ni_grado_turnoFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Ni_grado_turnos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_grado_turnoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ni_grado_turnos
+     * const ni_grado_turnos = await prisma.ni_grado_turno.findMany()
+     *
+     * // Get first 10 Ni_grado_turnos
+     * const ni_grado_turnos = await prisma.ni_grado_turno.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const ni_grado_turnoWithIdOnly = await prisma.ni_grado_turno.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends ni_grado_turnoFindManyArgs>(args?: Prisma.SelectSubset<T, ni_grado_turnoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a Ni_grado_turno.
+     * @param {ni_grado_turnoCreateArgs} args - Arguments to create a Ni_grado_turno.
+     * @example
+     * // Create one Ni_grado_turno
+     * const Ni_grado_turno = await prisma.ni_grado_turno.create({
+     *   data: {
+     *     // ... data to create a Ni_grado_turno
+     *   }
+     * })
+     *
+     */
+    create<T extends ni_grado_turnoCreateArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoCreateArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Ni_grado_turnos.
+     * @param {ni_grado_turnoCreateManyArgs} args - Arguments to create many Ni_grado_turnos.
+     * @example
+     * // Create many Ni_grado_turnos
+     * const ni_grado_turno = await prisma.ni_grado_turno.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends ni_grado_turnoCreateManyArgs>(args?: Prisma.SelectSubset<T, ni_grado_turnoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Ni_grado_turnos and returns the data saved in the database.
+     * @param {ni_grado_turnoCreateManyAndReturnArgs} args - Arguments to create many Ni_grado_turnos.
+     * @example
+     * // Create many Ni_grado_turnos
+     * const ni_grado_turno = await prisma.ni_grado_turno.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Ni_grado_turnos and only return the `id`
+     * const ni_grado_turnoWithIdOnly = await prisma.ni_grado_turno.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends ni_grado_turnoCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ni_grado_turnoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a Ni_grado_turno.
+     * @param {ni_grado_turnoDeleteArgs} args - Arguments to delete one Ni_grado_turno.
+     * @example
+     * // Delete one Ni_grado_turno
+     * const Ni_grado_turno = await prisma.ni_grado_turno.delete({
+     *   where: {
+     *     // ... filter to delete one Ni_grado_turno
+     *   }
+     * })
+     *
+     */
+    delete<T extends ni_grado_turnoDeleteArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoDeleteArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one Ni_grado_turno.
+     * @param {ni_grado_turnoUpdateArgs} args - Arguments to update one Ni_grado_turno.
+     * @example
+     * // Update one Ni_grado_turno
+     * const ni_grado_turno = await prisma.ni_grado_turno.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends ni_grado_turnoUpdateArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoUpdateArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Ni_grado_turnos.
+     * @param {ni_grado_turnoDeleteManyArgs} args - Arguments to filter Ni_grado_turnos to delete.
+     * @example
+     * // Delete a few Ni_grado_turnos
+     * const { count } = await prisma.ni_grado_turno.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends ni_grado_turnoDeleteManyArgs>(args?: Prisma.SelectSubset<T, ni_grado_turnoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Ni_grado_turnos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_grado_turnoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ni_grado_turnos
+     * const ni_grado_turno = await prisma.ni_grado_turno.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends ni_grado_turnoUpdateManyArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Ni_grado_turnos and returns the data updated in the database.
+     * @param {ni_grado_turnoUpdateManyAndReturnArgs} args - Arguments to update many Ni_grado_turnos.
+     * @example
+     * // Update many Ni_grado_turnos
+     * const ni_grado_turno = await prisma.ni_grado_turno.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Ni_grado_turnos and only return the `id`
+     * const ni_grado_turnoWithIdOnly = await prisma.ni_grado_turno.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends ni_grado_turnoUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one Ni_grado_turno.
+     * @param {ni_grado_turnoUpsertArgs} args - Arguments to update or create a Ni_grado_turno.
+     * @example
+     * // Update or create a Ni_grado_turno
+     * const ni_grado_turno = await prisma.ni_grado_turno.upsert({
+     *   create: {
+     *     // ... data to create a Ni_grado_turno
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Ni_grado_turno we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ni_grado_turnoUpsertArgs>(args: Prisma.SelectSubset<T, ni_grado_turnoUpsertArgs<ExtArgs>>): Prisma.Prisma__ni_grado_turnoClient<runtime.Types.Result.GetResult<Prisma.$ni_grado_turnoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Ni_grado_turnos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_grado_turnoCountArgs} args - Arguments to filter Ni_grado_turnos to count.
+     * @example
+     * // Count the number of Ni_grado_turnos
+     * const count = await prisma.ni_grado_turno.count({
+     *   where: {
+     *     // ... the filter for the Ni_grado_turnos we want to count
+     *   }
+     * })
+    **/
+    count<T extends ni_grado_turnoCountArgs>(args?: Prisma.Subset<T, ni_grado_turnoCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], Ni_grado_turnoCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a Ni_grado_turno.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Ni_grado_turnoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Ni_grado_turnoAggregateArgs>(args: Prisma.Subset<T, Ni_grado_turnoAggregateArgs>): Prisma.PrismaPromise<GetNi_grado_turnoAggregateType<T>>;
+    /**
+     * Group by Ni_grado_turno.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_grado_turnoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends ni_grado_turnoGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: ni_grado_turnoGroupByArgs['orderBy'];
+    } : {
+        orderBy?: ni_grado_turnoGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, ni_grado_turnoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNi_grado_turnoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the ni_grado_turno model
+     */
+    readonly fields: ni_grado_turnoFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for ni_grado_turno.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__ni_grado_turnoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the ni_grado_turno model
+ */
+export interface ni_grado_turnoFieldRefs {
+    readonly id: Prisma.FieldRef<"ni_grado_turno", 'Int'>;
+    readonly nivel: Prisma.FieldRef<"ni_grado_turno", 'String'>;
+    readonly grado: Prisma.FieldRef<"ni_grado_turno", 'String'>;
+    readonly tipo: Prisma.FieldRef<"ni_grado_turno", 'String'>;
+    readonly turno: Prisma.FieldRef<"ni_grado_turno", 'String'>;
+    readonly nivel_integracion: Prisma.FieldRef<"ni_grado_turno", 'String'>;
+    readonly campo_formativo: Prisma.FieldRef<"ni_grado_turno", 'String'>;
+    readonly estudiantes_participantes: Prisma.FieldRef<"ni_grado_turno", 'Int'>;
+    readonly porcentaje: Prisma.FieldRef<"ni_grado_turno", 'Decimal'>;
+}
+/**
+ * ni_grado_turno findUnique
+ */
+export type ni_grado_turnoFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_grado_turno to fetch.
+     */
+    where: Prisma.ni_grado_turnoWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno findUniqueOrThrow
+ */
+export type ni_grado_turnoFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_grado_turno to fetch.
+     */
+    where: Prisma.ni_grado_turnoWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno findFirst
+ */
+export type ni_grado_turnoFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_grado_turno to fetch.
+     */
+    where?: Prisma.ni_grado_turnoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_grado_turnos to fetch.
+     */
+    orderBy?: Prisma.ni_grado_turnoOrderByWithRelationInput | Prisma.ni_grado_turnoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ni_grado_turnos.
+     */
+    cursor?: Prisma.ni_grado_turnoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_grado_turnos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_grado_turnos.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ni_grado_turnos.
+     */
+    distinct?: Prisma.Ni_grado_turnoScalarFieldEnum | Prisma.Ni_grado_turnoScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno findFirstOrThrow
+ */
+export type ni_grado_turnoFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_grado_turno to fetch.
+     */
+    where?: Prisma.ni_grado_turnoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_grado_turnos to fetch.
+     */
+    orderBy?: Prisma.ni_grado_turnoOrderByWithRelationInput | Prisma.ni_grado_turnoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ni_grado_turnos.
+     */
+    cursor?: Prisma.ni_grado_turnoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_grado_turnos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_grado_turnos.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ni_grado_turnos.
+     */
+    distinct?: Prisma.Ni_grado_turnoScalarFieldEnum | Prisma.Ni_grado_turnoScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno findMany
+ */
+export type ni_grado_turnoFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_grado_turnos to fetch.
+     */
+    where?: Prisma.ni_grado_turnoWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_grado_turnos to fetch.
+     */
+    orderBy?: Prisma.ni_grado_turnoOrderByWithRelationInput | Prisma.ni_grado_turnoOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing ni_grado_turnos.
+     */
+    cursor?: Prisma.ni_grado_turnoWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_grado_turnos from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_grado_turnos.
+     */
+    skip?: number;
+    distinct?: Prisma.Ni_grado_turnoScalarFieldEnum | Prisma.Ni_grado_turnoScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno create
+ */
+export type ni_grado_turnoCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * The data needed to create a ni_grado_turno.
+     */
+    data?: Prisma.XOR<Prisma.ni_grado_turnoCreateInput, Prisma.ni_grado_turnoUncheckedCreateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno createMany
+ */
+export type ni_grado_turnoCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ni_grado_turnos.
+     */
+    data: Prisma.ni_grado_turnoCreateManyInput | Prisma.ni_grado_turnoCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * ni_grado_turno createManyAndReturn
+ */
+export type ni_grado_turnoCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * The data used to create many ni_grado_turnos.
+     */
+    data: Prisma.ni_grado_turnoCreateManyInput | Prisma.ni_grado_turnoCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * ni_grado_turno update
+ */
+export type ni_grado_turnoUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * The data needed to update a ni_grado_turno.
+     */
+    data: Prisma.XOR<Prisma.ni_grado_turnoUpdateInput, Prisma.ni_grado_turnoUncheckedUpdateInput>;
+    /**
+     * Choose, which ni_grado_turno to update.
+     */
+    where: Prisma.ni_grado_turnoWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno updateMany
+ */
+export type ni_grado_turnoUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ni_grado_turnos.
+     */
+    data: Prisma.XOR<Prisma.ni_grado_turnoUpdateManyMutationInput, Prisma.ni_grado_turnoUncheckedUpdateManyInput>;
+    /**
+     * Filter which ni_grado_turnos to update
+     */
+    where?: Prisma.ni_grado_turnoWhereInput;
+    /**
+     * Limit how many ni_grado_turnos to update.
+     */
+    limit?: number;
+};
+/**
+ * ni_grado_turno updateManyAndReturn
+ */
+export type ni_grado_turnoUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * The data used to update ni_grado_turnos.
+     */
+    data: Prisma.XOR<Prisma.ni_grado_turnoUpdateManyMutationInput, Prisma.ni_grado_turnoUncheckedUpdateManyInput>;
+    /**
+     * Filter which ni_grado_turnos to update
+     */
+    where?: Prisma.ni_grado_turnoWhereInput;
+    /**
+     * Limit how many ni_grado_turnos to update.
+     */
+    limit?: number;
+};
+/**
+ * ni_grado_turno upsert
+ */
+export type ni_grado_turnoUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * The filter to search for the ni_grado_turno to update in case it exists.
+     */
+    where: Prisma.ni_grado_turnoWhereUniqueInput;
+    /**
+     * In case the ni_grado_turno found by the `where` argument doesn't exist, create a new ni_grado_turno with this data.
+     */
+    create: Prisma.XOR<Prisma.ni_grado_turnoCreateInput, Prisma.ni_grado_turnoUncheckedCreateInput>;
+    /**
+     * In case the ni_grado_turno was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.ni_grado_turnoUpdateInput, Prisma.ni_grado_turnoUncheckedUpdateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno delete
+ */
+export type ni_grado_turnoDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+    /**
+     * Filter which ni_grado_turno to delete.
+     */
+    where: Prisma.ni_grado_turnoWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_grado_turno deleteMany
+ */
+export type ni_grado_turnoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which ni_grado_turnos to delete
+     */
+    where?: Prisma.ni_grado_turnoWhereInput;
+    /**
+     * Limit how many ni_grado_turnos to delete.
+     */
+    limit?: number;
+};
+/**
+ * ni_grado_turno without action
+ */
+export type ni_grado_turnoDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_grado_turno
+     */
+    select?: Prisma.ni_grado_turnoSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_grado_turno
+     */
+    omit?: Prisma.ni_grado_turnoOmit<ExtArgs> | null;
+};
+export {};
+//# sourceMappingURL=ni_grado_turno.d.ts.map

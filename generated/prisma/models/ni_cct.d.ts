@@ -1,0 +1,1342 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace";
+/**
+ * Model ni_cct
+ *
+ */
+export type ni_cctModel = runtime.Types.Result.DefaultSelection<Prisma.$ni_cctPayload>;
+export type AggregateNi_cct = {
+    _count: Ni_cctCountAggregateOutputType | null;
+    _avg: Ni_cctAvgAggregateOutputType | null;
+    _sum: Ni_cctSumAggregateOutputType | null;
+    _min: Ni_cctMinAggregateOutputType | null;
+    _max: Ni_cctMaxAggregateOutputType | null;
+};
+export type Ni_cctAvgAggregateOutputType = {
+    id: number | null;
+    grado: number | null;
+    numero_alumnos: number | null;
+    total_cct_grado: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_cctSumAggregateOutputType = {
+    id: number | null;
+    grado: number | null;
+    numero_alumnos: number | null;
+    total_cct_grado: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_cctMinAggregateOutputType = {
+    id: number | null;
+    cct: string | null;
+    nombre: string | null;
+    llave: string | null;
+    cct_sector: string | null;
+    cct_zona: string | null;
+    turno: string | null;
+    opcion_educativa: string | null;
+    grado: number | null;
+    tipo: string | null;
+    campo_formativo: string | null;
+    nivel_integracion: string | null;
+    numero_alumnos: number | null;
+    total_cct_grado: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_cctMaxAggregateOutputType = {
+    id: number | null;
+    cct: string | null;
+    nombre: string | null;
+    llave: string | null;
+    cct_sector: string | null;
+    cct_zona: string | null;
+    turno: string | null;
+    opcion_educativa: string | null;
+    grado: number | null;
+    tipo: string | null;
+    campo_formativo: string | null;
+    nivel_integracion: string | null;
+    numero_alumnos: number | null;
+    total_cct_grado: number | null;
+    porcentaje: runtime.Decimal | null;
+};
+export type Ni_cctCountAggregateOutputType = {
+    id: number;
+    cct: number;
+    nombre: number;
+    llave: number;
+    cct_sector: number;
+    cct_zona: number;
+    turno: number;
+    opcion_educativa: number;
+    grado: number;
+    tipo: number;
+    campo_formativo: number;
+    nivel_integracion: number;
+    numero_alumnos: number;
+    total_cct_grado: number;
+    porcentaje: number;
+    _all: number;
+};
+export type Ni_cctAvgAggregateInputType = {
+    id?: true;
+    grado?: true;
+    numero_alumnos?: true;
+    total_cct_grado?: true;
+    porcentaje?: true;
+};
+export type Ni_cctSumAggregateInputType = {
+    id?: true;
+    grado?: true;
+    numero_alumnos?: true;
+    total_cct_grado?: true;
+    porcentaje?: true;
+};
+export type Ni_cctMinAggregateInputType = {
+    id?: true;
+    cct?: true;
+    nombre?: true;
+    llave?: true;
+    cct_sector?: true;
+    cct_zona?: true;
+    turno?: true;
+    opcion_educativa?: true;
+    grado?: true;
+    tipo?: true;
+    campo_formativo?: true;
+    nivel_integracion?: true;
+    numero_alumnos?: true;
+    total_cct_grado?: true;
+    porcentaje?: true;
+};
+export type Ni_cctMaxAggregateInputType = {
+    id?: true;
+    cct?: true;
+    nombre?: true;
+    llave?: true;
+    cct_sector?: true;
+    cct_zona?: true;
+    turno?: true;
+    opcion_educativa?: true;
+    grado?: true;
+    tipo?: true;
+    campo_formativo?: true;
+    nivel_integracion?: true;
+    numero_alumnos?: true;
+    total_cct_grado?: true;
+    porcentaje?: true;
+};
+export type Ni_cctCountAggregateInputType = {
+    id?: true;
+    cct?: true;
+    nombre?: true;
+    llave?: true;
+    cct_sector?: true;
+    cct_zona?: true;
+    turno?: true;
+    opcion_educativa?: true;
+    grado?: true;
+    tipo?: true;
+    campo_formativo?: true;
+    nivel_integracion?: true;
+    numero_alumnos?: true;
+    total_cct_grado?: true;
+    porcentaje?: true;
+    _all?: true;
+};
+export type Ni_cctAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which ni_cct to aggregate.
+     */
+    where?: Prisma.ni_cctWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_ccts to fetch.
+     */
+    orderBy?: Prisma.ni_cctOrderByWithRelationInput | Prisma.ni_cctOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.ni_cctWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_ccts from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_ccts.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned ni_ccts
+    **/
+    _count?: true | Ni_cctCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to average
+    **/
+    _avg?: Ni_cctAvgAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to sum
+    **/
+    _sum?: Ni_cctSumAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: Ni_cctMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: Ni_cctMaxAggregateInputType;
+};
+export type GetNi_cctAggregateType<T extends Ni_cctAggregateArgs> = {
+    [P in keyof T & keyof AggregateNi_cct]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateNi_cct[P]> : Prisma.GetScalarType<T[P], AggregateNi_cct[P]>;
+};
+export type ni_cctGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ni_cctWhereInput;
+    orderBy?: Prisma.ni_cctOrderByWithAggregationInput | Prisma.ni_cctOrderByWithAggregationInput[];
+    by: Prisma.Ni_cctScalarFieldEnum[] | Prisma.Ni_cctScalarFieldEnum;
+    having?: Prisma.ni_cctScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: Ni_cctCountAggregateInputType | true;
+    _avg?: Ni_cctAvgAggregateInputType;
+    _sum?: Ni_cctSumAggregateInputType;
+    _min?: Ni_cctMinAggregateInputType;
+    _max?: Ni_cctMaxAggregateInputType;
+};
+export type Ni_cctGroupByOutputType = {
+    id: number;
+    cct: string | null;
+    nombre: string | null;
+    llave: string | null;
+    cct_sector: string | null;
+    cct_zona: string | null;
+    turno: string | null;
+    opcion_educativa: string | null;
+    grado: number | null;
+    tipo: string | null;
+    campo_formativo: string | null;
+    nivel_integracion: string | null;
+    numero_alumnos: number | null;
+    total_cct_grado: number | null;
+    porcentaje: runtime.Decimal | null;
+    _count: Ni_cctCountAggregateOutputType | null;
+    _avg: Ni_cctAvgAggregateOutputType | null;
+    _sum: Ni_cctSumAggregateOutputType | null;
+    _min: Ni_cctMinAggregateOutputType | null;
+    _max: Ni_cctMaxAggregateOutputType | null;
+};
+type GetNi_cctGroupByPayload<T extends ni_cctGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<Ni_cctGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof Ni_cctGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], Ni_cctGroupByOutputType[P]> : Prisma.GetScalarType<T[P], Ni_cctGroupByOutputType[P]>;
+}>>;
+export type ni_cctWhereInput = {
+    AND?: Prisma.ni_cctWhereInput | Prisma.ni_cctWhereInput[];
+    OR?: Prisma.ni_cctWhereInput[];
+    NOT?: Prisma.ni_cctWhereInput | Prisma.ni_cctWhereInput[];
+    id?: Prisma.IntFilter<"ni_cct"> | number;
+    cct?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    nombre?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    llave?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    cct_sector?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    cct_zona?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    turno?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    opcion_educativa?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    grado?: Prisma.IntNullableFilter<"ni_cct"> | number | null;
+    tipo?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    campo_formativo?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    nivel_integracion?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    numero_alumnos?: Prisma.IntNullableFilter<"ni_cct"> | number | null;
+    total_cct_grado?: Prisma.IntNullableFilter<"ni_cct"> | number | null;
+    porcentaje?: Prisma.DecimalNullableFilter<"ni_cct"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    cct?: Prisma.SortOrderInput | Prisma.SortOrder;
+    nombre?: Prisma.SortOrderInput | Prisma.SortOrder;
+    llave?: Prisma.SortOrderInput | Prisma.SortOrder;
+    cct_sector?: Prisma.SortOrderInput | Prisma.SortOrder;
+    cct_zona?: Prisma.SortOrderInput | Prisma.SortOrder;
+    turno?: Prisma.SortOrderInput | Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrderInput | Prisma.SortOrder;
+    grado?: Prisma.SortOrderInput | Prisma.SortOrder;
+    tipo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrderInput | Prisma.SortOrder;
+    numero_alumnos?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_cct_grado?: Prisma.SortOrderInput | Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrderInput | Prisma.SortOrder;
+};
+export type ni_cctWhereUniqueInput = Prisma.AtLeast<{
+    id?: number;
+    AND?: Prisma.ni_cctWhereInput | Prisma.ni_cctWhereInput[];
+    OR?: Prisma.ni_cctWhereInput[];
+    NOT?: Prisma.ni_cctWhereInput | Prisma.ni_cctWhereInput[];
+    cct?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    nombre?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    llave?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    cct_sector?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    cct_zona?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    turno?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    opcion_educativa?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    grado?: Prisma.IntNullableFilter<"ni_cct"> | number | null;
+    tipo?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    campo_formativo?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    nivel_integracion?: Prisma.StringNullableFilter<"ni_cct"> | string | null;
+    numero_alumnos?: Prisma.IntNullableFilter<"ni_cct"> | number | null;
+    total_cct_grado?: Prisma.IntNullableFilter<"ni_cct"> | number | null;
+    porcentaje?: Prisma.DecimalNullableFilter<"ni_cct"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+}, "id">;
+export type ni_cctOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    cct?: Prisma.SortOrderInput | Prisma.SortOrder;
+    nombre?: Prisma.SortOrderInput | Prisma.SortOrder;
+    llave?: Prisma.SortOrderInput | Prisma.SortOrder;
+    cct_sector?: Prisma.SortOrderInput | Prisma.SortOrder;
+    cct_zona?: Prisma.SortOrderInput | Prisma.SortOrder;
+    turno?: Prisma.SortOrderInput | Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrderInput | Prisma.SortOrder;
+    grado?: Prisma.SortOrderInput | Prisma.SortOrder;
+    tipo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrderInput | Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrderInput | Prisma.SortOrder;
+    numero_alumnos?: Prisma.SortOrderInput | Prisma.SortOrder;
+    total_cct_grado?: Prisma.SortOrderInput | Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrderInput | Prisma.SortOrder;
+    _count?: Prisma.ni_cctCountOrderByAggregateInput;
+    _avg?: Prisma.ni_cctAvgOrderByAggregateInput;
+    _max?: Prisma.ni_cctMaxOrderByAggregateInput;
+    _min?: Prisma.ni_cctMinOrderByAggregateInput;
+    _sum?: Prisma.ni_cctSumOrderByAggregateInput;
+};
+export type ni_cctScalarWhereWithAggregatesInput = {
+    AND?: Prisma.ni_cctScalarWhereWithAggregatesInput | Prisma.ni_cctScalarWhereWithAggregatesInput[];
+    OR?: Prisma.ni_cctScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.ni_cctScalarWhereWithAggregatesInput | Prisma.ni_cctScalarWhereWithAggregatesInput[];
+    id?: Prisma.IntWithAggregatesFilter<"ni_cct"> | number;
+    cct?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    nombre?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    llave?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    cct_sector?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    cct_zona?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    turno?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    opcion_educativa?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    grado?: Prisma.IntNullableWithAggregatesFilter<"ni_cct"> | number | null;
+    tipo?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    campo_formativo?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    nivel_integracion?: Prisma.StringNullableWithAggregatesFilter<"ni_cct"> | string | null;
+    numero_alumnos?: Prisma.IntNullableWithAggregatesFilter<"ni_cct"> | number | null;
+    total_cct_grado?: Prisma.IntNullableWithAggregatesFilter<"ni_cct"> | number | null;
+    porcentaje?: Prisma.DecimalNullableWithAggregatesFilter<"ni_cct"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctCreateInput = {
+    cct?: string | null;
+    nombre?: string | null;
+    llave?: string | null;
+    cct_sector?: string | null;
+    cct_zona?: string | null;
+    turno?: string | null;
+    opcion_educativa?: string | null;
+    grado?: number | null;
+    tipo?: string | null;
+    campo_formativo?: string | null;
+    nivel_integracion?: string | null;
+    numero_alumnos?: number | null;
+    total_cct_grado?: number | null;
+    porcentaje?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctUncheckedCreateInput = {
+    id?: number;
+    cct?: string | null;
+    nombre?: string | null;
+    llave?: string | null;
+    cct_sector?: string | null;
+    cct_zona?: string | null;
+    turno?: string | null;
+    opcion_educativa?: string | null;
+    grado?: number | null;
+    tipo?: string | null;
+    campo_formativo?: string | null;
+    nivel_integracion?: string | null;
+    numero_alumnos?: number | null;
+    total_cct_grado?: number | null;
+    porcentaje?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctUpdateInput = {
+    cct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    llave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_sector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_zona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    numero_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_cct_grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctUncheckedUpdateInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    cct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    llave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_sector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_zona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    numero_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_cct_grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctCreateManyInput = {
+    id?: number;
+    cct?: string | null;
+    nombre?: string | null;
+    llave?: string | null;
+    cct_sector?: string | null;
+    cct_zona?: string | null;
+    turno?: string | null;
+    opcion_educativa?: string | null;
+    grado?: number | null;
+    tipo?: string | null;
+    campo_formativo?: string | null;
+    nivel_integracion?: string | null;
+    numero_alumnos?: number | null;
+    total_cct_grado?: number | null;
+    porcentaje?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctUpdateManyMutationInput = {
+    cct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    llave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_sector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_zona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    numero_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_cct_grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctUncheckedUpdateManyInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    cct?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    llave?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_sector?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    cct_zona?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    turno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    opcion_educativa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    tipo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    campo_formativo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    nivel_integracion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    numero_alumnos?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    total_cct_grado?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
+    porcentaje?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+};
+export type ni_cctCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    cct?: Prisma.SortOrder;
+    nombre?: Prisma.SortOrder;
+    llave?: Prisma.SortOrder;
+    cct_sector?: Prisma.SortOrder;
+    cct_zona?: Prisma.SortOrder;
+    turno?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    tipo?: Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrder;
+    numero_alumnos?: Prisma.SortOrder;
+    total_cct_grado?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_cctAvgOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    numero_alumnos?: Prisma.SortOrder;
+    total_cct_grado?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_cctMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    cct?: Prisma.SortOrder;
+    nombre?: Prisma.SortOrder;
+    llave?: Prisma.SortOrder;
+    cct_sector?: Prisma.SortOrder;
+    cct_zona?: Prisma.SortOrder;
+    turno?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    tipo?: Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrder;
+    numero_alumnos?: Prisma.SortOrder;
+    total_cct_grado?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_cctMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    cct?: Prisma.SortOrder;
+    nombre?: Prisma.SortOrder;
+    llave?: Prisma.SortOrder;
+    cct_sector?: Prisma.SortOrder;
+    cct_zona?: Prisma.SortOrder;
+    turno?: Prisma.SortOrder;
+    opcion_educativa?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    tipo?: Prisma.SortOrder;
+    campo_formativo?: Prisma.SortOrder;
+    nivel_integracion?: Prisma.SortOrder;
+    numero_alumnos?: Prisma.SortOrder;
+    total_cct_grado?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_cctSumOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    grado?: Prisma.SortOrder;
+    numero_alumnos?: Prisma.SortOrder;
+    total_cct_grado?: Prisma.SortOrder;
+    porcentaje?: Prisma.SortOrder;
+};
+export type ni_cctSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    cct?: boolean;
+    nombre?: boolean;
+    llave?: boolean;
+    cct_sector?: boolean;
+    cct_zona?: boolean;
+    turno?: boolean;
+    opcion_educativa?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    campo_formativo?: boolean;
+    nivel_integracion?: boolean;
+    numero_alumnos?: boolean;
+    total_cct_grado?: boolean;
+    porcentaje?: boolean;
+}, ExtArgs["result"]["ni_cct"]>;
+export type ni_cctSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    cct?: boolean;
+    nombre?: boolean;
+    llave?: boolean;
+    cct_sector?: boolean;
+    cct_zona?: boolean;
+    turno?: boolean;
+    opcion_educativa?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    campo_formativo?: boolean;
+    nivel_integracion?: boolean;
+    numero_alumnos?: boolean;
+    total_cct_grado?: boolean;
+    porcentaje?: boolean;
+}, ExtArgs["result"]["ni_cct"]>;
+export type ni_cctSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    cct?: boolean;
+    nombre?: boolean;
+    llave?: boolean;
+    cct_sector?: boolean;
+    cct_zona?: boolean;
+    turno?: boolean;
+    opcion_educativa?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    campo_formativo?: boolean;
+    nivel_integracion?: boolean;
+    numero_alumnos?: boolean;
+    total_cct_grado?: boolean;
+    porcentaje?: boolean;
+}, ExtArgs["result"]["ni_cct"]>;
+export type ni_cctSelectScalar = {
+    id?: boolean;
+    cct?: boolean;
+    nombre?: boolean;
+    llave?: boolean;
+    cct_sector?: boolean;
+    cct_zona?: boolean;
+    turno?: boolean;
+    opcion_educativa?: boolean;
+    grado?: boolean;
+    tipo?: boolean;
+    campo_formativo?: boolean;
+    nivel_integracion?: boolean;
+    numero_alumnos?: boolean;
+    total_cct_grado?: boolean;
+    porcentaje?: boolean;
+};
+export type ni_cctOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cct" | "nombre" | "llave" | "cct_sector" | "cct_zona" | "turno" | "opcion_educativa" | "grado" | "tipo" | "campo_formativo" | "nivel_integracion" | "numero_alumnos" | "total_cct_grado" | "porcentaje", ExtArgs["result"]["ni_cct"]>;
+export type $ni_cctPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "ni_cct";
+    objects: {};
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: number;
+        cct: string | null;
+        nombre: string | null;
+        llave: string | null;
+        cct_sector: string | null;
+        cct_zona: string | null;
+        turno: string | null;
+        opcion_educativa: string | null;
+        grado: number | null;
+        tipo: string | null;
+        campo_formativo: string | null;
+        nivel_integracion: string | null;
+        numero_alumnos: number | null;
+        total_cct_grado: number | null;
+        porcentaje: runtime.Decimal | null;
+    }, ExtArgs["result"]["ni_cct"]>;
+    composites: {};
+};
+export type ni_cctGetPayload<S extends boolean | null | undefined | ni_cctDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$ni_cctPayload, S>;
+export type ni_cctCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<ni_cctFindManyArgs, 'select' | 'include' | 'distinct' | 'omit' | 'relationLoadStrategy'> & {
+    select?: Ni_cctCountAggregateInputType | true;
+};
+export interface ni_cctDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['ni_cct'];
+        meta: {
+            name: 'ni_cct';
+        };
+    };
+    /**
+     * Find zero or one Ni_cct that matches the filter.
+     * @param {ni_cctFindUniqueArgs} args - Arguments to find a Ni_cct
+     * @example
+     * // Get one Ni_cct
+     * const ni_cct = await prisma.ni_cct.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ni_cctFindUniqueArgs>(args: Prisma.SelectSubset<T, ni_cctFindUniqueArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one Ni_cct that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ni_cctFindUniqueOrThrowArgs} args - Arguments to find a Ni_cct
+     * @example
+     * // Get one Ni_cct
+     * const ni_cct = await prisma.ni_cct.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ni_cctFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, ni_cctFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Ni_cct that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_cctFindFirstArgs} args - Arguments to find a Ni_cct
+     * @example
+     * // Get one Ni_cct
+     * const ni_cct = await prisma.ni_cct.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ni_cctFindFirstArgs>(args?: Prisma.SelectSubset<T, ni_cctFindFirstArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first Ni_cct that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_cctFindFirstOrThrowArgs} args - Arguments to find a Ni_cct
+     * @example
+     * // Get one Ni_cct
+     * const ni_cct = await prisma.ni_cct.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ni_cctFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, ni_cctFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Ni_ccts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_cctFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ni_ccts
+     * const ni_ccts = await prisma.ni_cct.findMany()
+     *
+     * // Get first 10 Ni_ccts
+     * const ni_ccts = await prisma.ni_cct.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const ni_cctWithIdOnly = await prisma.ni_cct.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends ni_cctFindManyArgs>(args?: Prisma.SelectSubset<T, ni_cctFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a Ni_cct.
+     * @param {ni_cctCreateArgs} args - Arguments to create a Ni_cct.
+     * @example
+     * // Create one Ni_cct
+     * const Ni_cct = await prisma.ni_cct.create({
+     *   data: {
+     *     // ... data to create a Ni_cct
+     *   }
+     * })
+     *
+     */
+    create<T extends ni_cctCreateArgs>(args: Prisma.SelectSubset<T, ni_cctCreateArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Ni_ccts.
+     * @param {ni_cctCreateManyArgs} args - Arguments to create many Ni_ccts.
+     * @example
+     * // Create many Ni_ccts
+     * const ni_cct = await prisma.ni_cct.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends ni_cctCreateManyArgs>(args?: Prisma.SelectSubset<T, ni_cctCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Ni_ccts and returns the data saved in the database.
+     * @param {ni_cctCreateManyAndReturnArgs} args - Arguments to create many Ni_ccts.
+     * @example
+     * // Create many Ni_ccts
+     * const ni_cct = await prisma.ni_cct.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Ni_ccts and only return the `id`
+     * const ni_cctWithIdOnly = await prisma.ni_cct.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends ni_cctCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ni_cctCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a Ni_cct.
+     * @param {ni_cctDeleteArgs} args - Arguments to delete one Ni_cct.
+     * @example
+     * // Delete one Ni_cct
+     * const Ni_cct = await prisma.ni_cct.delete({
+     *   where: {
+     *     // ... filter to delete one Ni_cct
+     *   }
+     * })
+     *
+     */
+    delete<T extends ni_cctDeleteArgs>(args: Prisma.SelectSubset<T, ni_cctDeleteArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one Ni_cct.
+     * @param {ni_cctUpdateArgs} args - Arguments to update one Ni_cct.
+     * @example
+     * // Update one Ni_cct
+     * const ni_cct = await prisma.ni_cct.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends ni_cctUpdateArgs>(args: Prisma.SelectSubset<T, ni_cctUpdateArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Ni_ccts.
+     * @param {ni_cctDeleteManyArgs} args - Arguments to filter Ni_ccts to delete.
+     * @example
+     * // Delete a few Ni_ccts
+     * const { count } = await prisma.ni_cct.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends ni_cctDeleteManyArgs>(args?: Prisma.SelectSubset<T, ni_cctDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Ni_ccts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_cctUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ni_ccts
+     * const ni_cct = await prisma.ni_cct.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends ni_cctUpdateManyArgs>(args: Prisma.SelectSubset<T, ni_cctUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Ni_ccts and returns the data updated in the database.
+     * @param {ni_cctUpdateManyAndReturnArgs} args - Arguments to update many Ni_ccts.
+     * @example
+     * // Update many Ni_ccts
+     * const ni_cct = await prisma.ni_cct.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Ni_ccts and only return the `id`
+     * const ni_cctWithIdOnly = await prisma.ni_cct.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends ni_cctUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ni_cctUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one Ni_cct.
+     * @param {ni_cctUpsertArgs} args - Arguments to update or create a Ni_cct.
+     * @example
+     * // Update or create a Ni_cct
+     * const ni_cct = await prisma.ni_cct.upsert({
+     *   create: {
+     *     // ... data to create a Ni_cct
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Ni_cct we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ni_cctUpsertArgs>(args: Prisma.SelectSubset<T, ni_cctUpsertArgs<ExtArgs>>): Prisma.Prisma__ni_cctClient<runtime.Types.Result.GetResult<Prisma.$ni_cctPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Ni_ccts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_cctCountArgs} args - Arguments to filter Ni_ccts to count.
+     * @example
+     * // Count the number of Ni_ccts
+     * const count = await prisma.ni_cct.count({
+     *   where: {
+     *     // ... the filter for the Ni_ccts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ni_cctCountArgs>(args?: Prisma.Subset<T, ni_cctCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], Ni_cctCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a Ni_cct.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Ni_cctAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Ni_cctAggregateArgs>(args: Prisma.Subset<T, Ni_cctAggregateArgs>): Prisma.PrismaPromise<GetNi_cctAggregateType<T>>;
+    /**
+     * Group by Ni_cct.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ni_cctGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends ni_cctGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: ni_cctGroupByArgs['orderBy'];
+    } : {
+        orderBy?: ni_cctGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, ni_cctGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNi_cctGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the ni_cct model
+     */
+    readonly fields: ni_cctFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for ni_cct.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__ni_cctClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the ni_cct model
+ */
+export interface ni_cctFieldRefs {
+    readonly id: Prisma.FieldRef<"ni_cct", 'Int'>;
+    readonly cct: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly nombre: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly llave: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly cct_sector: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly cct_zona: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly turno: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly opcion_educativa: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly grado: Prisma.FieldRef<"ni_cct", 'Int'>;
+    readonly tipo: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly campo_formativo: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly nivel_integracion: Prisma.FieldRef<"ni_cct", 'String'>;
+    readonly numero_alumnos: Prisma.FieldRef<"ni_cct", 'Int'>;
+    readonly total_cct_grado: Prisma.FieldRef<"ni_cct", 'Int'>;
+    readonly porcentaje: Prisma.FieldRef<"ni_cct", 'Decimal'>;
+}
+/**
+ * ni_cct findUnique
+ */
+export type ni_cctFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_cct to fetch.
+     */
+    where: Prisma.ni_cctWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct findUniqueOrThrow
+ */
+export type ni_cctFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_cct to fetch.
+     */
+    where: Prisma.ni_cctWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct findFirst
+ */
+export type ni_cctFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_cct to fetch.
+     */
+    where?: Prisma.ni_cctWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_ccts to fetch.
+     */
+    orderBy?: Prisma.ni_cctOrderByWithRelationInput | Prisma.ni_cctOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ni_ccts.
+     */
+    cursor?: Prisma.ni_cctWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_ccts from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_ccts.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ni_ccts.
+     */
+    distinct?: Prisma.Ni_cctScalarFieldEnum | Prisma.Ni_cctScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct findFirstOrThrow
+ */
+export type ni_cctFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_cct to fetch.
+     */
+    where?: Prisma.ni_cctWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_ccts to fetch.
+     */
+    orderBy?: Prisma.ni_cctOrderByWithRelationInput | Prisma.ni_cctOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for ni_ccts.
+     */
+    cursor?: Prisma.ni_cctWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_ccts from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_ccts.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of ni_ccts.
+     */
+    distinct?: Prisma.Ni_cctScalarFieldEnum | Prisma.Ni_cctScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct findMany
+ */
+export type ni_cctFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * Filter, which ni_ccts to fetch.
+     */
+    where?: Prisma.ni_cctWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of ni_ccts to fetch.
+     */
+    orderBy?: Prisma.ni_cctOrderByWithRelationInput | Prisma.ni_cctOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing ni_ccts.
+     */
+    cursor?: Prisma.ni_cctWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` ni_ccts from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` ni_ccts.
+     */
+    skip?: number;
+    distinct?: Prisma.Ni_cctScalarFieldEnum | Prisma.Ni_cctScalarFieldEnum[];
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct create
+ */
+export type ni_cctCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * The data needed to create a ni_cct.
+     */
+    data?: Prisma.XOR<Prisma.ni_cctCreateInput, Prisma.ni_cctUncheckedCreateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct createMany
+ */
+export type ni_cctCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ni_ccts.
+     */
+    data: Prisma.ni_cctCreateManyInput | Prisma.ni_cctCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * ni_cct createManyAndReturn
+ */
+export type ni_cctCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * The data used to create many ni_ccts.
+     */
+    data: Prisma.ni_cctCreateManyInput | Prisma.ni_cctCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * ni_cct update
+ */
+export type ni_cctUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * The data needed to update a ni_cct.
+     */
+    data: Prisma.XOR<Prisma.ni_cctUpdateInput, Prisma.ni_cctUncheckedUpdateInput>;
+    /**
+     * Choose, which ni_cct to update.
+     */
+    where: Prisma.ni_cctWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct updateMany
+ */
+export type ni_cctUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ni_ccts.
+     */
+    data: Prisma.XOR<Prisma.ni_cctUpdateManyMutationInput, Prisma.ni_cctUncheckedUpdateManyInput>;
+    /**
+     * Filter which ni_ccts to update
+     */
+    where?: Prisma.ni_cctWhereInput;
+    /**
+     * Limit how many ni_ccts to update.
+     */
+    limit?: number;
+};
+/**
+ * ni_cct updateManyAndReturn
+ */
+export type ni_cctUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * The data used to update ni_ccts.
+     */
+    data: Prisma.XOR<Prisma.ni_cctUpdateManyMutationInput, Prisma.ni_cctUncheckedUpdateManyInput>;
+    /**
+     * Filter which ni_ccts to update
+     */
+    where?: Prisma.ni_cctWhereInput;
+    /**
+     * Limit how many ni_ccts to update.
+     */
+    limit?: number;
+};
+/**
+ * ni_cct upsert
+ */
+export type ni_cctUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * The filter to search for the ni_cct to update in case it exists.
+     */
+    where: Prisma.ni_cctWhereUniqueInput;
+    /**
+     * In case the ni_cct found by the `where` argument doesn't exist, create a new ni_cct with this data.
+     */
+    create: Prisma.XOR<Prisma.ni_cctCreateInput, Prisma.ni_cctUncheckedCreateInput>;
+    /**
+     * In case the ni_cct was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.ni_cctUpdateInput, Prisma.ni_cctUncheckedUpdateInput>;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct delete
+ */
+export type ni_cctDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+    /**
+     * Filter which ni_cct to delete.
+     */
+    where: Prisma.ni_cctWhereUniqueInput;
+    relationLoadStrategy?: Prisma.RelationLoadStrategy;
+};
+/**
+ * ni_cct deleteMany
+ */
+export type ni_cctDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which ni_ccts to delete
+     */
+    where?: Prisma.ni_cctWhereInput;
+    /**
+     * Limit how many ni_ccts to delete.
+     */
+    limit?: number;
+};
+/**
+ * ni_cct without action
+ */
+export type ni_cctDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ni_cct
+     */
+    select?: Prisma.ni_cctSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ni_cct
+     */
+    omit?: Prisma.ni_cctOmit<ExtArgs> | null;
+};
+export {};
+//# sourceMappingURL=ni_cct.d.ts.map
